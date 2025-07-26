@@ -1,0 +1,83 @@
+import React from "react";
+import Layout from "../components/Layout";
+import wwaHero from "../assets/images/wwa.webp";
+import { NavLink } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
+import peopleImg from "../assets/images/people.jpg";
+
+const WhoWeAre = () => {
+  return (
+    <Layout>
+      <section className="relative h-[70dvh] w-full">
+        {/* Background Image */}
+        <img
+          src={wwaHero}
+          alt="Who We Are"
+          className="absolute inset-0 h-full w-full object-cover object-center z-0"
+        />
+
+        {/* Overlay with text */}
+        <div className="absolute left-0 top-0 h-full flex items-center px-6 lg:px-16 z-10">
+          <div className="bg-black/70 text-white rounded-xl p-6 lg:w-[40%] w-full flex flex-col gap-4">
+            <h1 className="font-semibold lg:text-4xl text-2xl">Who We Are</h1>
+            <p className="lg:text-2xl text-lg">
+              We pioneer technologies at the edge of every frontier to connect,
+              advance and protect the U.S. and its allies.
+            </p>
+          </div>
+        </div>
+      </section>
+      <div className="bg-black w-full text-white py-5">
+        <div className="w-[80%] mx-auto flex items-center gap-2">
+          <NavLink to="/" className={"text-gray-400"}>
+            Home{" "}
+          </NavLink>
+          <span>&gt; Who We Are</span>
+        </div>
+      </div>
+      <section className="flex flex-col px-4 md:px-8 lg:px-16 py-12 max-w-7xl mx-auto gap-4">
+        <h1 className="font-bold text-2xl md:text-4xl leading-tight">
+          We solve the toughest problems
+        </h1>
+        <p>
+          Northrop Grumman solves the toughest problems in space, aeronautics,
+          defense and cyberspace to meet the ever evolving needs of our
+          customers worldwide. Our 100,000 employees are Defining Possible every
+          day using science, technology and engineering to create and deliver
+          advanced systems, products and services.
+        </p>
+      </section>
+      <section className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12 px-4 md:px-8 lg:px-16 py-12 max-w-7xl mx-auto">
+        <div className="w-full md:w-1/2">
+          <img
+            src={peopleImg}
+            alt="Technology Illustration"
+            className="rounded-xl w-full h-auto max-w-[600px] mx-auto"
+          />
+        </div>
+
+        <div className="flex flex-col gap-4 w-full md:w-1/2 text-center md:text-left">
+          <h1 className="font-bold text-2xl md:text-4xl leading-tight">
+            About Us
+          </h1>
+          <p className="text-base md:text-lg text-gray-700">
+            Northrop Grumman is a global aerospace, defense and security
+            company. The majority of our business is with the U.S. government,
+            principally the Department of Defense and intelligence community. In
+            addition, we deliver solutions to global and commercial customers.
+          </p>
+          <p>
+            Northrop Grumman Corporation 2980 Fairview Park Drive Falls Church,
+            VA 22042 Phone: 703-280-2900
+          </p>
+          <div className="bg-black w-fit text-white text-sm py-2 px-4 flex items-center gap-2 rounded-lg cursor-pointer transition-all duration-300 ease-in-out mx-auto md:mx-0">
+            <a href="mailto:">Contact us</a>
+            <ArrowRight className="w-4 h-4 text-white" />
+          </div>
+        </div>
+      </section>
+    </Layout>
+  );
+};
+
+export default WhoWeAre;
