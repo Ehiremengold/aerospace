@@ -7,6 +7,7 @@ import ManufactureImg from "../assets/images/gh.jpg";
 import redefineImg from "../assets/images/redefine.jpg";
 import womenEngine from "../assets/images/womenEngine.jpg";
 import sustainImg from "../assets/images/sustainability.jpg";
+import { companyName } from "../constants";
 
 const Home = () => {
   // Animation variants for sections
@@ -87,8 +88,15 @@ const Home = () => {
     <Layout>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Home | AeroSpace</title>
-        <link rel="canonical" href="http://mysite.com/example" />
+        <title>Home | {companyName}</title>
+        <meta name="description" content="Concise summary of the page" />
+        <meta property="og:title" content="Your Open Graph Title" />
+        <meta
+          property="og:description"
+          content="OG description for social previews"
+        />
+        <meta property="og:image" content="URL to preview image" />
+        <meta name="robots" content="index, follow" />
       </Helmet>
 
       {/* Hero Section */}
@@ -120,7 +128,7 @@ const Home = () => {
               className="text-5xl font-bold mb-4"
               variants={heroVariants}
             >
-              Engineering the Future of Aerospace & Defense
+              Engineering the Future of {companyName} & Defense
             </motion.h1>
             <motion.p className="text-xl" variants={heroVariants}>
               From concept to combat readiness, N&H Construction Co. pioneers
@@ -136,7 +144,7 @@ const Home = () => {
                 variants={buttonVariants}
                 whileHover="hover"
               >
-                <h1>Learn About Next-Gen Architecture</h1>
+                <h2>Learn About Next-Gen Architecture</h2>
                 <ArrowRight className="w-3 text-white group-hover:text-black transition-all duration-300 ease-in-out" />
               </motion.div>
               <motion.div
@@ -144,7 +152,7 @@ const Home = () => {
                 variants={buttonVariants}
                 whileHover="hover"
               >
-                <h1>Explore our Technology</h1>
+                <h3>Explore our Technology</h3>
                 <ArrowRight className="w-3 text-transparent" />
               </motion.div>
             </motion.div>
@@ -220,9 +228,9 @@ const Home = () => {
           className="flex flex-col gap-4 w-full md:w-1/2 text-center md:text-left"
           variants={sectionVariants}
         >
-          <h1 className="font-bold text-2xl md:text-4xl leading-tight">
+          <h2 className="font-bold text-2xl md:text-4xl leading-tight">
             Technology and Innovation
-          </h1>
+          </h2>
           <p className="text-base md:text-lg text-gray-700">
             For some, the word 'impossible' ends discussions. For us, it's a
             starting point.
@@ -266,9 +274,9 @@ const Home = () => {
           className="flex flex-col gap-4 w-full md:w-1/2 text-center md:text-left"
           variants={sectionVariants}
         >
-          <h1 className="font-bold text-2xl md:text-4xl leading-tight">
+          <h2 className="font-bold text-2xl md:text-4xl leading-tight">
             Manufacturing the Future
-          </h1>
+          </h2>
           <p className="text-base md:text-lg text-gray-700">
             Global Power Made in America. Defining possible through advanced
             manufacturing and innovation engineering
@@ -300,7 +308,7 @@ const Home = () => {
           {[
             {
               img: redefineImg,
-              title: "Redefining Aerospace Engineering",
+              title: "Redefining {companyName} Engineering",
               desc: "Discover how our engineers are shaping the next era of supersonic innovation using modular designs and AI simulation.",
               alt: "Story 1",
             },
@@ -312,7 +320,7 @@ const Home = () => {
             },
             {
               img: sustainImg,
-              title: "Sustainability in Aerospace",
+              title: "Sustainability in {companyName}",
               desc: "Learn how we are reimagining defense with sustainability at the core — from eco-fuels to carbon-neutral production lines.",
               alt: "Story 3",
             },

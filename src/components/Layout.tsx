@@ -183,8 +183,8 @@ const Layout = ({ children }: { children: ReactNode }) => {
                 <h1 className="font-bold text-white">{companyName}</h1>
               </div>
               <p className="text-gray-400">
-                Defining possible advanced aerospace technology and innovative
-                defense solutions.
+                Defining possible advanced {companyName} technology and
+                innovative defense solutions.
               </p>
             </div>
             <div className="grid md:grid-cols-3 gap-5 sm:grid-cols-2 grid-cols-1 w-full">
@@ -291,8 +291,8 @@ const Layout = ({ children }: { children: ReactNode }) => {
                 <h1 className="text-sm font-bold text-white">{companyName}</h1>
               </div>
               <p className="text-gray-400">
-                Defining possible advanced aerospace technology and innovative
-                defense solutions.
+                Defining possible advanced {companyName} technology and
+                innovative defense solutions.
               </p>
             </div>
             {/* <div className="grid md:grid-cols-3 gap-5 sm:grid-cols-2 grid-cols-1 w-full"> */}

@@ -6,10 +6,24 @@ import aircraftImg from "../assets/images/aircraft.jpg";
 import missileDefenceImg from "../assets/images/missileDefence.jpg";
 import spaceImg from "../assets/images/space.webp";
 import possibleImg from "../assets/images/possible.webp";
+import { Helmet } from "react-helmet-async";
+import { companyName } from "../constants";
 
 const WhatWeDo = () => {
   return (
     <Layout>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>What We Do | {companyName}</title>
+        <meta name="description" content="Concise summary of the page" />
+        <meta property="og:title" content="Your Open Graph Title" />
+        <meta
+          property="og:description"
+          content="OG description for social previews"
+        />
+        <meta property="og:image" content="URL to preview image" />
+        <meta name="robots" content="index, follow" />
+      </Helmet>
       <section className="relative h-[70dvh] w-full">
         {/* Background Image */}
         <img
@@ -37,11 +51,11 @@ const WhatWeDo = () => {
         </div>
       </div>
       <section className="flex flex-col px-4 md:px-8 lg:px-16 py-12 max-w-7xl mx-auto gap-4">
-        <h1 className="font-bold text-2xl md:text-4xl leading-tight">
+        <h2 className="font-bold text-2xl md:text-4xl leading-tight">
           Forging Technologies that Push the Boundaries of Possible
-        </h1>
+        </h2>
         <p>
-          Northrop Grumman transforms bold ideas into operational realities with
+          {companyName} transforms bold ideas into operational realities with
           unparalleled expertise and a relentless focus on mission success. We
           pair a clear vision for the future with the experience to bring it to
           life. Trusted by those operating at the edge, our capacity to deliver
@@ -61,9 +75,9 @@ const WhatWeDo = () => {
           </div>
 
           <div className="flex flex-col gap-4 w-full md:w-1/2 text-center md:text-left">
-            <h1 className="font-bold text-2xl md:text-4xl leading-tight text-white">
+            <h2 className="font-bold text-2xl md:text-4xl leading-tight text-white">
               Advanced Weapons
-            </h1>
+            </h2>
             <p className="text-base md:text-lg text-white">
               Our advanced weapons are built for precision, adaptability and
               performance in no-fail missions. Our arsenal maximizes combat
@@ -75,9 +89,9 @@ const WhatWeDo = () => {
         </div>
         <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12 px-4 md:px-8 lg:px-16 max-w-7xl mx-auto">
           <div className="flex flex-col gap-4 w-full md:w-1/2 text-center md:text-left">
-            <h1 className="font-bold text-2xl md:text-4xl leading-tight text-white">
+            <h2 className="font-bold text-2xl md:text-4xl leading-tight text-white">
               Aircraft
-            </h1>
+            </h2>
             <p className="text-base md:text-lg text-white">
               We’re redefining air dominance with some of the most advanced
               aircraft in the world. From the sixth-generation B-21 Raider to
@@ -106,9 +120,9 @@ const WhatWeDo = () => {
           </div>
 
           <div className="flex flex-col gap-4 w-full md:w-1/2 text-center md:text-left">
-            <h1 className="font-bold text-2xl md:text-4xl leading-tight text-white">
+            <h2 className="font-bold text-2xl md:text-4xl leading-tight text-white">
               Missile Defense
-            </h1>
+            </h2>
             <p className="text-base md:text-lg text-white">
               Our missile defense systems lead the industry with end-to-end
               technologies, products and capabilities that defeat advanced
@@ -122,9 +136,9 @@ const WhatWeDo = () => {
         </div>
         <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12 px-4 md:px-8 lg:px-16 max-w-7xl mx-auto">
           <div className="flex flex-col gap-4 w-full md:w-1/2 text-center md:text-left">
-            <h1 className="font-bold text-2xl md:text-4xl leading-tight text-white">
+            <h2 className="font-bold text-2xl md:text-4xl leading-tight text-white">
               Space
-            </h1>
+            </h2>
             <p className="text-base md:text-lg text-white">
               Northrop Grumman is a trusted partner in the space domain with a
               deep understanding of our customers’ missions. From concept to
@@ -152,9 +166,9 @@ const WhatWeDo = () => {
         />
         {/* Text Overlay - Left and Vertically Centered */}
         <div className="absolute inset-y-0 left-0 flex items-center px-6 lg:pl-28 z-20">
-          <h1 className="font-semibold lg:text-5xl text-3xl text-white">
+          <h2 className="font-semibold lg:text-5xl text-3xl text-white">
             We Define Possible
-          </h1>
+          </h2>
         </div>
       </section>
     </Layout>

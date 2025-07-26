@@ -1,13 +1,26 @@
-import React from "react";
 import Layout from "../components/Layout";
 import wwaHero from "../assets/images/wwa.webp";
 import { NavLink } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import peopleImg from "../assets/images/people.jpg";
+import { Helmet } from "react-helmet-async";
+import { companyName } from "../constants";
 
 const WhoWeAre = () => {
   return (
     <Layout>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Who We Are | {companyName}</title>
+        <meta name="description" content="Concise summary of the page" />
+        <meta property="og:title" content="Your Open Graph Title" />
+        <meta
+          property="og:description"
+          content="OG description for social previews"
+        />
+        <meta property="og:image" content="URL to preview image" />
+        <meta name="robots" content="index, follow" />
+      </Helmet>
       <section className="relative h-[70dvh] w-full">
         {/* Background Image */}
         <img
@@ -36,11 +49,11 @@ const WhoWeAre = () => {
         </div>
       </div>
       <section className="flex flex-col px-4 md:px-8 lg:px-16 py-12 max-w-7xl mx-auto gap-4">
-        <h1 className="font-bold text-2xl md:text-4xl leading-tight">
+        <h2 className="font-bold text-2xl md:text-4xl leading-tight">
           We solve the toughest problems
-        </h1>
+        </h2>
         <p>
-          Northrop Grumman solves the toughest problems in space, aeronautics,
+          {companyName} solves the toughest problems in space, aeronautics,
           defense and cyberspace to meet the ever evolving needs of our
           customers worldwide. Our 100,000 employees are Defining Possible every
           day using science, technology and engineering to create and deliver
@@ -57,18 +70,18 @@ const WhoWeAre = () => {
         </div>
 
         <div className="flex flex-col gap-4 w-full md:w-1/2 text-center md:text-left">
-          <h1 className="font-bold text-2xl md:text-4xl leading-tight">
+          <h2 className="font-bold text-2xl md:text-4xl leading-tight">
             About Us
-          </h1>
+          </h2>
           <p className="text-base md:text-lg text-gray-700">
-            Northrop Grumman is a global aerospace, defense and security
-            company. The majority of our business is with the U.S. government,
-            principally the Department of Defense and intelligence community. In
-            addition, we deliver solutions to global and commercial customers.
+            {companyName} is a global , defense and security company. The
+            majority of our business is with the U.S. government, principally
+            the Department of Defense and intelligence community. In addition,
+            we deliver solutions to global and commercial customers.
           </p>
           <p>
-            Northrop Grumman Corporation 2980 Fairview Park Drive Falls Church,
-            VA 22042 Phone: 703-280-2900
+            {companyName} 2980 Fairview Park Drive Falls Church, VA 22042 Phone:
+            703-280-2900
           </p>
           <div className="bg-black w-fit text-white text-sm py-2 px-4 flex items-center gap-2 rounded-lg cursor-pointer transition-all duration-300 ease-in-out mx-auto md:mx-0">
             <a href="mailto:">Contact us</a>
