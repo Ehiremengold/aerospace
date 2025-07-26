@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useState } from "react";
 import type { ReactNode } from "react";
 import { NavLink } from "react-router-dom";
 import { AlignRight, ChevronDown, ChevronUp, Search, X } from "lucide-react";
@@ -59,7 +59,9 @@ const Layout = ({ children }: { children: ReactNode }) => {
     <div className="max-w-[2100px] mx-auto">
       <header className="bg-white shadow-md py-4 px-4 font-poppins fixed z-50 left-0 right-0">
         <nav className="mx-auto my-2 max-w-7xl   flex justify-between items-center">
-          <h1 className="text-sm font-bold cursor-pointer">AEROSPACE</h1>
+          <NavLink to="/">
+            <h1 className="text-sm font-bold cursor-pointer">AEROSPACE</h1>
+          </NavLink>
 
           {/* Desktop Nav */}
           <ul className="hidden md:flex gap-6">
@@ -117,17 +119,21 @@ const Layout = ({ children }: { children: ReactNode }) => {
           <div className="bg-white px-5 py-6 space-y-4 shadow-inner">
             {navItems.map((item) => (
               <div key={item.id}>
-                <button
-                  onClick={() => toggleDropdown(item.id)}
-                  className="w-full flex justify-between items-center text-sm font-semibold text-left"
-                >
-                  {item.label}
+                <button className="w-full flex justify-between items-center text-sm font-semibold text-left">
+                  <NavLink to={item.path}>{item.label}</NavLink>
                   {openDropdown === item.id ? (
-                    <ChevronUp size={16} />
+                    <ChevronUp
+                      size={16}
+                      onClick={() => toggleDropdown(item.id)}
+                    />
                   ) : (
-                    <ChevronDown size={16} />
+                    <ChevronDown
+                      size={16}
+                      onClick={() => toggleDropdown(item.id)}
+                    />
                   )}
                 </button>
+
                 <div
                   className={`transition-all duration-300 ease-in-out ${
                     openDropdown === item.id ? "mt-2" : "h-0 overflow-hidden"
@@ -229,39 +235,39 @@ const Layout = ({ children }: { children: ReactNode }) => {
               </p>
             </div>
             {/* <div className="grid md:grid-cols-3 gap-5 sm:grid-cols-2 grid-cols-1 w-full"> */}
-              <div className="flex gap-1 flex-col">
-                <h1 className="text-sm font-bold">Company</h1>
-                <ul className="flex flex-col gap-2">
-                  <li className="text-sm text-gray-400">About Us</li>
-                  <li className="text-sm text-gray-400">Leadership</li>
-                  <li className="text-sm text-gray-400">Careers</li>
-                  <li className="text-sm text-gray-400">News</li>
-                </ul>
+            <div className="flex gap-1 flex-col">
+              <h1 className="text-sm font-bold">Company</h1>
+              <ul className="flex flex-col gap-2">
+                <li className="text-sm text-gray-400">About Us</li>
+                <li className="text-sm text-gray-400">Leadership</li>
+                <li className="text-sm text-gray-400">Careers</li>
+                <li className="text-sm text-gray-400">News</li>
+              </ul>
+            </div>
+            <div className="flex gap-1 flex-col">
+              <h1 className="text-sm font-bold">Solutions</h1>
+              <ul className="flex flex-col gap-2">
+                <li className="text-sm text-gray-400">Defense Systems</li>
+                <li className="text-sm text-gray-400">Space Technology</li>
+                <li className="text-sm text-gray-400">Cybersecurity</li>
+                <li className="text-sm text-gray-400">Innovation Labs</li>
+              </ul>
+            </div>
+            <div className="flex gap-1 flex-col">
+              <h1 className="text-sm font-bold">Connect</h1>
+              <ul className="flex flex-col gap-2">
+                <li className="text-sm text-gray-400">Contact Us</li>
+                <li className="text-sm text-gray-400">Investor Relations</li>
+                <li className="text-sm text-gray-400">Media Center</li>
+                <li className="text-sm text-gray-400">Supplies Portal</li>
+              </ul>
+              <div className="flex gap-2 items-center mt-5">
+                <FaFacebook />
+                <IoLogoInstagram />
+                <FaXTwitter />
+                <FaLinkedin />
               </div>
-              <div className="flex gap-1 flex-col">
-                <h1 className="text-sm font-bold">Solutions</h1>
-                <ul className="flex flex-col gap-2">
-                  <li className="text-sm text-gray-400">Defense Systems</li>
-                  <li className="text-sm text-gray-400">Space Technology</li>
-                  <li className="text-sm text-gray-400">Cybersecurity</li>
-                  <li className="text-sm text-gray-400">Innovation Labs</li>
-                </ul>
-              </div>
-              <div className="flex gap-1 flex-col">
-                <h1 className="text-sm font-bold">Connect</h1>
-                <ul className="flex flex-col gap-2">
-                  <li className="text-sm text-gray-400">Contact Us</li>
-                  <li className="text-sm text-gray-400">Investor Relations</li>
-                  <li className="text-sm text-gray-400">Media Center</li>
-                  <li className="text-sm text-gray-400">Supplies Portal</li>
-                </ul>
-                <div className="flex gap-2 items-center mt-5">
-                  <FaFacebook />
-                  <IoLogoInstagram />
-                  <FaXTwitter />
-                  <FaLinkedin />
-                </div>
-              </div>
+            </div>
             {/* </div> */}
           </div>
           {/* below section */}
