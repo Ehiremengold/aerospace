@@ -2,6 +2,10 @@ import { ArrowRight } from "lucide-react";
 import Layout from "../components/Layout";
 import { Helmet } from "react-helmet-async";
 import techInnoImg from "../assets/images/tech-innovation.jpg";
+import ManufactureImg from "../assets/images/gh.jpg";
+import redefineImg from "../assets/images/redefine.jpg";
+import womenEngine from "../assets/images/womenEngine.jpg";
+import sustainImg from "../assets/images/sustainability.jpg";
 
 const Home = () => {
   return (
@@ -105,9 +109,9 @@ const Home = () => {
             For some, the word 'impossible' ends discussions. For us, it's a
             starting point.
           </p>
-          <div className="group bg-black w-fit text-white text-sm py-2 px-4 flex items-center gap-2 rounded-lg cursor-pointer hover:bg-white hover:text-black transition-all duration-300 ease-in-out mx-auto md:mx-0">
+          <div className="bg-black w-fit text-white text-sm py-2 px-4 flex items-center gap-2 rounded-lg cursor-pointer mx-auto md:mx-0">
             <span>Learn About Next-Gen Architecture</span>
-            <ArrowRight className="w-4 h-4 text-white group-hover:text-black transition-all duration-300 ease-in-out" />
+            <ArrowRight className="w-4 h-4 text-white " />
           </div>
         </div>
 
@@ -118,6 +122,110 @@ const Home = () => {
             alt="Technology Illustration"
             className="rounded-xl w-full h-auto max-w-[600px] mx-auto"
           />
+        </div>
+      </section>
+      <section className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12 px-4 md:px-8 lg:px-16 py-12 max-w-7xl mx-auto">
+        {/* Image */}
+        <div className="w-full md:w-1/2">
+          <img
+            src={ManufactureImg}
+            alt="Technology Illustration"
+            className="rounded-xl w-full h-auto max-w-[600px] mx-auto"
+          />
+        </div>
+
+        {/* Text Content */}
+        <div className="flex flex-col gap-4 w-full md:w-1/2 text-center md:text-left">
+          <h1 className="font-bold text-2xl md:text-4xl leading-tight">
+            Manufacturing the Future
+          </h1>
+          <p className="text-base md:text-lg text-gray-700">
+            Global Power Made in America. Defining possible through advanced
+            manufacturing and innovation engineering
+          </p>
+          <div className="bg-black w-fit text-white text-sm py-2 px-4 flex items-center gap-2 rounded-lg cursor-pointer  transition-all duration-300 ease-in-out mx-auto md:mx-0">
+            <span>Explore more</span>
+            <ArrowRight className="w-4 h-4 text-white " />
+          </div>
+        </div>
+      </section>
+      <section className="w-full bg-gray-50 py-16 px-4 md:px-8">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">
+          Stories That Define Us
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
+          {/* Story 1 */}
+          <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
+            <img
+              src={redefineImg}
+              alt="Story 1"
+              className="w-full h-56 object-cover"
+            />
+            <div className="p-6 flex flex-col justify-between flex-grow">
+              <div>
+                <h3 className="text-xl font-semibold mb-2 text-gray-800">
+                  Redefining Aerospace Engineering
+                </h3>
+                <p className="text-sm text-gray-600 mb-4">
+                  Discover how our engineers are shaping the next era of
+                  supersonic innovation using modular designs and AI simulation.
+                </p>
+              </div>
+              <button className="mt-auto inline-flex items-center gap-2 text-sm text-blue-600 hover:underline">
+                Read More
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* Story 2 */}
+          <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
+            <img
+              src={womenEngine}
+              alt="Story 2"
+              className="w-full h-56 object-cover"
+            />
+            <div className="p-6 flex flex-col justify-between flex-grow">
+              <div>
+                <h3 className="text-xl font-semibold mb-2 text-gray-800">
+                  Women in Defense Tech
+                </h3>
+                <p className="text-sm text-gray-600 mb-4">
+                  Go behind the scenes with the trailblazing women driving
+                  innovation in military-grade robotics and avionics.
+                </p>
+              </div>
+              <button className="mt-auto inline-flex items-center gap-2 text-sm text-blue-600 hover:underline">
+                Read More
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* Story 3 */}
+          <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
+            <img
+              src={sustainImg}
+              alt="Story 3"
+              className="w-full h-56 object-cover"
+            />
+            <div className="p-6 flex flex-col justify-between flex-grow">
+              <div>
+                <h3 className="text-xl font-semibold mb-2 text-gray-800">
+                  Sustainability in Aerospace
+                </h3>
+                <p className="text-sm text-gray-600 mb-4">
+                  Learn how we are reimagining defense with sustainability at
+                  the core — from eco-fuels to carbon-neutral production lines.
+                </p>
+              </div>
+              <button className="mt-auto inline-flex items-center gap-2 text-sm text-blue-600 hover:underline">
+                Read More
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
         </div>
       </section>
     </Layout>
