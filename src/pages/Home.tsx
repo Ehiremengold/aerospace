@@ -1,3 +1,4 @@
+import { motion,  easeOut } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Layout from "../components/Layout";
 import { Helmet } from "react-helmet-async";
@@ -8,6 +9,80 @@ import womenEngine from "../assets/images/womenEngine.jpg";
 import sustainImg from "../assets/images/sustainability.jpg";
 
 const Home = () => {
+  // Animation variants for sections
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        duration: 0.8, 
+        ease: easeOut 
+      }
+    }
+  };
+
+  // Animation for hero text
+  const heroVariants = {
+    hidden: { opacity: 0, y: 100 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        duration: 1, 
+        ease: easeOut,
+        staggerChildren: 0.2 
+      }
+    }
+  };
+
+  // Animation for buttons
+  const buttonVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      transition: { 
+        duration: 0.5, 
+        ease: easeOut 
+      }
+    },
+    hover: { 
+      scale: 1.05,
+      transition: { duration: 0.3, ease: easeOut }
+    }
+  };
+
+  // Animation for logo grid
+  const logoVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      transition: { 
+        duration: 0.6, 
+        ease: easeOut 
+      }
+    }
+  };
+
+  // Animation for story cards
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        duration: 0.7, 
+        ease: easeOut 
+      }
+    },
+    hover: { 
+      y: -10,
+      transition: { duration: 0.3, ease: easeOut }
+    }
+  };
+
   return (
     <Layout>
       <Helmet>
@@ -15,93 +90,118 @@ const Home = () => {
         <title>Home | AeroSpace</title>
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
+
+      {/* Hero Section */}
       <section className="relative min-h-screen overflow-hidden">
-        {/* Video Background */}
-        <video
+        <motion.video
           autoPlay
           loop
           muted
           playsInline
           className="absolute inset-0 w-full h-full object-cover z-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5, ease: easeOut }}
         >
           <source src="/hero.mp4" type="video/mp4" />
           Your browser does not support the video tag.
-        </video>
+        </motion.video>
 
-        {/* Dark Overlay */}
         <div className="absolute inset-0 bg-black/60 z-10"></div>
 
-        {/* Hero Text */}
-        <div className="relative z-20 flex items-center justify-center min-h-screen text-white text-center px-4">
+        <motion.div 
+          className="relative z-20 flex items-center justify-center min-h-screen text-white text-center px-4"
+          variants={heroVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <div>
-            <h1 className="text-5xl font-bold mb-4">Welcome to AeroSpace</h1>
-            <p className="text-xl">
+            <motion.h1 
+              className="text-5xl font-bold mb-4"
+              variants={heroVariants}
+            >
+              Welcome to AeroSpace
+            </motion.h1>
+            <motion.p 
+              className="text-xl"
+              variants={heroVariants}
+            >
               Pioneering the Golden Age of Defense Technology
-            </p>
-            <div className="flex items-center gap-5 flex-wrap mt-4 justify-center">
-              <div className="group bg-black/60 text-white text-sm py-1 px-3 flex items-center gap-2 rounded-lg cursor-pointer hover:bg-white hover:text-black transition-all duration-300 ease-in-out">
+            </motion.p>
+            <motion.div 
+              className="flex items-center gap-5 flex-wrap mt-4 justify-center"
+              variants={heroVariants}
+            >
+              <motion.div 
+                className="group bg-black/60 text-white text-sm py-1 px-3 flex items-center gap-2 rounded-lg cursor-pointer hover:bg-white hover:text-black transition-all duration-300 ease-in-out"
+                variants={buttonVariants}
+                whileHover="hover"
+              >
                 <h1>Learn About Next-Gen Architecture</h1>
                 <ArrowRight className="w-3 text-white group-hover:text-black transition-all duration-300 ease-in-out" />
-              </div>
-              <div className="group bg-black/60 text-white text-sm py-1 px-3 flex items-center gap-2 rounded-lg cursor-pointer hover:bg-white hover:text-black transition-all duration-300 ease-in-out">
+              </motion.div>
+              <motion.div 
+                className="group bg-black/60 text-white text-sm py-1 px-3 flex items-center gap-2 rounded-lg cursor-pointer hover:bg-white hover:text-black transition-all duration-300 ease-in-out"
+                variants={buttonVariants}
+                whileHover="hover"
+              >
                 <h1>Explore our Technology</h1>
                 <ArrowRight className="w-3 text-transparent" />
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </section>
-      <section className="py-24 sm:py-24">
+
+      {/* Trusted By Section */}
+      <motion.section 
+        className="py-24 sm:py-24"
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <h2 className="text-center text-lg/8 font-semibold text-gray-900">
             Trusted by the world’s most innovative teams
           </h2>
           <div className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
-            <img
-              width="158"
-              height="48"
-              src="https://tailwindcss.com/plus-assets/img/logos/158x48/transistor-logo-gray-900.svg"
-              alt="Transistor"
-              className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-            />
-
-            <img
-              width="158"
-              height="48"
-              src="https://tailwindcss.com/plus-assets/img/logos/158x48/reform-logo-gray-900.svg"
-              alt="Reform"
-              className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-            />
-
-            <img
-              width="158"
-              height="48"
-              src="https://tailwindcss.com/plus-assets/img/logos/158x48/tuple-logo-gray-900.svg"
-              alt="Tuple"
-              className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-            />
-
-            <img
-              width="158"
-              height="48"
-              src="https://tailwindcss.com/plus-assets/img/logos/158x48/savvycal-logo-gray-900.svg"
-              alt="SavvyCal"
-              className="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
-            />
-
-            <img
-              width="158"
-              height="48"
-              src="https://tailwindcss.com/plus-assets/img/logos/158x48/statamic-logo-gray-900.svg"
-              alt="Statamic"
-              className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
-            />
+            {[
+              { src: "https://tailwindcss.com/plus-assets/img/logos/158x48/transistor-logo-gray-900.svg", alt: "Transistor" },
+              { src: "https://tailwindcss.com/plus-assets/img/logos/158x48/reform-logo-gray-900.svg", alt: "Reform" },
+              { src: "https://tailwindcss.com/plus-assets/img/logos/158x48/tuple-logo-gray-900.svg", alt: "Tuple" },
+              { src: "https://tailwindcss.com/plus-assets/img/logos/158x48/savvycal-logo-gray-900.svg", alt: "SavvyCal" },
+              { src: "https://tailwindcss.com/plus-assets/img/logos/158x48/statamic-logo-gray-900.svg", alt: "Statamic" }
+            ].map((logo, index) => (
+              <motion.img
+                key={index}
+                width="158"
+                height="48"
+                src={logo.src}
+                alt={logo.alt}
+                className={`col-span-2 max-h-12 w-full object-contain ${index === 3 ? 'sm:col-start-2' : ''} ${index === 4 ? 'col-start-2 sm:col-start-auto' : ''} lg:col-span-1`}
+                variants={logoVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              />
+            ))}
           </div>
         </div>
-      </section>
-      <section className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12 px-4 md:px-8 lg:px-16 py-12 max-w-7xl mx-auto">
-        {/* Text Content */}
-        <div className="flex flex-col gap-4 w-full md:w-1/2 text-center md:text-left">
+      </motion.section>
+
+      {/* Technology and Innovation Section */}
+      <motion.section 
+        className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12 px-4 md:px-8 lg:px-16 py-12 max-w-7xl mx-auto"
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
+        <motion.div 
+          className="flex flex-col gap-4 w-full md:w-1/2 text-center md:text-left"
+          variants={sectionVariants}
+        >
           <h1 className="font-bold text-2xl md:text-4xl leading-tight">
             Technology and Innovation
           </h1>
@@ -109,33 +209,51 @@ const Home = () => {
             For some, the word 'impossible' ends discussions. For us, it's a
             starting point.
           </p>
-          <div className="bg-black w-fit text-white text-sm py-2 px-4 flex items-center gap-2 rounded-lg cursor-pointer mx-auto md:mx-0">
+          <motion.div 
+            className="bg-black w-fit text-white text-sm py-2 px-4 flex items-center gap-2 rounded-lg cursor-pointer mx-auto md:mx-0"
+            variants={buttonVariants}
+            whileHover="hover"
+          >
             <span>Learn About Next-Gen Architecture</span>
-            <ArrowRight className="w-4 h-4 text-white " />
-          </div>
-        </div>
+            <ArrowRight className="w-4 h-4 text-white" />
+          </motion.div>
+        </motion.div>
 
-        {/* Image */}
-        <div className="w-full md:w-1/2">
+        <motion.div 
+          className="w-full md:w-1/2"
+          variants={sectionVariants}
+        >
           <img
             src={techInnoImg}
             alt="Technology Illustration"
             className="rounded-xl w-full h-auto max-w-[600px] mx-auto"
           />
-        </div>
-      </section>
-      <section className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12 px-4 md:px-8 lg:px-16 py-12 max-w-7xl mx-auto">
-        {/* Image */}
-        <div className="w-full md:w-1/2">
+        </motion.div>
+      </motion.section>
+
+      {/* Manufacturing the Future Section */}
+      <motion.section 
+        className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12 px-4 md:px-8 lg:px-16 py-12 max-w-7xl mx-auto"
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
+        <motion.div 
+          className="w-full md:w-1/2"
+          variants={sectionVariants}
+        >
           <img
             src={ManufactureImg}
             alt="Technology Illustration"
             className="rounded-xl w-full h-auto max-w-[600px] mx-auto"
           />
-        </div>
+        </motion.div>
 
-        {/* Text Content */}
-        <div className="flex flex-col gap-4 w-full md:w-1/2 text-center md:text-left">
+        <motion.div 
+          className="flex flex-col gap-4 w-full md:w-1/2 text-center md:text-left"
+          variants={sectionVariants}
+        >
           <h1 className="font-bold text-2xl md:text-4xl leading-tight">
             Manufacturing the Future
           </h1>
@@ -143,91 +261,86 @@ const Home = () => {
             Global Power Made in America. Defining possible through advanced
             manufacturing and innovation engineering
           </p>
-          <div className="bg-black w-fit text-white text-sm py-2 px-4 flex items-center gap-2 rounded-lg cursor-pointer  transition-all duration-300 ease-in-out mx-auto md:mx-0">
+          <motion.div 
+            className="bg-black w-fit text-white text-sm py-2 px-4 flex items-center gap-2 rounded-lg cursor-pointer transition-all duration-300 ease-in-out mx-auto md:mx-0"
+            variants={buttonVariants}
+            whileHover="hover"
+          >
             <span>Explore more</span>
-            <ArrowRight className="w-4 h-4 text-white " />
-          </div>
-        </div>
-      </section>
-      <section className="w-full bg-gray-50 py-16 px-4 md:px-8">
+            <ArrowRight className="w-4 h-4 text-white" />
+          </motion.div>
+        </motion.div>
+      </motion.section>
+
+      {/* Stories Section */}
+      <motion.section 
+        className="w-full bg-gray-50 py-16 px-4 md:px-8"
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">
           Stories That Define Us
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
-          {/* Story 1 */}
-          <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
-            <img
-              src={redefineImg}
-              alt="Story 1"
-              className="w-full h-56 object-cover"
-            />
-            <div className="p-6 flex flex-col justify-between flex-grow">
-              <div>
-                <h3 className="text-xl font-semibold mb-2 text-gray-800">
-                  Redefining Aerospace Engineering
-                </h3>
-                <p className="text-sm text-gray-600 mb-4">
-                  Discover how our engineers are shaping the next era of
-                  supersonic innovation using modular designs and AI simulation.
-                </p>
+          {[
+            {
+              img: redefineImg,
+              title: "Redefining Aerospace Engineering",
+              desc: "Discover how our engineers are shaping the next era of supersonic innovation using modular designs and AI simulation.",
+              alt: "Story 1"
+            },
+            {
+              img: womenEngine,
+              title: "Women in Defense Tech",
+              desc: "Go behind the scenes with the trailblazing women driving innovation in military-grade robotics and avionics.",
+              alt: "Story 2"
+            },
+            {
+              img: sustainImg,
+              title: "Sustainability in Aerospace",
+              desc: "Learn how we are reimagining defense with sustainability at the core — from eco-fuels to carbon-neutral production lines.",
+              alt: "Story 3"
+            }
+          ].map((story, index) => (
+            <motion.div
+              key={index}
+              className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col"
+              variants={cardVariants}
+              initial="hidden"
+              whileInView="visible"
+              whileHover="hover"
+              viewport={{ once: true }}
+            >
+              <img
+                src={story.img}
+                alt={story.alt}
+                className="w-full h-56 object-cover"
+              />
+              <div className="p-6 flex flex-col justify-between flex-grow">
+                <div>
+                  <h3 className="text-xl font-semibold mb-2 text-gray-800">
+                    {story.title}
+                  </h3>
+                  <p className="text-sm text-gray-600 mb-4">
+                    {story.desc}
+                  </p>
+                </div>
+                <motion.button 
+                  className="mt-auto inline-flex items-center gap-2 text-sm text-blue-600 hover:underline"
+                  variants={buttonVariants}
+                  whileHover="hover"
+                >
+                  Read More
+                  <ArrowRight className="w-4 h-4" />
+                </motion.button>
               </div>
-              <button className="mt-auto inline-flex items-center gap-2 text-sm text-blue-600 hover:underline">
-                Read More
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-
-          {/* Story 2 */}
-          <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
-            <img
-              src={womenEngine}
-              alt="Story 2"
-              className="w-full h-56 object-cover"
-            />
-            <div className="p-6 flex flex-col justify-between flex-grow">
-              <div>
-                <h3 className="text-xl font-semibold mb-2 text-gray-800">
-                  Women in Defense Tech
-                </h3>
-                <p className="text-sm text-gray-600 mb-4">
-                  Go behind the scenes with the trailblazing women driving
-                  innovation in military-grade robotics and avionics.
-                </p>
-              </div>
-              <button className="mt-auto inline-flex items-center gap-2 text-sm text-blue-600 hover:underline">
-                Read More
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-
-          {/* Story 3 */}
-          <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
-            <img
-              src={sustainImg}
-              alt="Story 3"
-              className="w-full h-56 object-cover"
-            />
-            <div className="p-6 flex flex-col justify-between flex-grow">
-              <div>
-                <h3 className="text-xl font-semibold mb-2 text-gray-800">
-                  Sustainability in Aerospace
-                </h3>
-                <p className="text-sm text-gray-600 mb-4">
-                  Learn how we are reimagining defense with sustainability at
-                  the core — from eco-fuels to carbon-neutral production lines.
-                </p>
-              </div>
-              <button className="mt-auto inline-flex items-center gap-2 text-sm text-blue-600 hover:underline">
-                Read More
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
+            </motion.div>
+          ))}
         </div>
-      </section>
+      </motion.section>
     </Layout>
   );
 };
