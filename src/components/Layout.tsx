@@ -6,6 +6,7 @@ import { FaFacebook } from "react-icons/fa";
 import { IoLogoInstagram } from "react-icons/io";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
+import { companyName } from "../constants";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -60,7 +61,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
       <header className="bg-white shadow-md py-4 px-4 font-poppins fixed z-50 left-0 right-0">
         <nav className="mx-auto my-2 max-w-7xl   flex justify-between items-center">
           <NavLink to="/">
-            <h1 className="text-sm font-bold cursor-pointer">AEROSPACE</h1>
+            <h1 className="text-sm font-bold cursor-pointer">{companyName}</h1>
           </NavLink>
 
           {/* Desktop Nav */}
@@ -119,7 +120,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
           <div className="bg-white px-5 py-6 space-y-4 shadow-inner">
             {navItems.map((item) => (
               <div key={item.id}>
-                <button className="w-full flex justify-between items-center text-sm font-semibold text-left">
+                <button className="w-full flex justify-between items-center text-sm font-semibold text-left p-5">
                   <NavLink to={item.path}>{item.label}</NavLink>
                   {openDropdown === item.id ? (
                     <ChevronUp
@@ -140,7 +141,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
                   }`}
                 >
                   {openDropdown === item.id && (
-                    <ul className="space-y-2 mt-1 pl-3 border-l border-gray-200">
+                    <ul className="space-y-2 mt-1 pl-5 border-l border-gray-200">
                       {item.links.map((link, i) => (
                         <li key={i}>
                           <NavLink
@@ -179,7 +180,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
             <div className="flex flex-col gap-1">
               <div className="flex items-center gap-4">
                 {/* logo */}
-                <h1 className="font-bold text-white">AEROSPACE</h1>
+                <h1 className="font-bold text-white">{companyName}</h1>
               </div>
               <p className="text-gray-400">
                 Defining possible advanced aerospace technology and innovative
@@ -190,28 +191,88 @@ const Layout = ({ children }: { children: ReactNode }) => {
               <div className="flex gap-1 flex-col">
                 <h1 className="text-sm font-bold text-white">Company</h1>
                 <ul className="flex flex-col gap-2">
-                  <li className="text-sm text-gray-400">About Us</li>
-                  <li className="text-sm text-gray-400">Leadership</li>
-                  <li className="text-sm text-gray-400">Careers</li>
-                  <li className="text-sm text-gray-400">News</li>
+                  <a
+                    href="/"
+                    className="text-sm text-gray-400 cursor-pointer hover:underline transition-all ease-in-out  duration-300"
+                  >
+                    About Us
+                  </a>
+                  <a
+                    href="/"
+                    className="text-sm text-gray-400 cursor-pointer hover:underline transition-all ease-in-out  duration-300"
+                  >
+                    Leadership
+                  </a>
+                  <a
+                    href="/"
+                    className="text-sm text-gray-400 cursor-pointer hover:underline transition-all ease-in-out  duration-300"
+                  >
+                    Careers
+                  </a>
+                  <a
+                    href="/"
+                    className="text-sm text-gray-400 cursor-pointer hover:underline transition-all ease-in-out  duration-300"
+                  >
+                    News
+                  </a>
                 </ul>
               </div>
               <div className="flex gap-1 flex-col">
                 <h1 className="text-sm font-bold text-white">Solutions</h1>
                 <ul className="flex flex-col gap-2">
-                  <li className="text-sm text-gray-400">Defense Systems</li>
-                  <li className="text-sm text-gray-400">Space Technology</li>
-                  <li className="text-sm text-gray-400">Cybersecurity</li>
-                  <li className="text-sm text-gray-400">Innovation Labs</li>
+                  <a
+                    href="/"
+                    className="text-sm text-gray-400 cursor-pointer hover:underline transition-all ease-in-out  duration-300"
+                  >
+                    Defense Systems
+                  </a>
+                  <a
+                    href="/"
+                    className="text-sm text-gray-400 cursor-pointer hover:underline transition-all ease-in-out  duration-300"
+                  >
+                    Space Technology
+                  </a>
+                  <a
+                    href="/"
+                    className="text-sm text-gray-400 cursor-pointer hover:underline transition-all ease-in-out  duration-300"
+                  >
+                    Cybersecurity
+                  </a>
+                  <a
+                    href="/"
+                    className="text-sm text-gray-400 cursor-pointer hover:underline transition-all ease-in-out  duration-300"
+                  >
+                    Innovation Labs
+                  </a>
                 </ul>
               </div>
               <div className="flex gap-1 flex-col">
                 <h1 className="text-sm font-bold text-white">Connect</h1>
                 <ul className="flex flex-col gap-2">
-                  <li className="text-sm text-gray-400">Contact Us</li>
-                  <li className="text-sm text-gray-400">Investor Relations</li>
-                  <li className="text-sm text-gray-400">Media Center</li>
-                  <li className="text-sm text-gray-400">Supplies Portal</li>
+                  <a
+                    href="/"
+                    className="text-sm text-gray-400 cursor-pointer hover:underline transition-all ease-in-out  duration-300"
+                  >
+                    Contact Us
+                  </a>
+                  <a
+                    href="/"
+                    className="text-sm text-gray-400 cursor-pointer hover:underline transition-all ease-in-out  duration-300"
+                  >
+                    Investor Relations
+                  </a>
+                  <a
+                    href="/"
+                    className="text-sm text-gray-400 cursor-pointer hover:underline transition-all ease-in-out  duration-300"
+                  >
+                    Media Center
+                  </a>
+                  <a
+                    href="/"
+                    className="text-sm text-gray-400 cursor-pointer hover:underline transition-all ease-in-out  duration-300"
+                  >
+                    Supplies Portal
+                  </a>
                 </ul>
                 <div className="flex gap-2 items-center mt-5">
                   <FaFacebook />
@@ -227,9 +288,9 @@ const Layout = ({ children }: { children: ReactNode }) => {
             <div className="flex flex-col gap-1">
               <div className="flex items-center gap-4">
                 {/* logo */}
-                <h1 className="text-sm font-bold text-white">AEROSPACE</h1>
+                <h1 className="text-sm font-bold text-white">{companyName}</h1>
               </div>
-              <p className="text-gray-50">
+              <p className="text-gray-400">
                 Defining possible advanced aerospace technology and innovative
                 defense solutions.
               </p>
@@ -238,28 +299,28 @@ const Layout = ({ children }: { children: ReactNode }) => {
             <div className="flex gap-1 flex-col">
               <h1 className="text-sm font-bold text-white">Company</h1>
               <ul className="flex flex-col gap-2">
-                <li className="text-sm text-gray-200">About Us</li>
-                <li className="text-sm text-gray-50">Leadership</li>
-                <li className="text-sm text-gray-50">Careers</li>
-                <li className="text-sm text-gray-50">News</li>
+                <li className="text-sm text-gray-400">About Us</li>
+                <li className="text-sm text-gray-400">Leadership</li>
+                <li className="text-sm text-gray-400">Careers</li>
+                <li className="text-sm text-gray-400">News</li>
               </ul>
             </div>
             <div className="flex gap-1 flex-col">
               <h1 className="text-sm font-bold text-white">Solutions</h1>
               <ul className="flex flex-col gap-2">
-                <li className="text-sm text-gray-200">Defense Systems</li>
-                <li className="text-sm text-gray-200">Space Technology</li>
-                <li className="text-sm text-gray-200">Cybersecurity</li>
-                <li className="text-sm text-gray-200">Innovation Labs</li>
+                <li className="text-sm text-gray-400">Defense Systems</li>
+                <li className="text-sm text-gray-400">Space Technology</li>
+                <li className="text-sm text-gray-400">Cybersecurity</li>
+                <li className="text-sm text-gray-400">Innovation Labs</li>
               </ul>
             </div>
             <div className="flex gap-1 flex-col">
               <h1 className="text-sm font-bold text-white">Connect</h1>
               <ul className="flex flex-col gap-2">
-                <li className="text-sm text-gray-200">Contact Us</li>
-                <li className="text-sm text-gray-200">Investor Relations</li>
-                <li className="text-sm text-gray-200">Media Center</li>
-                <li className="text-sm text-gray-200">Supplies Portal</li>
+                <li className="text-sm text-gray-400">Contact Us</li>
+                <li className="text-sm text-gray-400">Investor Relations</li>
+                <li className="text-sm text-gray-400">Media Center</li>
+                <li className="text-sm text-gray-400">Supplies Portal</li>
               </ul>
               <div className="flex gap-2 items-center mt-5">
                 <FaFacebook />
@@ -273,7 +334,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
           {/* below section */}
           <div className="mt-6 pt-4 border-t border-gray-300 flex items-center md:justify-between justify-center gap-1 flex-wrap">
             <p className="text-gray-50 text-xs">
-              &copy; {new Date().getFullYear()} Aerospace Industries. All rights
+              &copy; {new Date().getFullYear()} {companyName} All rights
               reserved.
             </p>
             <div className="flex items-center sm:gap-4 gap-2 flex-wrap">

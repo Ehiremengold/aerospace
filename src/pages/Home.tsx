@@ -1,4 +1,4 @@
-import { motion,  easeOut } from "framer-motion";
+import { motion, easeOut } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Layout from "../components/Layout";
 import { Helmet } from "react-helmet-async";
@@ -12,75 +12,75 @@ const Home = () => {
   // Animation variants for sections
   const sectionVariants = {
     hidden: { opacity: 0, y: 50 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
-        duration: 0.8, 
-        ease: easeOut 
-      }
-    }
+      transition: {
+        duration: 0.8,
+        ease: easeOut,
+      },
+    },
   };
 
   // Animation for hero text
   const heroVariants = {
     hidden: { opacity: 0, y: 100 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
-        duration: 1, 
+      transition: {
+        duration: 1,
         ease: easeOut,
-        staggerChildren: 0.2 
-      }
-    }
+        staggerChildren: 0.2,
+      },
+    },
   };
 
   // Animation for buttons
   const buttonVariants = {
     hidden: { opacity: 0, scale: 0.8 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       scale: 1,
-      transition: { 
-        duration: 0.5, 
-        ease: easeOut 
-      }
+      transition: {
+        duration: 0.5,
+        ease: easeOut,
+      },
     },
-    hover: { 
+    hover: {
       scale: 1.05,
-      transition: { duration: 0.3, ease: easeOut }
-    }
+      transition: { duration: 0.3, ease: easeOut },
+    },
   };
 
   // Animation for logo grid
   const logoVariants = {
     hidden: { opacity: 0, scale: 0.8 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       scale: 1,
-      transition: { 
-        duration: 0.6, 
-        ease: easeOut 
-      }
-    }
+      transition: {
+        duration: 0.6,
+        ease: easeOut,
+      },
+    },
   };
 
   // Animation for story cards
   const cardVariants = {
     hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
-        duration: 0.7, 
-        ease: easeOut 
-      }
+      transition: {
+        duration: 0.7,
+        ease: easeOut,
+      },
     },
-    hover: { 
+    hover: {
       y: -10,
-      transition: { duration: 0.3, ease: easeOut }
-    }
+      transition: { duration: 0.3, ease: easeOut },
+    },
   };
 
   return (
@@ -109,30 +109,29 @@ const Home = () => {
 
         <div className="absolute inset-0 bg-black/60 z-10"></div>
 
-        <motion.div 
+        <motion.div
           className="relative z-20 flex items-center justify-center min-h-screen text-white text-center px-4"
           variants={heroVariants}
           initial="hidden"
           animate="visible"
         >
-          <div>
-            <motion.h1 
+          <div className="lg:w-3/5">
+            <motion.h1
               className="text-5xl font-bold mb-4"
               variants={heroVariants}
             >
-              Welcome to AeroSpace
+              Engineering the Future of Aerospace & Defense
             </motion.h1>
-            <motion.p 
-              className="text-xl"
-              variants={heroVariants}
-            >
-              Pioneering the Golden Age of Defense Technology
+            <motion.p className="text-xl" variants={heroVariants}>
+              From concept to combat readiness, N&H Construction Co. pioneers
+              next-gen infrastructure that powers innovation, resilience, and
+              mission-critical performance.
             </motion.p>
-            <motion.div 
+            <motion.div
               className="flex items-center gap-5 flex-wrap mt-4 justify-center"
               variants={heroVariants}
             >
-              <motion.div 
+              <motion.div
                 className="group bg-black/60 text-white text-sm py-1 px-3 flex items-center gap-2 rounded-lg cursor-pointer hover:bg-white hover:text-black transition-all duration-300 ease-in-out"
                 variants={buttonVariants}
                 whileHover="hover"
@@ -140,7 +139,7 @@ const Home = () => {
                 <h1>Learn About Next-Gen Architecture</h1>
                 <ArrowRight className="w-3 text-white group-hover:text-black transition-all duration-300 ease-in-out" />
               </motion.div>
-              <motion.div 
+              <motion.div
                 className="group bg-black/60 text-white text-sm py-1 px-3 flex items-center gap-2 rounded-lg cursor-pointer hover:bg-white hover:text-black transition-all duration-300 ease-in-out"
                 variants={buttonVariants}
                 whileHover="hover"
@@ -154,7 +153,7 @@ const Home = () => {
       </section>
 
       {/* Trusted By Section */}
-      <motion.section 
+      <motion.section
         className="py-24 sm:py-24"
         variants={sectionVariants}
         initial="hidden"
@@ -167,11 +166,26 @@ const Home = () => {
           </h2>
           <div className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
             {[
-              { src: "https://tailwindcss.com/plus-assets/img/logos/158x48/transistor-logo-gray-900.svg", alt: "Transistor" },
-              { src: "https://tailwindcss.com/plus-assets/img/logos/158x48/reform-logo-gray-900.svg", alt: "Reform" },
-              { src: "https://tailwindcss.com/plus-assets/img/logos/158x48/tuple-logo-gray-900.svg", alt: "Tuple" },
-              { src: "https://tailwindcss.com/plus-assets/img/logos/158x48/savvycal-logo-gray-900.svg", alt: "SavvyCal" },
-              { src: "https://tailwindcss.com/plus-assets/img/logos/158x48/statamic-logo-gray-900.svg", alt: "Statamic" }
+              {
+                src: "https://tailwindcss.com/plus-assets/img/logos/158x48/transistor-logo-gray-900.svg",
+                alt: "Transistor",
+              },
+              {
+                src: "https://tailwindcss.com/plus-assets/img/logos/158x48/reform-logo-gray-900.svg",
+                alt: "Reform",
+              },
+              {
+                src: "https://tailwindcss.com/plus-assets/img/logos/158x48/tuple-logo-gray-900.svg",
+                alt: "Tuple",
+              },
+              {
+                src: "https://tailwindcss.com/plus-assets/img/logos/158x48/savvycal-logo-gray-900.svg",
+                alt: "SavvyCal",
+              },
+              {
+                src: "https://tailwindcss.com/plus-assets/img/logos/158x48/statamic-logo-gray-900.svg",
+                alt: "Statamic",
+              },
             ].map((logo, index) => (
               <motion.img
                 key={index}
@@ -179,7 +193,11 @@ const Home = () => {
                 height="48"
                 src={logo.src}
                 alt={logo.alt}
-                className={`col-span-2 max-h-12 w-full object-contain ${index === 3 ? 'sm:col-start-2' : ''} ${index === 4 ? 'col-start-2 sm:col-start-auto' : ''} lg:col-span-1`}
+                className={`col-span-2 max-h-12 w-full object-contain ${
+                  index === 3 ? "sm:col-start-2" : ""
+                } ${
+                  index === 4 ? "col-start-2 sm:col-start-auto" : ""
+                } lg:col-span-1`}
                 variants={logoVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -191,14 +209,14 @@ const Home = () => {
       </motion.section>
 
       {/* Technology and Innovation Section */}
-      <motion.section 
+      <motion.section
         className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12 px-4 md:px-8 lg:px-16 py-12 max-w-7xl mx-auto"
         variants={sectionVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
       >
-        <motion.div 
+        <motion.div
           className="flex flex-col gap-4 w-full md:w-1/2 text-center md:text-left"
           variants={sectionVariants}
         >
@@ -209,7 +227,7 @@ const Home = () => {
             For some, the word 'impossible' ends discussions. For us, it's a
             starting point.
           </p>
-          <motion.div 
+          <motion.div
             className="bg-black w-fit text-white text-sm py-2 px-4 flex items-center gap-2 rounded-lg cursor-pointer mx-auto md:mx-0"
             variants={buttonVariants}
             whileHover="hover"
@@ -219,10 +237,7 @@ const Home = () => {
           </motion.div>
         </motion.div>
 
-        <motion.div 
-          className="w-full md:w-1/2"
-          variants={sectionVariants}
-        >
+        <motion.div className="w-full md:w-1/2" variants={sectionVariants}>
           <img
             src={techInnoImg}
             alt="Technology Illustration"
@@ -232,17 +247,14 @@ const Home = () => {
       </motion.section>
 
       {/* Manufacturing the Future Section */}
-      <motion.section 
+      <motion.section
         className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12 px-4 md:px-8 lg:px-16 py-12 max-w-7xl mx-auto"
         variants={sectionVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
       >
-        <motion.div 
-          className="w-full md:w-1/2"
-          variants={sectionVariants}
-        >
+        <motion.div className="w-full md:w-1/2" variants={sectionVariants}>
           <img
             src={ManufactureImg}
             alt="Technology Illustration"
@@ -250,7 +262,7 @@ const Home = () => {
           />
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="flex flex-col gap-4 w-full md:w-1/2 text-center md:text-left"
           variants={sectionVariants}
         >
@@ -261,7 +273,7 @@ const Home = () => {
             Global Power Made in America. Defining possible through advanced
             manufacturing and innovation engineering
           </p>
-          <motion.div 
+          <motion.div
             className="bg-black w-fit text-white text-sm py-2 px-4 flex items-center gap-2 rounded-lg cursor-pointer transition-all duration-300 ease-in-out mx-auto md:mx-0"
             variants={buttonVariants}
             whileHover="hover"
@@ -273,7 +285,7 @@ const Home = () => {
       </motion.section>
 
       {/* Stories Section */}
-      <motion.section 
+      <motion.section
         className="w-full bg-gray-50 py-16 px-4 md:px-8"
         variants={sectionVariants}
         initial="hidden"
@@ -290,20 +302,20 @@ const Home = () => {
               img: redefineImg,
               title: "Redefining Aerospace Engineering",
               desc: "Discover how our engineers are shaping the next era of supersonic innovation using modular designs and AI simulation.",
-              alt: "Story 1"
+              alt: "Story 1",
             },
             {
               img: womenEngine,
               title: "Women in Defense Tech",
               desc: "Go behind the scenes with the trailblazing women driving innovation in military-grade robotics and avionics.",
-              alt: "Story 2"
+              alt: "Story 2",
             },
             {
               img: sustainImg,
               title: "Sustainability in Aerospace",
               desc: "Learn how we are reimagining defense with sustainability at the core — from eco-fuels to carbon-neutral production lines.",
-              alt: "Story 3"
-            }
+              alt: "Story 3",
+            },
           ].map((story, index) => (
             <motion.div
               key={index}
@@ -324,11 +336,9 @@ const Home = () => {
                   <h3 className="text-xl font-semibold mb-2 text-gray-800">
                     {story.title}
                   </h3>
-                  <p className="text-sm text-gray-600 mb-4">
-                    {story.desc}
-                  </p>
+                  <p className="text-sm text-gray-600 mb-4">{story.desc}</p>
                 </div>
-                <motion.button 
+                <motion.button
                   className="mt-auto inline-flex items-center gap-2 text-sm text-blue-600 hover:underline"
                   variants={buttonVariants}
                   whileHover="hover"
