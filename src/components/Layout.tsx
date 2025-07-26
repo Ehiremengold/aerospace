@@ -171,7 +171,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
       </header>
 
       <main className="font-poppins bg-gray-50">{children}</main>
-      <footer className="font-poppins  py-6 px-4 bg-white">
+      <footer className="font-poppins  py-6 px-4 bg-black">
         {" "}
         <div className="max-w-7xl mx-auto">
           {/* upper section - desktop */}
@@ -179,16 +179,16 @@ const Layout = ({ children }: { children: ReactNode }) => {
             <div className="flex flex-col gap-1">
               <div className="flex items-center gap-4">
                 {/* logo */}
-                <h1 className="text-sm font-bold">AEROSPACE</h1>
+                <h1 className="font-bold text-white">AEROSPACE</h1>
               </div>
-              <p className="text-gray-400 text-xs">
+              <p className="text-gray-400">
                 Defining possible advanced aerospace technology and innovative
                 defense solutions.
               </p>
             </div>
             <div className="grid md:grid-cols-3 gap-5 sm:grid-cols-2 grid-cols-1 w-full">
               <div className="flex gap-1 flex-col">
-                <h1 className="text-sm font-bold">Company</h1>
+                <h1 className="text-sm font-bold text-white">Company</h1>
                 <ul className="flex flex-col gap-2">
                   <li className="text-sm text-gray-400">About Us</li>
                   <li className="text-sm text-gray-400">Leadership</li>
@@ -197,7 +197,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
                 </ul>
               </div>
               <div className="flex gap-1 flex-col">
-                <h1 className="text-sm font-bold">Solutions</h1>
+                <h1 className="text-sm font-bold text-white">Solutions</h1>
                 <ul className="flex flex-col gap-2">
                   <li className="text-sm text-gray-400">Defense Systems</li>
                   <li className="text-sm text-gray-400">Space Technology</li>
@@ -206,7 +206,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
                 </ul>
               </div>
               <div className="flex gap-1 flex-col">
-                <h1 className="text-sm font-bold">Connect</h1>
+                <h1 className="text-sm font-bold text-white">Connect</h1>
                 <ul className="flex flex-col gap-2">
                   <li className="text-sm text-gray-400">Contact Us</li>
                   <li className="text-sm text-gray-400">Investor Relations</li>
@@ -227,39 +227,39 @@ const Layout = ({ children }: { children: ReactNode }) => {
             <div className="flex flex-col gap-1">
               <div className="flex items-center gap-4">
                 {/* logo */}
-                <h1 className="text-sm font-bold">AEROSPACE</h1>
+                <h1 className="text-sm font-bold text-white">AEROSPACE</h1>
               </div>
-              <p className="text-gray-400 text-xs">
+              <p className="text-gray-50">
                 Defining possible advanced aerospace technology and innovative
                 defense solutions.
               </p>
             </div>
             {/* <div className="grid md:grid-cols-3 gap-5 sm:grid-cols-2 grid-cols-1 w-full"> */}
             <div className="flex gap-1 flex-col">
-              <h1 className="text-sm font-bold">Company</h1>
+              <h1 className="text-sm font-bold text-white">Company</h1>
               <ul className="flex flex-col gap-2">
-                <li className="text-sm text-gray-400">About Us</li>
-                <li className="text-sm text-gray-400">Leadership</li>
-                <li className="text-sm text-gray-400">Careers</li>
-                <li className="text-sm text-gray-400">News</li>
+                <li className="text-sm text-gray-200">About Us</li>
+                <li className="text-sm text-gray-50">Leadership</li>
+                <li className="text-sm text-gray-50">Careers</li>
+                <li className="text-sm text-gray-50">News</li>
               </ul>
             </div>
             <div className="flex gap-1 flex-col">
-              <h1 className="text-sm font-bold">Solutions</h1>
+              <h1 className="text-sm font-bold text-white">Solutions</h1>
               <ul className="flex flex-col gap-2">
-                <li className="text-sm text-gray-400">Defense Systems</li>
-                <li className="text-sm text-gray-400">Space Technology</li>
-                <li className="text-sm text-gray-400">Cybersecurity</li>
-                <li className="text-sm text-gray-400">Innovation Labs</li>
+                <li className="text-sm text-gray-200">Defense Systems</li>
+                <li className="text-sm text-gray-200">Space Technology</li>
+                <li className="text-sm text-gray-200">Cybersecurity</li>
+                <li className="text-sm text-gray-200">Innovation Labs</li>
               </ul>
             </div>
             <div className="flex gap-1 flex-col">
-              <h1 className="text-sm font-bold">Connect</h1>
+              <h1 className="text-sm font-bold text-white">Connect</h1>
               <ul className="flex flex-col gap-2">
-                <li className="text-sm text-gray-400">Contact Us</li>
-                <li className="text-sm text-gray-400">Investor Relations</li>
-                <li className="text-sm text-gray-400">Media Center</li>
-                <li className="text-sm text-gray-400">Supplies Portal</li>
+                <li className="text-sm text-gray-200">Contact Us</li>
+                <li className="text-sm text-gray-200">Investor Relations</li>
+                <li className="text-sm text-gray-200">Media Center</li>
+                <li className="text-sm text-gray-200">Supplies Portal</li>
               </ul>
               <div className="flex gap-2 items-center mt-5">
                 <FaFacebook />
@@ -272,18 +272,18 @@ const Layout = ({ children }: { children: ReactNode }) => {
           </div>
           {/* below section */}
           <div className="mt-6 pt-4 border-t border-gray-300 flex items-center md:justify-between justify-center gap-1 flex-wrap">
-            <p className="text-gray-400 text-xs">
+            <p className="text-gray-50 text-xs">
               &copy; {new Date().getFullYear()} Aerospace Industries. All rights
               reserved.
             </p>
             <div className="flex items-center sm:gap-4 gap-2 flex-wrap">
-              <NavLink to="/" className="text-gray-400 text-xs">
+              <NavLink to="/" className="text-gray-50 text-xs">
                 Privacy Policy
               </NavLink>
-              <NavLink to="/" className="text-gray-400 text-xs">
+              <NavLink to="/" className="text-gray-50 text-xs">
                 Terms of Service
               </NavLink>
-              <NavLink to="/" className="text-gray-400 text-xs">
+              <NavLink to="/" className="text-gray-50 text-xs">
                 Accessibility
               </NavLink>
             </div>
