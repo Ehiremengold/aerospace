@@ -1,4 +1,5 @@
-import { ReactNode, useState } from "react";
+import {  useState } from "react";
+import type { ReactNode } from "react";
 import { NavLink } from "react-router-dom";
 import { AlignRight, ChevronDown, ChevronUp, Search, X } from "lucide-react";
 import { FaFacebook } from "react-icons/fa";
