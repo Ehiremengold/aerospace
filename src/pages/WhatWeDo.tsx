@@ -15,20 +15,27 @@ const WhatWeDo = () => {
       <Helmet>
         <meta charSet="utf-8" />
         <title>What We Do | {companyName}</title>
-        <meta name="description" content="Concise summary of the page" />
-        <meta property="og:title" content="Your Open Graph Title" />
+        <meta
+          name="description"
+          content={`Explore ${companyName}'s advanced solutions in weapons, aircraft, missile defense, and space technology for unparalleled mission success.`}
+        />
+        <meta property="og:title" content={`What We Do | ${companyName}`} />
         <meta
           property="og:description"
-          content="OG description for social previews"
+          content={`Learn about ${companyName}'s innovative technologies in defense, aerospace, and space, delivering performance in high-stakes environments.`}
         />
-        <meta property="og:image" content="URL to preview image" />
+        <meta property="og:image" content="/assets/images/wwdHero.webp" />
         <meta name="robots" content="index, follow" />
+        <meta
+          name="keywords"
+          content={`advanced weapons, aircraft technology, missile defense, space technology, ${companyName}`}
+        />
       </Helmet>
       <section className="relative h-[70dvh] w-full">
         {/* Background Image */}
         <img
           src={wwdHero}
-          alt="Who We Are"
+          alt={`${companyName} advanced defense solutions`}
           className="absolute inset-0 h-full w-full object-cover object-center z-0"
         />
 
@@ -69,8 +76,9 @@ const WhatWeDo = () => {
           <div className="w-full md:w-1/2">
             <img
               src={advancedImg}
-              alt="Technology Illustration"
+              alt={`Advanced weapons technology by ${companyName}`}
               className="w-full h-auto max-w-[600px] mx-auto"
+              loading="lazy"
             />
           </div>
 
@@ -105,8 +113,9 @@ const WhatWeDo = () => {
           <div className="w-full md:w-1/2">
             <img
               src={aircraftImg}
-              alt="Aircraft Illustration"
+              alt={`Next-generation aircraft by ${companyName}`}
               className="w-full h-auto max-w-[600px] mx-auto"
+              loading="lazy"
             />
           </div>
         </div>
@@ -114,8 +123,9 @@ const WhatWeDo = () => {
           <div className="w-full md:w-1/2">
             <img
               src={missileDefenceImg}
-              alt="Technology Illustration"
+              alt={`Missile defense systems by ${companyName}`}
               className="w-full h-auto max-w-[600px] mx-auto"
+              loading="lazy"
             />
           </div>
 
@@ -151,8 +161,9 @@ const WhatWeDo = () => {
           <div className="w-full md:w-1/2">
             <img
               src={spaceImg}
-              alt="Aircraft Illustration"
+              alt={`Space technology solutions by ${companyName}`}
               className="w-full h-auto max-w-[600px] mx-auto"
+              loading="lazy"
             />
           </div>
         </div>
@@ -161,8 +172,9 @@ const WhatWeDo = () => {
         {/* Background Image */}
         <img
           src={possibleImg}
-          alt="Who We Are"
+          alt={`Defining possible with ${companyName} technology`}
           className="absolute inset-0 h-full w-full object-cover object-center z-0"
+          loading="lazy"
         />
         {/* Text Overlay - Left and Vertically Centered */}
         <div className="absolute inset-y-0 left-0 flex items-center px-6 lg:pl-28 z-20">

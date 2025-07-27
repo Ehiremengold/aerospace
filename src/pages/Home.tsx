@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import Layout from "../components/Layout";
 import { Helmet } from "react-helmet-async";
 import techInnoImg from "../assets/images/tech-innovation.jpg";
+import revotionalImg from "../assets/images/revotionalizing.jpg";
 import ManufactureImg from "../assets/images/gh.jpg";
 import redefineImg from "../assets/images/redefine.jpg";
 import womenEngine from "../assets/images/womenEngine.jpg";
@@ -89,16 +90,22 @@ const Home = () => {
       <Helmet>
         <meta charSet="utf-8" />
         <title>Home | {companyName}</title>
-        <meta name="description" content="Concise summary of the page" />
-        <meta property="og:title" content="Your Open Graph Title" />
+        <meta
+          name="description"
+          content={`Discover ${companyName}'s cutting-edge defense and aerospace solutions, pioneering next-gen infrastructure for mission-critical performance.`}
+        />
+        <meta property="og:title" content={`Home | ${companyName}`} />
         <meta
           property="og:description"
-          content="OG description for social previews"
+          content={`Explore ${companyName}'s innovative technologies in defense, aerospace, and infrastructure, shaping the future of global security.`}
         />
-        <meta property="og:image" content="URL to preview image" />
+        <meta property="og:image" content="/assets/images/hero-image.png" />
         <meta name="robots" content="index, follow" />
+        <meta
+          name="keywords"
+          content={`defense technology, aerospace engineering, next-gen infrastructure, mission-critical solutions, ${companyName}`}
+        />
       </Helmet>
-
       {/* Hero Section */}
       <section className="relative min-h-screen overflow-hidden">
         <motion.video
@@ -125,12 +132,12 @@ const Home = () => {
         >
           <div className="lg:w-3/5">
             <motion.h1
-              className="text-5xl font-bold mb-4"
+              className="lg:text-5xl text-3xl font-bold mb-4"
               variants={heroVariants}
             >
               Engineering the Future of {companyName} & Defense
             </motion.h1>
-            <motion.p className="text-xl" variants={heroVariants}>
+            <motion.p className="lg:text-xl" variants={heroVariants}>
               From concept to combat readiness, N&H Construction Co. pioneers
               next-gen infrastructure that powers innovation, resilience, and
               mission-critical performance.
@@ -176,23 +183,23 @@ const Home = () => {
             {[
               {
                 src: "https://tailwindcss.com/plus-assets/img/logos/158x48/transistor-logo-gray-900.svg",
-                alt: "Transistor",
+                alt: "Transistor logo",
               },
               {
                 src: "https://tailwindcss.com/plus-assets/img/logos/158x48/reform-logo-gray-900.svg",
-                alt: "Reform",
+                alt: "Reform logo",
               },
               {
                 src: "https://tailwindcss.com/plus-assets/img/logos/158x48/tuple-logo-gray-900.svg",
-                alt: "Tuple",
+                alt: "Tuple logo",
               },
               {
                 src: "https://tailwindcss.com/plus-assets/img/logos/158x48/savvycal-logo-gray-900.svg",
-                alt: "SavvyCal",
+                alt: "SavvyCal logo",
               },
               {
                 src: "https://tailwindcss.com/plus-assets/img/logos/158x48/statamic-logo-gray-900.svg",
-                alt: "Statamic",
+                alt: "Statamic logo",
               },
             ].map((logo, index) => (
               <motion.img
@@ -210,6 +217,7 @@ const Home = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
+                loading="lazy"
               />
             ))}
           </div>
@@ -248,8 +256,9 @@ const Home = () => {
         <motion.div className="w-full md:w-1/2" variants={sectionVariants}>
           <img
             src={techInnoImg}
-            alt="Technology Illustration"
+            alt={`Innovative technology solutions at ${companyName}`}
             className="rounded-xl w-full h-auto max-w-[600px] mx-auto"
+            loading="lazy"
           />
         </motion.div>
       </motion.section>
@@ -265,8 +274,9 @@ const Home = () => {
         <motion.div className="w-full md:w-1/2" variants={sectionVariants}>
           <img
             src={ManufactureImg}
-            alt="Technology Illustration"
+            alt={`Advanced manufacturing for defense at ${companyName}`}
             className="rounded-xl w-full h-auto max-w-[600px] mx-auto"
+            loading="lazy"
           />
         </motion.div>
 
@@ -292,6 +302,38 @@ const Home = () => {
         </motion.div>
       </motion.section>
 
+      <motion.section
+        className="relative h-[70dvh] w-full"
+        variants={sectionVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        {/* Background Image */}
+        <img
+          src={revotionalImg}
+          alt={`Redefining space technology with ${companyName}`}
+          className="absolute inset-0 h-full w-full object-cover object-center z-0"
+          loading="lazy"
+        />
+        {/* Text Overlay - Left and Vertically Centered */}
+        <div className="absolute bg-black/60 inset-0 left-0 flex flex-col justify-center gap-3 items-center md:px-6 lg:pl-28 z-20">
+          <motion.h2
+            variants={heroVariants}
+            className="font-semibold lg:text-5xl text-3xl text-white text-center"
+          >
+            Redefining Space Technology
+          </motion.h2>
+          <motion.p
+            variants={heroVariants}
+            className="text-white font-medium lg:text-3xl text-xl text-center"
+          >
+            From fortified ground bases to aerospace-grade structures, N&H
+            delivers integrated defense infrastructure for today’s operations —
+            and tomorrow’s possibilities.
+          </motion.p>
+        </div>
+      </motion.section>
+
       {/* Stories Section */}
       <motion.section
         className="w-full bg-gray-50 py-16 px-4 md:px-8"
@@ -308,21 +350,21 @@ const Home = () => {
           {[
             {
               img: redefineImg,
-              title: "Redefining {companyName} Engineering",
+              title: `Redefining ${companyName} Engineering`,
               desc: "Discover how our engineers are shaping the next era of supersonic innovation using modular designs and AI simulation.",
-              alt: "Story 1",
+              alt: `Redefining ${companyName} engineering story`,
             },
             {
               img: womenEngine,
               title: "Women in Defense Tech",
               desc: "Go behind the scenes with the trailblazing women driving innovation in military-grade robotics and avionics.",
-              alt: "Story 2",
+              alt: "Women in defense technology story",
             },
             {
               img: sustainImg,
-              title: "Sustainability in {companyName}",
-              desc: "Learn how we are reimagining defense with sustainability at the core — from eco-fuels to carbon-neutral production lines.",
-              alt: "Story 3",
+              title: `Sustainability in ${companyName}`,
+              desc: "Learn how we are re-imagining defense with sustainability at the core — from eco-fuels to carbon-neutral production lines.",
+              alt: `Sustainability in ${companyName} story`,
             },
           ].map((story, index) => (
             <motion.div
@@ -338,6 +380,7 @@ const Home = () => {
                 src={story.img}
                 alt={story.alt}
                 className="w-full h-56 object-cover"
+                loading="lazy"
               />
               <div className="p-6 flex flex-col justify-between flex-grow">
                 <div>

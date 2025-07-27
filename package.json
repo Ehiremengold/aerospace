@@ -10,7 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mantine/core": "^8.2.1",
+    "@mantine/dates": "^8.2.1",
+    "@mantine/hooks": "^8.2.1",
+    "@mantine/modals": "^8.2.1",
+    "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.1.11",
+    "dayjs": "^1.11.13",
     "framer-motion": "^12.23.9",
     "lucide-react": "^0.525.0",
     "react": "^18.2.0",
@@ -32,6 +38,7 @@
     "globals": "^16.3.0",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.35.1",
-    "vite": "^7.0.4"
+    "vite": "^7.0.4",
+    "vite-plugin-sitemap": "^0.8.2"
   }
 }

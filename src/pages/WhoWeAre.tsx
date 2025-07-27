@@ -12,20 +12,27 @@ const WhoWeAre = () => {
       <Helmet>
         <meta charSet="utf-8" />
         <title>Who We Are | {companyName}</title>
-        <meta name="description" content="Concise summary of the page" />
-        <meta property="og:title" content="Your Open Graph Title" />
+        <meta
+          name="description"
+          content={`Learn about ${companyName}, a global leader in defense, aerospace, and cybersecurity, solving complex challenges for the U.S. and its allies.`}
+        />
+        <meta property="og:title" content={`Who We Are | ${companyName}`} />
         <meta
           property="og:description"
-          content="OG description for social previews"
+          content={`Discover how ${companyName} pioneers technologies in space, aeronautics, and defense to protect and advance global security.`}
         />
-        <meta property="og:image" content="URL to preview image" />
+        <meta property="og:image" content="/assets/images/wwa.webp" />
         <meta name="robots" content="index, follow" />
+        <meta
+          name="keywords"
+          content={`about ${companyName}, defense company, aerospace technology, cybersecurity solutions`}
+        />
       </Helmet>
       <section className="relative h-[70dvh] w-full">
         {/* Background Image */}
         <img
           src={wwaHero}
-          alt="Who We Are"
+          alt={`About ${companyName} - Global defense and aerospace leader`}
           className="absolute inset-0 h-full w-full object-cover object-center z-0"
         />
 
@@ -64,8 +71,9 @@ const WhoWeAre = () => {
         <div className="w-full md:w-1/2">
           <img
             src={peopleImg}
-            alt="Technology Illustration"
+            alt={`Team at ${companyName} working on defense solutions`}
             className="rounded-xl w-full h-auto max-w-[600px] mx-auto"
+            loading="lazy"
           />
         </div>
 
@@ -84,7 +92,7 @@ const WhoWeAre = () => {
             703-280-2900
           </p>
           <div className="bg-black w-fit text-white text-sm py-2 px-4 flex items-center gap-2 rounded-lg cursor-pointer transition-all duration-300 ease-in-out mx-auto md:mx-0">
-            <a href="mailto:">Contact us</a>
+            <a href="mailto:contact@yourwebsite.com">Contact us</a>
             <ArrowRight className="w-4 h-4 text-white" />
           </div>
         </div>
