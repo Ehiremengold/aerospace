@@ -140,7 +140,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
             menuOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
           }`}
         >
-          <div className="bg-white px-5 py-6 space-y-4 shadow-inner">
+          <div className="bg-white px-1 py-6 space-y-2 shadow-inner">
             {navItems.map((item) => (
               <div key={item.id}>
                 <button
@@ -148,7 +148,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
                   aria-label={`Toggle ${item.label} dropdown`}
                 >
                   <NavLink to={item.path}>{item.label}</NavLink>
-                  {openDropdown === item.id ? (
+                  {/* {openDropdown === item.id ? (
                     <ChevronUp
                       size={16}
                       onClick={() => toggleDropdown(item.id)}
@@ -158,7 +158,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
                       size={16}
                       onClick={() => toggleDropdown(item.id)}
                     />
-                  )}
+                  )} */}
                 </button>
 
                 <div
@@ -184,7 +184,6 @@ const Layout = ({ children }: { children: ReactNode }) => {
               </div>
             ))}
 
-            {/* Search - Mobile */}
             <div className="flex items-center bg-gray-100 rounded-lg px-3 py-2">
               <Search className="w-4 h-4 text-gray-500 mr-2" />
               <input
