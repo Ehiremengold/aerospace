@@ -7,7 +7,7 @@ import { IoLogoInstagram } from "react-icons/io";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
 import { Helmet } from "react-helmet-async";
-import { companyName } from "../constants";
+import { companyName } from "../utils/constants";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -60,9 +60,9 @@ const Layout = ({ children }: { children: ReactNode }) => {
     },
   ];
 
-  const toggleDropdown = (id: string) => {
-    setOpenDropdown((prev) => (prev === id ? null : id));
-  };
+  // const toggleDropdown = (id: string) => {
+  //   setOpenDropdown((prev) => (prev === id ? null : id));
+  // };
 
   return (
     <div className="max-w-[2100px] mx-auto">
@@ -98,7 +98,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
           </a>
 
           {/* Desktop Nav */}
-          <ul className="hidden custom800:flex gap-6">
+          <ul className="hidden min-[801px]:flex gap-6">
             {navItems.map((item) => (
               <li key={item.id} className="relative group">
                 <div className="flex items-center gap-1 cursor-pointer">
@@ -114,7 +114,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
           </ul>
 
           {/* Search - Desktop */}
-          <div className="hidden custom800:flex items-center bg-gray-100 rounded-lg px-3 py-2">
+          <div className="hidden min-[801px]:flex items-center bg-gray-100 rounded-lg px-3 py-2">
             <Search className="w-4 h-4 text-gray-500 mr-2" />
             <input
               type="text"
@@ -127,7 +127,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
           {/* Mobile menu toggle */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="custom800:hidden px-2 py-1 border rounded-md"
+            className="min-[801px]:hidden px-2 py-1 border rounded-md"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
           >
             {menuOpen ? <X size={20} /> : <AlignRight size={20} />}
@@ -136,7 +136,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
 
         {/* Mobile Nav Panel */}
         <div
-          className={`custom800:hidden transition-all duration-300 ease-in-out overflow-hidden ${
+          className={`min-[801px]:hidden transition-all duration-300 ease-in-out overflow-hidden ${
             menuOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
           }`}
         >

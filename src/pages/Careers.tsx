@@ -2,34 +2,19 @@ import Layout from "../components/Layout";
 import careerHero from "../assets/images/career-hero.webp";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { useState } from "react";
-import { companyName } from "../constants";
+import { useState, useEffect } from "react";
+import { companyName } from "../utils/constants";
 import { useDisclosure } from "@mantine/hooks";
-import { Modal } from "@mantine/core";
-
-const jobs = [
-  {
-    id: 1,
-    title: "Aerospace Systems Engineer",
-    location: "Lagos, Nigeria",
-    description: `Join our mission-driven team to develop next-gen aerospace solutions. You’ll work on flight systems, propulsion, and embedded tech in highly collaborative, cross-functional teams.`,
-  },
-  {
-    id: 2,
-    title: "Defense Infrastructure Project Manager",
-    location: "Remote",
-    description: `Lead critical infrastructure projects from planning to deployment. Ideal for individuals with experience in defense-grade construction and agile methodologies.`,
-  },
-  {
-    id: 3,
-    title: "Cybersecurity Analyst",
-    location: "Abuja, Nigeria",
-    description: `Protect mission-critical systems from evolving threats. You’ll be hands-on with threat intelligence, penetration testing, and real-time incident response.`,
-  },
-];
+import { Modal, Loader } from "@mantine/core";
+import axios from "axios";
+import { showNotification } from "@mantine/notifications";
+import type { StrapiJob } from "../utils/types";
 
 const Careers = () => {
-  const [selectedJob, setSelectedJob] = useState(jobs[0]);
+  const [jobs, setJobs] = useState<StrapiJob[]>([]);
+  const [selectedJob, setSelectedJob] = useState<StrapiJob | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
   const [opened, { open, close }] = useDisclosure(false);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -37,6 +22,36 @@ const Careers = () => {
   const [coverLetter, setCoverLetter] = useState("");
   const [resume, setResume] = useState<File | null>(null);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const response = await axios.get<{ data: StrapiJob[] }>(
+          `${import.meta.env.VITE_STRAPI_API_URL}/jobs`,
+          {
+            headers: {
+              Authorization: `Bearer ${import.meta.env.VITE_STRAPI_API_TOKEN}`,
+            },
+          }
+        );
+        setJobs(response.data.data);
+        setSelectedJob(response.data.data[0] || null);
+        setLoading(false);
+      } catch (error: any) {
+        const errorMessage =
+          error.response?.status === 401
+            ? "Unauthorized access. Please contact support."
+            : "Failed to load jobs. Please try again later.";
+        showNotification({
+          title: "Error",
+          message: errorMessage,
+          color: "red",
+        });
+        setLoading(false);
+      }
+    };
+    fetchJobs();
+  }, []);
 
   const handleClose = () => {
     setName("");
@@ -47,6 +62,93 @@ const Careers = () => {
     setError("");
     close();
   };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name || !email || !phone || !resume) {
+      setError("Please fill in all required fields, including a resume.");
+      showNotification({
+        title: "Error",
+        message: "Please fill in all required fields, including a resume.",
+        color: "red",
+      });
+      return;
+    }
+    if (resume.type !== "application/pdf") {
+      setError("Resume must be a PDF.");
+      showNotification({
+        title: "Error",
+        message: "Resume must be a PDF.",
+        color: "red",
+      });
+      return;
+    }
+    if (resume.size > 2 * 1024 * 1024) {
+      setError("Resume must be under 2MB.");
+      showNotification({
+        title: "Error",
+        message: "Resume must be under 2MB.",
+        color: "red",
+      });
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const formData = new FormData();
+      formData.append(
+        "data",
+        JSON.stringify({
+          name,
+          email,
+          phone,
+          coverLetter,
+          jobTitle: selectedJob?.attributes.title,
+        })
+      );
+      formData.append("files.resume", resume);
+
+      await axios.post(
+        `${import.meta.env.VITE_STRAPI_API_URL}/applications`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${import.meta.env.VITE_STRAPI_API_TOKEN}`,
+          },
+        }
+      );
+      showNotification({
+        title: "Success",
+        message:
+          "Application submitted successfully! We'll get back to you soon.",
+        color: "green",
+      });
+      handleClose();
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.status === 401
+          ? "Unauthorized access. Please contact support."
+          : error.response?.data?.error?.message?.includes("resume")
+          ? "A valid PDF resume is required. Please upload a PDF file."
+          : error.response?.data?.error?.message ||
+            "Failed to submit application. Please check your connection and try again.";
+      setError(errorMessage);
+      showNotification({
+        title: "Error",
+        message: errorMessage,
+        color: "red",
+      });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  if (loading)
+    return (
+      <Layout>
+        <p className="text-center py-24 min-h-screen">Loading...</p>
+      </Layout>
+    );
 
   return (
     <Layout>
@@ -72,8 +174,8 @@ const Careers = () => {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "JobPosting",
-            title: selectedJob.title,
-            description: selectedJob.description,
+            title: selectedJob?.attributes.title,
+            description: selectedJob?.attributes.description,
             hiringOrganization: {
               "@type": "Organization",
               name: companyName,
@@ -83,11 +185,16 @@ const Careers = () => {
               "@type": "Place",
               address: {
                 "@type": "PostalAddress",
-                addressLocality: selectedJob.location.split(", ")[0],
-                addressRegion: selectedJob.location.includes("Nigeria")
+                addressLocality:
+                  selectedJob?.attributes.location.split(", ")[0],
+                addressRegion: selectedJob?.attributes.location.includes(
+                  "Nigeria"
+                )
                   ? "NG"
                   : null,
-                addressCountry: selectedJob.location.includes("Nigeria")
+                addressCountry: selectedJob?.attributes.location.includes(
+                  "Nigeria"
+                )
                   ? "NG"
                   : "Remote",
               },
@@ -105,29 +212,9 @@ const Careers = () => {
         opened={opened}
         onClose={handleClose}
         className="font-poppins"
-        title={`${selectedJob.title} Application `}
+        title={`${selectedJob?.attributes.title} Application`}
       >
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (!name || !email || !phone) {
-              setError("Please fill in all required fields.");
-              return;
-            }
-            if (resume && resume.type !== "application/pdf") {
-              setError("Resume must be a PDF.");
-              return;
-            }
-            if (resume && resume.size > 2 * 1024 * 1024) {
-              setError("Resume must be under 2MB.");
-              return;
-            }
-            setError("");
-            alert("Application submitted successfully!");
-            close();
-          }}
-          className="flex flex-col gap-4"
-        >
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
             type="text"
             placeholder="Full Name"
@@ -136,6 +223,7 @@ const Careers = () => {
             onChange={(e) => setName(e.target.value)}
             required
             aria-label="Full Name"
+            disabled={submitting}
           />
           <input
             type="tel"
@@ -145,6 +233,7 @@ const Careers = () => {
             onChange={(e) => setPhone(e.target.value)}
             required
             aria-label="Phone Number"
+            disabled={submitting}
           />
           <input
             type="email"
@@ -154,6 +243,7 @@ const Careers = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
             aria-label="Email Address"
+            disabled={submitting}
           />
           <textarea
             placeholder="Cover Letter (optional)"
@@ -162,21 +252,26 @@ const Careers = () => {
             value={coverLetter}
             onChange={(e) => setCoverLetter(e.target.value)}
             aria-label="Cover Letter"
+            disabled={submitting}
           ></textarea>
           <input
             type="file"
             accept=".pdf"
             className="border rounded px-4 py-2"
             onChange={(e) => setResume(e.target.files?.[0] || null)}
-            aria-label="Upload Resume (PDF)"
+            required
+            aria-label="Upload Resume (PDF, required)"
+            disabled={submitting}
           />
           {error && <p className="text-red-600 text-sm">{error}</p>}
           <button
             type="submit"
-            className="bg-black text-white hover:bg-gray-800 py-2 rounded-md"
+            className="bg-black text-white hover:bg-gray-800 py-2 rounded-md disabled:opacity-50 flex items-center justify-center"
             aria-label="Submit Application"
+            disabled={submitting}
           >
-            Submit Application
+            {submitting ? <Loader size="sm" className="mr-2" /> : null}
+            {submitting ? "Submitting..." : "Submit Application"}
           </button>
         </form>
       </Modal>
@@ -186,6 +281,7 @@ const Careers = () => {
           src={careerHero}
           alt={`Careers at ${companyName} in aerospace and defense`}
           className="absolute inset-0 h-full w-full object-cover object-center z-0"
+          loading="lazy"
         />
         <div className="absolute left-0 top-0 h-full flex items-center px-6 lg:px-16 z-10">
           <div className="bg-black/70 text-white rounded-xl p-6 lg:w-[80%] w-full flex flex-col gap-4">
@@ -203,7 +299,7 @@ const Careers = () => {
       <div className="bg-black w-full text-white py-5">
         <div className="w-[80%] mx-auto flex items-center gap-2">
           <NavLink to="/" className={"text-gray-400"}>
-            Home{" "}
+            Home
           </NavLink>
           <span>&gt; Careers</span>
         </div>
@@ -219,42 +315,34 @@ const Careers = () => {
               key={job.id}
               onClick={() => setSelectedJob(job)}
               className={`text-left px-5 py-4 rounded-xl border hover:bg-gray-100 transition ${
-                selectedJob.id === job.id
+                selectedJob?.id === job.id
                   ? "bg-black text-white"
                   : "bg-white text-black"
               }`}
-              aria-label={`Select ${job.title} job details`}
+              aria-label={`Select ${job.attributes.title} job details`}
             >
-              <h3 className="font-semibold text-lg">{job.title}</h3>
-              <p className="text-sm text-gray-500">{job.location}</p>
+              <h3 className="font-semibold text-lg">{job.attributes.title}</h3>
+              <p className="text-sm text-gray-500">{job.attributes.location}</p>
             </button>
           ))}
         </aside>
 
         <article className="flex flex-col gap-6">
           <div>
-            <h2 className="text-2xl font-bold">{selectedJob.title}</h2>
-            <p className="text-sm text-gray-500 mb-3">{selectedJob.location}</p>
+            <h2 className="text-2xl font-bold">
+              {selectedJob?.attributes.title}
+            </h2>
+            <p className="text-sm text-gray-500 mb-3">
+              {selectedJob?.attributes.location}
+            </p>
             <p className="text-gray-700 leading-relaxed">
-              {selectedJob.description}
-            </p>
-            <p className="text-gray-700 leading-relaxed mt-3">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
-              corporis nesciunt sed nam temporibus quos modi assumenda. Id qui
-              harum amet cumque quo quam aut earum delectus, quaerat ducimus
-              voluptas.
-            </p>
-            <p className="text-gray-700 leading-relaxed mt-3">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
-              corporis nesciunt sed nam temporibus quos modi assumenda. Id qui
-              harum amet cumque quo quam aut earum delectus, quaerat ducimus
-              voluptas.
+              {selectedJob?.attributes.description}
             </p>
           </div>
           <button
             onClick={open}
             className="cursor-pointer inline-block bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition"
-            aria-label={`Apply for ${selectedJob.title}`}
+            aria-label={`Apply for ${selectedJob?.attributes.title}`}
           >
             Apply Now
           </button>

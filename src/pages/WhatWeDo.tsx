@@ -7,7 +7,7 @@ import missileDefenceImg from "../assets/images/missileDefence.jpg";
 import spaceImg from "../assets/images/space.webp";
 import possibleImg from "../assets/images/possible.webp";
 import { Helmet } from "react-helmet-async";
-import { companyName } from "../constants";
+import { companyName } from "../utils/constants";
 
 const WhatWeDo = () => {
   return (

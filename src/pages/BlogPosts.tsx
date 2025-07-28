@@ -1,10 +1,110 @@
 import Layout from "../components/Layout";
-import { blogPosts } from "../constants";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { companyName } from "../constants";
+import { companyName } from "../utils/constants";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { showNotification } from "@mantine/notifications";
+import type { StrapiPost } from "../utils/types";
+import { motion, easeOut } from "framer-motion";
 
-const BlogPosts = () => {
+interface BlogPostsProps {
+  posts: StrapiPost[];
+  loading: boolean;
+}
+
+const BlogPosts = ({ posts, loading }: BlogPostsProps) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const postsPerPage = 6;
+
+  useEffect(() => {
+    const fetchTotalPages = async () => {
+      try {
+        const response = await axios.get(
+          `${
+            import.meta.env.VITE_STRAPI_API_URL
+          }/blog-posts?pagination[pageSize]=${postsPerPage}`,
+          {
+            headers: {
+              Authorization: `Bearer ${import.meta.env.VITE_STRAPI_API_TOKEN}`,
+            },
+          }
+        );
+        const total = response.data.meta.pagination.pageCount;
+        setTotalPages(total);
+      } catch (error: any) {
+        showNotification({
+          title: "Error",
+          message:
+            error.response?.status === 401
+              ? "Unauthorized access. Please contact support."
+              : "Failed to load pagination data. Please try again later.",
+          color: "red",
+        });
+      }
+    };
+    fetchTotalPages();
+  }, []);
+
+  const fetchPage = async (page: number) => {
+    try {
+      const response = await axios.get<{ data: StrapiPost[] }>(
+        `${
+          import.meta.env.VITE_STRAPI_API_URL
+        }/blog-posts?sort=createdAt:desc&populate=coverImage&pagination[page]=${page}&pagination[pageSize]=${postsPerPage}`,
+        {
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_STRAPI_API_TOKEN}`,
+          },
+        }
+      );
+      return response.data.data;
+    } catch (error: any) {
+      showNotification({
+        title: "Error",
+        message:
+          error.response?.status === 401
+            ? "Unauthorized access. Please contact support."
+            : "Failed to load blog posts. Please try again later.",
+        color: "red",
+      });
+      return [];
+    }
+  };
+
+  const handlePageChange = async (page: number) => {
+    if (page < 1 || page > totalPages) return;
+    // setLoading(true);
+    // const newPosts = await fetchPage(page);
+    // setPosts(newPosts);
+    setCurrentPage(page);
+    // setLoading(false);
+  };
+
+  const buttonVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        ease: easeOut,
+      },
+    },
+    hover: {
+      scale: 1.05,
+      transition: { duration: 0.3, ease: easeOut },
+    },
+  };
+
+  if (loading)
+    return (
+      <Layout>
+        <p className="text-center py-24 min-h-screen">Loading...</p>
+      </Layout>
+    );
+
   return (
     <Layout>
       <Helmet>
@@ -29,20 +129,22 @@ const BlogPosts = () => {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ItemList",
-            itemListElement: blogPosts.map((post, index) => ({
+            itemListElement: posts.map((post, index) => ({
               "@type": "ListItem",
               position: index + 1,
               item: {
                 "@type": "BlogPosting",
-                url: `https://yourwebsite.com/blog-post/${post.slug}`,
-                headline: post.title,
-                description: post.excerpt,
-                image: post.coverImage,
+                url: `https://yourwebsite.com/blog-post/${post.attributes.slug}`,
+                headline: post.attributes.title,
+                description: post.attributes.excerpt,
+                image: post.attributes.coverImage?.data?.attributes?.url
+                  ? `${post.attributes.coverImage.data.attributes.url}`
+                  : "",
                 author: {
                   "@type": "Person",
-                  name: post.author,
+                  name: post.attributes.author,
                 },
-                datePublished: post.date,
+                datePublished: post.attributes.date,
                 publisher: {
                   "@type": "Organization",
                   name: companyName,
@@ -56,41 +158,78 @@ const BlogPosts = () => {
           })}
         </script>
       </Helmet>
-      <div className="max-w-6xl mx-auto px-4 py-24 min-h-screen">
-        <div className="flex flex-col gap-1 justify-center items-center mb-8">
-          <h1 className="text-3xl font-bold text-center">Our Space Journey</h1>
-          <p className="text-center">
-            Join us as we explore the cosmos, pushing the boundaries of
-            innovation and discovery
+      <div className="max-w-6xl mx-auto px-4 py-28 min-h-screen">
+        <div className="mb-8 flex flex-col gap-1 justify-center items-center text-center">
+          <h1 className="lg:text-3xl text-xl font-bold">Our Space Journey</h1>
+          <p className="lg:text-lg text-base">
+            Read as we explore the cosmos, pushing the boundaries of innovation
+            and discovery
           </p>
         </div>
-        <div className="grid gap-8 md:grid-cols-2">
-          {blogPosts.map((post) => (
-            <NavLink
-              key={post.id}
-              to={`/blog-post/${post.slug}`}
-              className="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-lg transition"
-              aria-label={`Read blog post: ${post.title}`}
-            >
-              <img
-                src={post.coverImage}
-                alt={`${post.title} - ${companyName} blog`}
-                className="w-full h-56 object-cover"
-                loading="lazy"
-              />
-              <div className="p-5">
-                <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
-                <p className="text-gray-500 text-sm mb-3">
-                  {post.author} • {post.date}
-                </p>
-                <p className="text-gray-700">{post.excerpt}</p>
-                <span className="text-blue-600 mt-4 inline-block">
-                  Read more →
-                </span>
-              </div>
-            </NavLink>
-          ))}
-        </div>
+        {posts.length === 0 ? (
+          <p className="text-center">No blog posts available.</p>
+        ) : (
+          <>
+            <div className="grid gap-8 md:grid-cols-2">
+              {posts.map((post) => (
+                <NavLink
+                  key={post.id}
+                  to={`/blog-post/${post.attributes.slug}`}
+                  className="bg-white rounded-xl overflow-hidden shadow-lg"
+                  aria-label={`Read blog post: ${post.attributes.title}`}
+                >
+                  <img
+                    src={
+                      post.attributes.coverImage?.data?.attributes?.url
+                        ? `${post.attributes.coverImage.data.attributes.url}`
+                        : ""
+                    }
+                    alt={`${post.attributes.title} - ${companyName} blog`}
+                    className="w-full h-56 object-cover"
+                    loading="lazy"
+                  />
+                  <div className="p-5">
+                    <h2 className="text-xl font-semibold mb-2">
+                      {post.attributes.title}
+                    </h2>
+
+                    <p className="text-gray-700">{post.attributes.excerpt}</p>
+                    <span className="text-blue-600 mt-4 inline-block">
+                      Read more →
+                    </span>
+                  </div>
+                </NavLink>
+              ))}
+            </div>
+            <div className="mt-8 flex justify-center gap-4">
+              <motion.button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1 || loading}
+                className="bg-black text-white py-2 px-4 rounded-lg disabled:opacity-50"
+                variants={buttonVariants}
+                whileHover="hover"
+                initial="hidden"
+                animate="visible"
+              >
+                Previous
+              </motion.button>
+              <span className="self-center">
+                Page {currentPage} of {totalPages}
+              </span>
+              <motion.button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages || loading}
+                className="bg-black text-white py-2 px-4 rounded-lg disabled:opacity-50"
+                variants={buttonVariants}
+                whileHover="hover"
+                initial="hidden"
+                animate="visible"
+              >
+                Next
+              </motion.button>
+            </div>
+          </>
+        )}
       </div>
     </Layout>
   );

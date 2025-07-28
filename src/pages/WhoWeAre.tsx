@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import peopleImg from "../assets/images/people.jpg";
 import { Helmet } from "react-helmet-async";
-import { companyName } from "../constants";
+import { companyName } from "../utils/constants";
 
 const WhoWeAre = () => {
   return (

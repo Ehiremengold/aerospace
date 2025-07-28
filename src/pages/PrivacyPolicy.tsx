@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 const PrivacyPolicy = () => {
   return (
     <Layout>
-      <div className="max-w-4xl mx-auto px-4 py-12 space-y-6 text-gray-800">
+      <div className="max-w-4xl mx-auto px-4 py-24 space-y-6 text-gray-800">
         <h1 className="text-3xl font-semibold">Privacy Policy</h1>
         <p>
           N&H Construction Co. (“we,” “our,” or “us”) values your privacy. This

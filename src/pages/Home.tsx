@@ -8,9 +8,16 @@ import ManufactureImg from "../assets/images/gh.jpg";
 import redefineImg from "../assets/images/redefine.jpg";
 import womenEngine from "../assets/images/womenEngine.jpg";
 import sustainImg from "../assets/images/sustainability.jpg";
-import { companyName } from "../constants";
+import { companyName } from "../utils/constants";
+import { NavLink } from "react-router-dom";
+import type { StrapiPost } from "../utils/types";
 
-const Home = () => {
+interface HomeProps {
+  posts: StrapiPost[];
+  loading: boolean;
+}
+
+const Home = ({ posts, loading }: HomeProps) => {
   // Animation variants for sections
   const sectionVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -302,20 +309,19 @@ const Home = () => {
         </motion.div>
       </motion.section>
 
+      {/* Redefining Space Technology Section */}
       <motion.section
         className="relative h-[70dvh] w-full"
         variants={sectionVariants}
         initial="hidden"
         animate="visible"
       >
-        {/* Background Image */}
         <img
           src={revotionalImg}
           alt={`Redefining space technology with ${companyName}`}
           className="absolute inset-0 h-full w-full object-cover object-center z-0"
           loading="lazy"
         />
-        {/* Text Overlay - Left and Vertically Centered */}
         <div className="absolute bg-black/60 inset-0 left-0 flex flex-col justify-center gap-3 items-center md:px-6 lg:pl-28 z-20">
           <motion.h2
             variants={heroVariants}
@@ -334,8 +340,93 @@ const Home = () => {
         </div>
       </motion.section>
 
-      {/* Stories Section */}
+      {/* Blog Posts Section */}
       <motion.section
+        className="w-full bg-gray-50 py-16 px-4 md:px-8"
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">
+            Stories that Define Us
+          </h2>
+          {loading ? (
+            <p className="text-center">Loading blog posts...</p>
+          ) : posts.length === 0 ? (
+            <p className="text-center">No blog posts available.</p>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
+              {posts.map((post) => (
+                <motion.div
+                  key={post.id}
+                  className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col"
+                  variants={cardVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  whileHover="hover"
+                  viewport={{ once: true }}
+                >
+                  <NavLink
+                    to={`/blog-post/${post.attributes.slug}`}
+                    aria-label={`Read blog post: ${post.attributes.title}`}
+                  >
+                    <img
+                      src={
+                        post.attributes.coverImage?.data?.attributes?.url
+                          ? `${post.attributes.coverImage.data.attributes.url}`
+                          : ""
+                      }
+                      alt={`${post.attributes.title} - ${companyName} blog`}
+                      className="w-full h-56 object-cover"
+                      loading="lazy"
+                    />
+                    <div className="p-6 flex flex-col justify-between flex-grow">
+                      <div>
+                        <h3 className="text-xl font-semibold mb-2 text-gray-800 line-clamp-1">
+                          {post.attributes.title}
+                        </h3>
+                        {/* <p className="text-gray-500 text-sm mb-3">
+                          {post.attributes.author} • {post.attributes.date}
+                        </p> */}
+                        <p className="text-sm text-gray-600 mb-4 line-clamp-3">
+                          {post.attributes.excerpt}
+                        </p>
+                      </div>
+                      <motion.span
+                        className="text-blue-600 inline-block"
+                        variants={buttonVariants}
+                        whileHover="hover"
+                      >
+                        Read more →
+                      </motion.span>
+                    </div>
+                  </NavLink>
+                </motion.div>
+              ))}
+            </div>
+          )}
+          <motion.div
+            className="mt-8 text-center"
+            variants={buttonVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <a
+              href="/blog-posts"
+              className="inline-flex items-center gap-2 text-sm text-blue-600 hover:underline"
+            >
+              View All Blog Posts
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* Stories Section */}
+      {/* <motion.section
         className="w-full bg-gray-50 py-16 px-4 md:px-8"
         variants={sectionVariants}
         initial="hidden"
@@ -345,7 +436,6 @@ const Home = () => {
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">
           Stories That Define Us
         </h2>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
           {[
             {
@@ -401,7 +491,7 @@ const Home = () => {
             </motion.div>
           ))}
         </div>
-      </motion.section>
+      </motion.section> */}
     </Layout>
   );
 };
