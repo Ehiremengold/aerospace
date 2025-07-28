@@ -146,7 +146,9 @@ const Careers = () => {
   if (loading)
     return (
       <Layout>
-        <p className="text-center py-24 min-h-screen">Loading...</p>
+        <div className="grid place-items-center place-content-center py-24 min-h-screen">
+          <Loader size={30} color="black" />
+        </div>
       </Layout>
     );
 

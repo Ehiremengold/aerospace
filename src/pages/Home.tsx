@@ -8,6 +8,7 @@ import ManufactureImg from "../assets/images/gh.jpg";
 import { companyName } from "../utils/constants";
 import { NavLink } from "react-router-dom";
 import type { StrapiPost } from "../utils/types";
+import { Loader } from "@mantine/core";
 
 interface HomeProps {
   posts: StrapiPost[];
@@ -350,7 +351,9 @@ const Home = ({ posts, loading }: HomeProps) => {
             Stories that Define Us
           </h2>
           {loading ? (
-            <p className="text-center">Loading blog posts...</p>
+            <div className="grid place-items-center place-content-center py-24 min-h-screen">
+              <Loader size={30} color="black" />
+            </div>
           ) : posts?.length === 0 ? (
             <p className="text-center">No blog posts available.</p>
           ) : (
@@ -365,8 +368,8 @@ const Home = ({ posts, loading }: HomeProps) => {
                   whileHover="hover"
                   viewport={{ once: true }}
                 >
-                  <NavLink
-                    to={`/blog-post/${post.attributes.slug}`}
+                  <a
+                    href={`/blog-post/${post.attributes.slug}`}
                     aria-label={`Read blog post: ${post.attributes.title}`}
                   >
                     <img
@@ -399,7 +402,7 @@ const Home = ({ posts, loading }: HomeProps) => {
                         Read more →
                       </motion.span>
                     </div>
-                  </NavLink>
+                  </a>
                 </motion.div>
               ))}
             </div>
