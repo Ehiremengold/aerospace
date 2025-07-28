@@ -50,7 +50,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home posts={posts.slice(0, 3)} loading={loading} />} />
+        <Route path="/" element={<Home posts={posts?.slice(0, 3)} loading={loading} />} />
         <Route path="/who-we-are" element={<WhoWeAre />} />
         <Route path="/what-we-do" element={<WhatWeDo />} />
         <Route path="/careers" element={<Careers />} />
