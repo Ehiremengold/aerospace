@@ -6,7 +6,6 @@ import techInnoImg from "../assets/images/tech-innovation.jpg";
 import revotionalImg from "../assets/images/revotionalizing.jpg";
 import ManufactureImg from "../assets/images/gh.jpg";
 import { companyName } from "../utils/constants";
-import { NavLink } from "react-router-dom";
 import type { StrapiPost } from "../utils/types";
 import { Loader } from "@mantine/core";
 
