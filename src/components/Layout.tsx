@@ -99,7 +99,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
 
           {/* Desktop Nav */}
           <ul className="hidden min-[801px]:flex gap-6">
-            {navItems.map((item) => (
+            {navItems?.map((item) => (
               <li key={item.id} className="relative group">
                 <div className="flex items-center gap-1 cursor-pointer">
                   <a
@@ -141,7 +141,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
           }`}
         >
           <div className="bg-white px-1 py-6 space-y-2 shadow-inner">
-            {navItems.map((item) => (
+            {navItems?.map((item) => (
               <div key={item.id}>
                 <button
                   className="w-full flex justify-between items-center text-sm font-semibold text-left p-5"

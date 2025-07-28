@@ -205,7 +205,7 @@ const Home = ({ posts, loading }: HomeProps) => {
                 src: "https://tailwindcss.com/plus-assets/img/logos/158x48/statamic-logo-gray-900.svg",
                 alt: "Statamic logo",
               },
-            ].map((logo, index) => (
+            ]?.map((logo, index) => (
               <motion.img
                 key={index}
                 width="158"
@@ -355,7 +355,7 @@ const Home = ({ posts, loading }: HomeProps) => {
             <p className="text-center">No blog posts available.</p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
-              {posts.map((post) => (
+              {posts?.map((post) => (
                 <motion.div
                   key={post.id}
                   className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col"
@@ -421,74 +421,6 @@ const Home = ({ posts, loading }: HomeProps) => {
           </motion.div>
         </div>
       </motion.section>
-
-      {/* Stories Section */}
-      {/* <motion.section
-        className="w-full bg-gray-50 py-16 px-4 md:px-8"
-        variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">
-          Stories That Define Us
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
-          {[
-            {
-              img: redefineImg,
-              title: `Redefining ${companyName} Engineering`,
-              desc: "Discover how our engineers are shaping the next era of supersonic innovation using modular designs and AI simulation.",
-              alt: `Redefining ${companyName} engineering story`,
-            },
-            {
-              img: womenEngine,
-              title: "Women in Defense Tech",
-              desc: "Go behind the scenes with the trailblazing women driving innovation in military-grade robotics and avionics.",
-              alt: "Women in defense technology story",
-            },
-            {
-              img: sustainImg,
-              title: `Sustainability in ${companyName}`,
-              desc: "Learn how we are re-imagining defense with sustainability at the core — from eco-fuels to carbon-neutral production lines.",
-              alt: `Sustainability in ${companyName} story`,
-            },
-          ].map((story, index) => (
-            <motion.div
-              key={index}
-              className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col"
-              variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-              whileHover="hover"
-              viewport={{ once: true }}
-            >
-              <img
-                src={story.img}
-                alt={story.alt}
-                className="w-full h-56 object-cover"
-                loading="lazy"
-              />
-              <div className="p-6 flex flex-col justify-between flex-grow">
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-gray-800">
-                    {story.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 mb-4">{story.desc}</p>
-                </div>
-                <motion.button
-                  className="mt-auto inline-flex items-center gap-2 text-sm text-blue-600 hover:underline"
-                  variants={buttonVariants}
-                  whileHover="hover"
-                >
-                  Read More
-                  <ArrowRight className="w-4 h-4" />
-                </motion.button>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </motion.section> */}
     </Layout>
   );
 };
