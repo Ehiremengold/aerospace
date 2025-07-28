@@ -129,7 +129,7 @@ const BlogPosts = ({ posts, loading }: BlogPostsProps) => {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ItemList",
-            itemListElement: posts.map((post, index) => ({
+            itemListElement: posts?.map((post, index) => ({
               "@type": "ListItem",
               position: index + 1,
               item: {
