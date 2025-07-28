@@ -351,7 +351,7 @@ const Home = ({ posts, loading }: HomeProps) => {
           </h2>
           {loading ? (
             <p className="text-center">Loading blog posts...</p>
-          ) : posts.length === 0 ? (
+          ) : posts?.length === 0 ? (
             <p className="text-center">No blog posts available.</p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">

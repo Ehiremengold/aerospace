@@ -166,7 +166,7 @@ const BlogPosts = ({ posts, loading }: BlogPostsProps) => {
             and discovery
           </p>
         </div>
-        {posts.length === 0 ? (
+        {posts?.length === 0 ? (
           <p className="text-center">No blog posts available.</p>
         ) : (
           <>

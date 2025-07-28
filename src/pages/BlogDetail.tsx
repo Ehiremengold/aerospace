@@ -25,10 +25,10 @@ const BlogDetail = () => {
             },
           }
         );
-        if (response.data.data.length === 0) {
+        if (response?.data?.data?.length === 0) {
           setPost(null);
         } else {
-          setPost(response.data.data[0]);
+          setPost(response?.data?.data[0]);
         }
         setLoading(false);
       } catch (error: any) {
