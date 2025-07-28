@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import peopleImg from "../assets/images/people.jpg";
 import { Helmet } from "react-helmet-async";
 import { companyName } from "../utils/constants";
+import ceoImg from "../assets/images/ceo.jpg";
 
 const WhoWeAre = () => {
   return (
@@ -94,6 +95,67 @@ const WhoWeAre = () => {
           <div className="bg-black w-fit text-white text-sm py-2 px-4 flex items-center gap-2 rounded-lg cursor-pointer transition-all duration-300 ease-in-out mx-auto md:mx-0">
             <a href="mailto:contact@yourwebsite.com">Contact us</a>
             <ArrowRight className="w-4 h-4 text-white" />
+          </div>
+        </div>
+      </section>
+      <section className="py-16 px-4 md:px-8 lg:px-16">
+        <div className="max-w-6xl mx-auto flex flex-col-reverse md:flex-row gap-10 items-start">
+          {/* CEO Bio */}
+          <div className="w-full md:w-2/3 space-y-4">
+            <h2 className="text-2xl md:text-4xl font-bold leading-tight text-gray-900">
+              Noah Kahale
+            </h2>
+            <p className="text-gray-600 font-medium">
+              B.Eng Aerospace Engineering <br />
+              CEO, Managing Director — N&H Construction Co.
+            </p>
+
+            <div className="space-y-4 text-gray-700 leading-relaxed text-base">
+              <p>
+                Noah signed and managed production processes for a
+                state-of-the-art <strong>155 mm artillery facility</strong>{" "}
+                producing tens of thousands of rounds annually. This capability
+                significantly bolsters artillery readiness, supports rapid
+                response to emerging threats, and reinforces allied defense
+                postures.
+              </p>
+              <p>
+                <strong>B-21 Raider Stealth Bomber and Space Systems</strong>
+                <br />
+                Contributed to the B-21 Raider program, a next-generation
+                stealth intercontinental bomber that combines low observable
+                design with open-architecture systems. The Raider’s ability to
+                deliver both conventional and nuclear payloads deep into
+                contested airspace underpins strategic deterrence and future
+                force projection.
+              </p>
+              <p>
+                <strong>F-15EX Eagle II and Satellite Systems</strong>
+                <br />
+                Supported integration of advanced avionics, digital fly-by-wire
+                controls, and expanded weapons carriage on the F-15EX Eagle II,
+                enhancing air superiority and complementing stealth platforms.
+                He also advised on secure satellite communication links that
+                provide real-time intelligence, border monitoring, and resilient
+                data exchange for counter-terrorism missions.
+              </p>
+              <p>
+                Noah’s unique blend of deep technical expertise, global program
+                leadership, and entrepreneurial drive positions him at the
+                forefront of aerospace innovation—delivering secure,
+                mission-critical solutions that safeguard national interests and
+                enable tomorrow’s defense capabilities.
+              </p>
+            </div>
+          </div>
+
+          {/* CEO Image */}
+          <div className="w-full md:w-1/3">
+            <img
+              src={ceoImg}
+              alt="Noah Kahale — CEO of N&H Construction Co."
+              className="w-full h-auto object-cover rounded-lg shadow-md"
+            />
           </div>
         </div>
       </section>

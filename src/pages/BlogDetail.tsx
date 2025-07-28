@@ -139,7 +139,7 @@ const BlogDetail = () => {
         <div
           className="prose max-w-none prose-lg"
           dangerouslySetInnerHTML={{ __html: post.attributes.content }}
-        ></div>
+        />
       </div>
     </Layout>
   );

@@ -25,3 +25,11 @@ export interface StrapiJob {
     description: string;
   };
 }
+
+export interface NewsLetter {
+  id: number;
+  attributes: {
+    title: string;
+    news: string;
+  };
+}

@@ -51,12 +51,16 @@ const Layout = ({ children }: { children: ReactNode }) => {
         "Search Jobs by Location",
       ],
     },
-    // /blog-posts
     {
       label: "Blog",
       path: "/blog-posts",
       id: "blog-posts",
       // links: [],
+    },
+    {
+      label: "Newsletter",
+      path: "/newsletter",
+      id: "news-letter",
     },
   ];
 
@@ -98,7 +102,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
           </a>
 
           {/* Desktop Nav */}
-          <ul className="hidden min-[801px]:flex gap-6">
+          <ul className="hidden min-[852px]:flex lg:gap-6 gap-3">
             {navItems?.map((item) => (
               <li key={item.id} className="relative group">
                 <div className="flex items-center gap-1 cursor-pointer">
@@ -114,7 +118,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
           </ul>
 
           {/* Search - Desktop */}
-          <div className="hidden min-[801px]:flex items-center bg-gray-100 rounded-lg px-3 py-2">
+          <div className="hidden min-[852px]:flex items-center bg-gray-100 rounded-lg px-3 py-2">
             <Search className="w-4 h-4 text-gray-500 mr-2" />
             <input
               type="text"
@@ -127,7 +131,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
           {/* Mobile menu toggle */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="min-[801px]:hidden px-2 py-1 border rounded-md"
+            className="min-[852px]:hidden px-2 py-1 border rounded-md"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
           >
             {menuOpen ? <X size={20} /> : <AlignRight size={20} />}
@@ -136,7 +140,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
 
         {/* Mobile Nav Panel */}
         <div
-          className={`min-[801px]:hidden transition-all duration-300 ease-in-out overflow-hidden ${
+          className={`min-[852px]:hidden transition-all duration-300 ease-in-out overflow-hidden ${
             menuOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
           }`}
         >

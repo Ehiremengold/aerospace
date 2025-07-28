@@ -8,15 +8,21 @@ import { showNotification } from "@mantine/notifications";
 import type { StrapiPost } from "../utils/types";
 import { motion, easeOut } from "framer-motion";
 import { Loader } from "@mantine/core";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface BlogPostsProps {
   posts: StrapiPost[];
   loading: boolean;
 }
 
-const BlogPosts = ({ posts, loading }: BlogPostsProps) => {
+const BlogPosts = ({
+  posts: initialPosts,
+  loading: initialLoading,
+}: BlogPostsProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [posts, setPosts] = useState<StrapiPost[]>(initialPosts);
+  const [loading, setLoading] = useState(initialLoading);
   const postsPerPage = 6;
 
   useEffect(() => {
@@ -48,39 +54,41 @@ const BlogPosts = ({ posts, loading }: BlogPostsProps) => {
     fetchTotalPages();
   }, []);
 
-  // const fetchPage = async (page: number) => {
-  //   try {
-  //     const response = await axios.get<{ data: StrapiPost[] }>(
-  //       `${
-  //         import.meta.env.VITE_STRAPI_API_URL
-  //       }/blog-posts?sort=createdAt:desc&populate=coverImage&pagination[page]=${page}&pagination[pageSize]=${postsPerPage}`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${import.meta.env.VITE_STRAPI_API_TOKEN}`,
-  //         },
-  //       }
-  //     );
-  //     return response.data.data;
-  //   } catch (error: any) {
-  //     showNotification({
-  //       title: "Error",
-  //       message:
-  //         error.response?.status === 401
-  //           ? "Unauthorized access. Please contact support."
-  //           : "Failed to load blog posts. Please try again later.",
-  //       color: "red",
-  //     });
-  //     return [];
-  //   }
-  // };
+  useEffect(() => {
+    const fetchPage = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get<{ data: StrapiPost[] }>(
+          `${
+            import.meta.env.VITE_STRAPI_API_URL
+          }/blog-posts?sort=createdAt:desc&populate=coverImage&pagination[page]=${currentPage}&pagination[pageSize]=${postsPerPage}`,
+          {
+            headers: {
+              Authorization: `Bearer ${import.meta.env.VITE_STRAPI_API_TOKEN}`,
+            },
+          }
+        );
+        setPosts(response.data.data);
+      } catch (error: any) {
+        showNotification({
+          title: "Error",
+          message:
+            error.response?.status === 401
+              ? "Unauthorized access. Please contact support."
+              : "Failed to load blog posts. Please try again later.",
+          color: "red",
+        });
+        setPosts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPage();
+  }, [currentPage]);
 
-  const handlePageChange = async (page: number) => {
+  const handlePageChange = (page: number) => {
     if (page < 1 || page > totalPages) return;
-    // setLoading(true);
-    // const newPosts = await fetchPage(page);
-    // setPosts(newPosts);
     setCurrentPage(page);
-    // setLoading(false);
   };
 
   const buttonVariants = {
@@ -99,7 +107,7 @@ const BlogPosts = ({ posts, loading }: BlogPostsProps) => {
     },
   };
 
-  if (loading)
+  if (loading) {
     return (
       <Layout>
         <div className="grid place-items-center place-content-center py-24 min-h-screen">
@@ -107,6 +115,7 @@ const BlogPosts = ({ posts, loading }: BlogPostsProps) => {
         </div>
       </Layout>
     );
+  }
 
   return (
     <Layout>
@@ -195,7 +204,6 @@ const BlogPosts = ({ posts, loading }: BlogPostsProps) => {
                     <h2 className="text-xl font-semibold mb-2">
                       {post.attributes.title}
                     </h2>
-
                     <p className="text-gray-700">{post.attributes.excerpt}</p>
                     <span className="text-blue-600 mt-4 inline-block">
                       Read more →
@@ -204,31 +212,31 @@ const BlogPosts = ({ posts, loading }: BlogPostsProps) => {
                 </NavLink>
               ))}
             </div>
-            <div className="mt-8 flex justify-center gap-4">
+            <div className="mt-24 flex justify-center gap-4">
               <motion.button
                 onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1 || loading}
-                className="bg-black text-white py-2 px-4 rounded-lg disabled:opacity-50"
+                disabled={currentPage === 1}
+                className="bg-black text-white py-2 px-4 text-sm rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 variants={buttonVariants}
-                whileHover="hover"
+                whileHover={currentPage === 1 ? undefined : "hover"}
                 initial="hidden"
                 animate="visible"
               >
-                Previous
+                <ChevronLeft color="white" />
               </motion.button>
               <span className="self-center">
                 Page {currentPage} of {totalPages}
               </span>
               <motion.button
                 onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages || loading}
-                className="bg-black text-white py-2 px-4 rounded-lg disabled:opacity-50"
+                disabled={currentPage === totalPages}
+                className="bg-black text-white py-2 px-4 text-sm rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 variants={buttonVariants}
-                whileHover="hover"
+                whileHover={currentPage === totalPages ? undefined : "hover"}
                 initial="hidden"
                 animate="visible"
               >
-                Next
+                <ChevronRight color="white" />
               </motion.button>
             </div>
           </>
