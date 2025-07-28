@@ -3,7 +3,7 @@ import careerHero from "../assets/images/career-hero.webp";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useState, useEffect } from "react";
-import { companyName } from "../utils/constants";
+import { companyName, domain } from "../utils/constants";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, Loader } from "@mantine/core";
 import axios from "axios";
@@ -166,7 +166,7 @@ const Careers = () => {
           property="og:description"
           content={`Apply for exciting roles at ${companyName} in aerospace engineering, cybersecurity, and defense infrastructure. Start your career today.`}
         />
-        <meta property="og:image" content="/assets/images/career-hero.webp" />
+        <meta property="og:image" content="/assets/images/hero-image.png" />
         <meta name="robots" content="index, follow" />
         <meta
           name="keywords"
@@ -181,7 +181,7 @@ const Careers = () => {
             hiringOrganization: {
               "@type": "Organization",
               name: companyName,
-              sameAs: "https://yourwebsite.com",
+              sameAs: `${domain}`,
             },
             jobLocation: {
               "@type": "Place",

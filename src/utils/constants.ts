@@ -1,5 +1,5 @@
 export const companyName = "N&H Construction Co.";
-export const domain = "";
+export const domain = "https://yourwebsite.com";
 
 export const blogPosts = [
   {

@@ -1,7 +1,7 @@
 import Layout from "../components/Layout";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { companyName } from "../utils/constants";
+import { companyName, domain } from "../utils/constants";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { showNotification } from "@mantine/notifications";
@@ -122,7 +122,7 @@ const BlogPosts = ({ posts, loading }: BlogPostsProps) => {
           property="og:description"
           content={`Read about ${companyName}'s advancements in defense technology, aerospace engineering, and sustainable solutions.`}
         />
-        <meta property="og:image" content="/assets/images/blog-hero.jpg" />
+        <meta property="og:image" content="/assets/images/hero-image.png" />
         <meta name="robots" content="index, follow" />
         <meta
           name="keywords"
@@ -137,7 +137,7 @@ const BlogPosts = ({ posts, loading }: BlogPostsProps) => {
               position: index + 1,
               item: {
                 "@type": "BlogPosting",
-                url: `https://yourwebsite.com/blog-post/${post.attributes.slug}`,
+                url: `${domain}/blog-post/${post.attributes.slug}`,
                 headline: post.attributes.title,
                 description: post.attributes.excerpt,
                 image: post.attributes.coverImage?.data?.attributes?.url

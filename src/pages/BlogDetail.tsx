@@ -1,7 +1,7 @@
 import { NavLink, useParams } from "react-router-dom";
 import Layout from "../components/Layout";
 import { Helmet } from "react-helmet-async";
-import { companyName } from "../utils/constants";
+import { companyName, domain } from "../utils/constants";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { showNotification } from "@mantine/notifications";
@@ -113,7 +113,7 @@ const BlogDetail = () => {
             },
             mainEntityOfPage: {
               "@type": "WebPage",
-              "@id": `https://yourwebsite.com/blog-post/${post.attributes.slug}`,
+              "@id": `${domain}/blog-post/${post.attributes.slug}`,
             },
           })}
         </script>
