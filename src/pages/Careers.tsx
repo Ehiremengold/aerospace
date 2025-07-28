@@ -310,7 +310,7 @@ const Careers = () => {
           <h2 className="text-2xl font-semibold mb-2">
             Explore Open Roles at {companyName}
           </h2>
-          {jobs.map((job) => (
+          {jobs?.map((job) => (
             <button
               key={job.id}
               onClick={() => setSelectedJob(job)}

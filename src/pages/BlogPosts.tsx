@@ -171,7 +171,7 @@ const BlogPosts = ({ posts, loading }: BlogPostsProps) => {
         ) : (
           <>
             <div className="grid gap-8 md:grid-cols-2">
-              {posts.map((post) => (
+              {posts?.map((post) => (
                 <NavLink
                   key={post.id}
                   to={`/blog-post/${post.attributes.slug}`}
