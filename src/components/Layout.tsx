@@ -147,7 +147,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
                   className="w-full flex justify-between items-center text-sm font-semibold text-left p-5"
                   aria-label={`Toggle ${item.label} dropdown`}
                 >
-                  <NavLink to={item.path}>{item.label}</NavLink>
+                  <a href={item.path}>{item.label}</a>
                   {/* {openDropdown === item.id ? (
                     <ChevronUp
                       size={16}
