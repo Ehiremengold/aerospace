@@ -1,9 +1,29 @@
+import { Helmet } from "react-helmet-async";
 import Layout from "../components/Layout";
+import { companyName } from "../utils/constants";
 
 const Accessibility = () => {
   return (
     <Layout>
-      {" "}
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Accessibility | {companyName}</title>
+        <meta
+          name="description"
+          content={`Discover ${companyName}'s cutting-edge defense and aerospace solutions, pioneering next-gen infrastructure for mission-critical performance.`}
+        />
+        <meta property="og:title" content={`Accessibility | ${companyName}`} />
+        <meta
+          property="og:description"
+          content={`Explore ${companyName}'s innovative technologies in defense, aerospace, and infrastructure, shaping the future of global security.`}
+        />
+        <meta property="og:image" content="/assets/images/hero-image.png" />
+        <meta name="robots" content="index, follow" />
+        <meta
+          name="keywords"
+          content={`defense technology, aerospace engineering, next-gen infrastructure, mission-critical solutions, ${companyName}`}
+        />
+      </Helmet>
       <div className="max-w-4xl mx-auto px-4 py-24 space-y-6 text-gray-800">
         <h1 className="text-3xl font-semibold">Accessibility Statement</h1>
         <p>
