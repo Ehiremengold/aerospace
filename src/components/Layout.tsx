@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { ReactNode } from "react";
 import { NavLink } from "react-router-dom";
-import { AlignRight, ChevronDown, ChevronUp, Search, X } from "lucide-react";
+import { AlignRight, Search, X } from "lucide-react";
 import { FaFacebook } from "react-icons/fa";
 import { IoLogoInstagram } from "react-icons/io";
 import { FaXTwitter } from "react-icons/fa6";
@@ -11,7 +11,7 @@ import { companyName } from "../utils/constants";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [openDropdown] = useState<string | null>(null);
 
   const navItems = [
     {

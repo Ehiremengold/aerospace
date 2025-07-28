@@ -47,31 +47,31 @@ const BlogPosts = ({ posts, loading }: BlogPostsProps) => {
     fetchTotalPages();
   }, []);
 
-  const fetchPage = async (page: number) => {
-    try {
-      const response = await axios.get<{ data: StrapiPost[] }>(
-        `${
-          import.meta.env.VITE_STRAPI_API_URL
-        }/blog-posts?sort=createdAt:desc&populate=coverImage&pagination[page]=${page}&pagination[pageSize]=${postsPerPage}`,
-        {
-          headers: {
-            Authorization: `Bearer ${import.meta.env.VITE_STRAPI_API_TOKEN}`,
-          },
-        }
-      );
-      return response.data.data;
-    } catch (error: any) {
-      showNotification({
-        title: "Error",
-        message:
-          error.response?.status === 401
-            ? "Unauthorized access. Please contact support."
-            : "Failed to load blog posts. Please try again later.",
-        color: "red",
-      });
-      return [];
-    }
-  };
+  // const fetchPage = async (page: number) => {
+  //   try {
+  //     const response = await axios.get<{ data: StrapiPost[] }>(
+  //       `${
+  //         import.meta.env.VITE_STRAPI_API_URL
+  //       }/blog-posts?sort=createdAt:desc&populate=coverImage&pagination[page]=${page}&pagination[pageSize]=${postsPerPage}`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${import.meta.env.VITE_STRAPI_API_TOKEN}`,
+  //         },
+  //       }
+  //     );
+  //     return response.data.data;
+  //   } catch (error: any) {
+  //     showNotification({
+  //       title: "Error",
+  //       message:
+  //         error.response?.status === 401
+  //           ? "Unauthorized access. Please contact support."
+  //           : "Failed to load blog posts. Please try again later.",
+  //       color: "red",
+  //     });
+  //     return [];
+  //   }
+  // };
 
   const handlePageChange = async (page: number) => {
     if (page < 1 || page > totalPages) return;
