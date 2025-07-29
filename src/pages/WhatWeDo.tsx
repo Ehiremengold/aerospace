@@ -1,5 +1,5 @@
 import wwdHero from "../assets/images/wwdHero.webp";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import Layout from "../components/Layout";
 import advancedImg from "../assets/images/advanced.webp";
 import aircraftImg from "../assets/images/aircraft.jpg";
@@ -8,8 +8,37 @@ import spaceImg from "../assets/images/space.webp";
 import possibleImg from "../assets/images/possible.webp";
 import { Helmet } from "react-helmet-async";
 import { companyName } from "../utils/constants";
+import { useEffect } from "react";
 
 const WhatWeDo = () => {
+  const location = useLocation();
+  useEffect(() => {
+    if (location.hash === "#advanced-weapons") {
+      const element = document.getElementById("advanced-weapons");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+    if (location.hash === "#space") {
+      const element = document.getElementById("space");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+    if (location.hash === "#aircraft") {
+      const element = document.getElementById("aircraft");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+    if (location.hash === "#missile-defense") {
+      const element = document.getElementById("missile-defense");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [location.hash]);
+
   return (
     <Layout>
       <Helmet>
@@ -82,7 +111,10 @@ const WhatWeDo = () => {
             />
           </div>
 
-          <div className="flex flex-col gap-4 w-full md:w-1/2 text-center md:text-left">
+          <div
+            id="advanced-weapons"
+            className="flex flex-col gap-4 w-full md:w-1/2 text-center md:text-left"
+          >
             <h2 className="font-bold text-2xl md:text-4xl leading-tight text-white">
               Advanced Weapons
             </h2>
@@ -95,7 +127,10 @@ const WhatWeDo = () => {
             </p>
           </div>
         </div>
-        <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12 px-4 md:px-8 lg:px-16 max-w-7xl mx-auto">
+        <div
+          className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12 px-4 md:px-8 lg:px-16 max-w-7xl mx-auto"
+          id="aircraft"
+        >
           <div className="flex flex-col gap-4 w-full md:w-1/2 text-center md:text-left">
             <h2 className="font-bold text-2xl md:text-4xl leading-tight text-white">
               Aircraft
@@ -119,7 +154,10 @@ const WhatWeDo = () => {
             />
           </div>
         </div>
-        <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12 px-4 md:px-8 lg:px-16 max-w-7xl mx-auto">
+        <div
+          className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12 px-4 md:px-8 lg:px-16 max-w-7xl mx-auto"
+          id="missile-defense"
+        >
           <div className="w-full md:w-1/2">
             <img
               src={missileDefenceImg}
@@ -144,7 +182,10 @@ const WhatWeDo = () => {
             </p>
           </div>
         </div>
-        <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12 px-4 md:px-8 lg:px-16 max-w-7xl mx-auto">
+        <div
+          id="space"
+          className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12 px-4 md:px-8 lg:px-16 max-w-7xl mx-auto"
+        >
           <div className="flex flex-col gap-4 w-full md:w-1/2 text-center md:text-left">
             <h2 className="font-bold text-2xl md:text-4xl leading-tight text-white">
               Space

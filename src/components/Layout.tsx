@@ -242,7 +242,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
                     Careers
                   </a>
                   <a
-                    href="/news"
+                    href="/newsletter"
                     className="text-sm text-gray-400 cursor-pointer hover:underline transition-all ease-in-out duration-300"
                   >
                     News
@@ -265,16 +265,16 @@ const Layout = ({ children }: { children: ReactNode }) => {
                     Space Technology
                   </a>
                   <a
-                    href="/what-we-do#cybersecurity"
+                    href="/what-we-do#aircraft"
                     className="text-sm text-gray-400 cursor-pointer hover:underline transition-all ease-in-out duration-300"
                   >
-                    Cybersecurity
+                    Aircraft
                   </a>
                   <a
-                    href="/what-we-do#innovation"
+                    href="/what-we-do#missile-defense"
                     className="text-sm text-gray-400 cursor-pointer hover:underline transition-all ease-in-out duration-300"
                   >
-                    Innovation Labs
+                    Missile Defense
                   </a>
                 </ul>
               </div>
@@ -299,14 +299,14 @@ const Layout = ({ children }: { children: ReactNode }) => {
                   >
                     Media Center
                   </a>
-                  <a
+                  {/* <a
                     href="/supplies"
                     className="text-sm text-gray-400 cursor-pointer hover:underline transition-all ease-in-out duration-300"
                   >
                     Supplies Portal
-                  </a>
+                  </a> */}
                 </ul>
-                <div className="flex gap-2 items-center mt-5">
+                <div className="flex gap-2 items-center mt-2">
                   <a
                     href="https://facebook.com/yourcompany"
                     aria-label="Facebook"
@@ -375,7 +375,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
                 </li>
                 <li>
                   <a
-                    href="/news"
+                    href="/newsletter"
                     className="text-sm text-gray-400 hover:underline"
                   >
                     News
@@ -404,18 +404,18 @@ const Layout = ({ children }: { children: ReactNode }) => {
                 </li>
                 <li>
                   <a
-                    href="/what-we-do#cybersecurity"
+                    href="/what-we-do#aircraft"
                     className="text-sm text-gray-400 hover:underline"
                   >
-                    Cybersecurity
+                    Aircraft
                   </a>
                 </li>
                 <li>
                   <a
-                    href="/what-we-do#innovation"
+                    href="/what-we-do#missile-defense"
                     className="text-sm text-gray-400 hover:underline"
                   >
-                    Innovation Labs
+                    Missile Defense
                   </a>
                 </li>
               </ul>
@@ -447,16 +447,16 @@ const Layout = ({ children }: { children: ReactNode }) => {
                     Media Center
                   </a>
                 </li>
-                <li>
+                {/* <li>
                   <a
                     href="/supplies"
                     className="text-sm text-gray-400 hover:underline"
                   >
                     Supplies Portal
                   </a>
-                </li>
+                </li> */}
               </ul>
-              <div className="flex gap-2 items-center mt-5">
+              <div className="flex gap-2 items-center mt-2">
                 <a
                   href="https://facebook.com/yourcompany"
                   aria-label="Facebook"

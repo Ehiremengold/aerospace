@@ -1,13 +1,24 @@
 import Layout from "../components/Layout";
 import wwaHero from "../assets/images/wwa.webp";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import peopleImg from "../assets/images/people.jpg";
 import { Helmet } from "react-helmet-async";
 import { companyName } from "../utils/constants";
 import ceoImg from "../assets/images/ceo.jpg";
+import { useEffect } from "react";
 
 const WhoWeAre = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash === "#leadership") {
+      const element = document.getElementById("leadership");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [location.hash]); //
   return (
     <Layout>
       <Helmet>
@@ -98,7 +109,7 @@ const WhoWeAre = () => {
           </div>
         </div>
       </section>
-      <section className="py-16 px-4 md:px-8 lg:px-16">
+      <section className="py-16 px-4 md:px-8 lg:px-16" id="leadership">
         <div className="max-w-6xl mx-auto flex flex-col-reverse md:flex-row gap-10 items-start">
           {/* CEO Bio */}
           <div className="w-full md:w-2/3 space-y-4">
