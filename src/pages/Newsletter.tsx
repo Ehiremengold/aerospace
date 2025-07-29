@@ -3,12 +3,12 @@ import Layout from "../components/Layout";
 import type { NewsLetter } from "../utils/types";
 import axios from "axios";
 import { showNotification } from "@mantine/notifications";
-import { Loader } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { Helmet } from "react-helmet-async";
 import { companyName } from "../utils/constants";
+import { Loader } from "@mantine/core";
 
 const Newsletter = () => {
   const [newsletter, setNewsletter] = useState<NewsLetter | null>(null);

@@ -6,10 +6,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { showNotification } from "@mantine/notifications";
 import type { StrapiPost } from "../utils/types";
-import { Loader } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
+import { Loader } from "@mantine/core";
 
 const BlogDetail = () => {
   const { slug } = useParams<{ slug: string }>();

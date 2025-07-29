@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet-async";
 import { useState, useEffect } from "react";
 import { companyName, domain } from "../utils/constants";
 import { useDisclosure } from "@mantine/hooks";
-import { Modal, Loader } from "@mantine/core";
+import { Loader, Modal, Text, Title } from "@mantine/core";
 import axios from "axios";
 import { showNotification } from "@mantine/notifications";
 import type { StrapiJob } from "../utils/types";
@@ -15,6 +15,7 @@ const Careers = () => {
   const [selectedJob, setSelectedJob] = useState<StrapiJob | null>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [submissionSuccess, setSubmissionSuccess] = useState(false); // New state for success
   const [opened, { open, close }] = useDisclosure(false);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -60,6 +61,7 @@ const Careers = () => {
     setCoverLetter("");
     setResume(null);
     setError("");
+    setSubmissionSuccess(false); // Reset success state
     close();
   };
 
@@ -93,6 +95,7 @@ const Careers = () => {
       return;
     }
     setSubmitting(true);
+    setError(""); // Clear previous errors
     try {
       const formData = new FormData();
       formData.append(
@@ -117,13 +120,12 @@ const Careers = () => {
           },
         }
       );
+      setSubmissionSuccess(true); // Set success state
       showNotification({
         title: "Success",
-        message:
-          "Application submitted successfully! We'll get back to you soon.",
+        message: "Application submitted successfully! We'll get back to you soon.",
         color: "green",
       });
-      handleClose();
     } catch (error: any) {
       const errorMessage =
         error.response?.status === 401
@@ -148,6 +150,7 @@ const Careers = () => {
       <Layout>
         <div className="grid place-items-center place-content-center py-24 min-h-screen">
           <Loader size={30} color="black" />
+          <Text>Loading job opportunities...</Text>
         </div>
       </Layout>
     );
@@ -187,16 +190,11 @@ const Careers = () => {
               "@type": "Place",
               address: {
                 "@type": "PostalAddress",
-                addressLocality:
-                  selectedJob?.attributes.location.split(", ")[0],
-                addressRegion: selectedJob?.attributes.location.includes(
-                  "Nigeria"
-                )
+                addressLocality: selectedJob?.attributes.location.split(", ")[0],
+                addressRegion: selectedJob?.attributes.location.includes("Nigeria")
                   ? "NG"
                   : null,
-                addressCountry: selectedJob?.attributes.location.includes(
-                  "Nigeria"
-                )
+                addressCountry: selectedJob?.attributes.location.includes("Nigeria")
                   ? "NG"
                   : "Remote",
               },
@@ -214,68 +212,101 @@ const Careers = () => {
         opened={opened}
         onClose={handleClose}
         className="font-poppins"
-        title={`${selectedJob?.attributes.title} Application`}
+        title={
+          submissionSuccess
+            ? "Application Submitted"
+            : `${selectedJob?.attributes.title} Application`
+        }
       >
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <input
-            type="text"
-            placeholder="Full Name"
-            className="border rounded px-4 py-2"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            aria-label="Full Name"
-            disabled={submitting}
-          />
-          <input
-            type="tel"
-            placeholder="Phone Number"
-            className="border rounded px-4 py-2"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            required
-            aria-label="Phone Number"
-            disabled={submitting}
-          />
-          <input
-            type="email"
-            placeholder="Email Address"
-            className="border rounded px-4 py-2"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            aria-label="Email Address"
-            disabled={submitting}
-          />
-          <textarea
-            placeholder="Cover Letter (optional)"
-            rows={4}
-            className="border rounded px-4 py-2"
-            value={coverLetter}
-            onChange={(e) => setCoverLetter(e.target.value)}
-            aria-label="Cover Letter"
-            disabled={submitting}
-          ></textarea>
-          <input
-            type="file"
-            accept=".pdf"
-            className="border rounded px-4 py-2"
-            onChange={(e) => setResume(e.target.files?.[0] || null)}
-            required
-            aria-label="Upload Resume (PDF, required)"
-            disabled={submitting}
-          />
-          {error && <p className="text-red-600 text-sm">{error}</p>}
-          <button
-            type="submit"
-            className="bg-black text-white hover:bg-gray-800 py-2 rounded-md disabled:opacity-50 flex items-center justify-center"
-            aria-label="Submit Application"
-            disabled={submitting}
-          >
-            {submitting ? <Loader size="sm" className="mr-2" /> : null}
-            {submitting ? "Submitting..." : "Submit Application"}
-          </button>
-        </form>
+        {submissionSuccess ? (
+          <div className="flex flex-col gap-4 text-center">
+            <Title order={3} className="text-green-600">
+              Thank You for Your Application!
+            </Title>
+            <Text>
+              Your application for {selectedJob?.attributes.title} has been
+              successfully submitted. We'll get back to you soon.
+            </Text>
+            <button
+              onClick={handleClose}
+              className="bg-black text-white hover:bg-gray-800 py-2 rounded-md"
+              aria-label="Close modal"
+            >
+              Close
+            </button>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <input
+              type="text"
+              placeholder="Full Name"
+              className="border rounded px-4 py-2"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              aria-label="Full Name"
+              disabled={submitting}
+            />
+            <input
+              type="tel"
+              placeholder="Phone Number"
+              className="border rounded px-4 py-2"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              required
+              aria-label="Phone Number"
+              disabled={submitting}
+            />
+            <input
+              type="email"
+              placeholder="Email Address"
+              className="border rounded px-4 py-2"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              aria-label="Email Address"
+              disabled={submitting}
+            />
+            <textarea
+              placeholder="Cover Letter (optional)"
+              rows={4}
+              className="border rounded px-4 py-2"
+              value={coverLetter}
+              onChange={(e) => setCoverLetter(e.target.value)}
+              aria-label="Cover Letter"
+              disabled={submitting}
+            ></textarea>
+            <input
+              type="file"
+              accept=".pdf"
+              className="border rounded px-4 py-2"
+              onChange={(e) => setResume(e.target.files?.[0] || null)}
+              required
+              aria-label="Upload Resume (PDF, required)"
+              disabled={submitting}
+            />
+            {error && (
+              <Text color="red" size="sm" aria-live="assertive">
+                {error}
+              </Text>
+            )}
+            <button
+              type="submit"
+              className="bg-black text-white hover:bg-gray-800 py-2 rounded-md disabled:opacity-50 flex items-center justify-center"
+              aria-label={submitting ? "Submitting application" : "Submit Application"}
+              disabled={submitting}
+            >
+              {submitting ? (
+                <>
+                  <Loader size="sm" className="mr-2" />
+                  Submitting...
+                </>
+              ) : (
+                "Submit Application"
+              )}
+            </button>
+          </form>
+        )}
       </Modal>
 
       <section className="relative h-[70dvh] w-full">

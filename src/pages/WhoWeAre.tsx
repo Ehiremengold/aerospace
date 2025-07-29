@@ -111,46 +111,121 @@ const WhoWeAre = () => {
       </section>
       <section className="py-16 px-4 md:px-8 lg:px-16" id="leadership">
         <div className="max-w-6xl mx-auto flex flex-col-reverse md:flex-row gap-10 items-start">
-          {/* CEO Bio */}
-          <div className="w-full md:w-2/3 space-y-4">
-            <h2 className="text-2xl md:text-4xl font-bold leading-tight text-gray-900">
-              Noah Kahale
-            </h2>
-            <p className="text-gray-600 font-medium">
-              B.Eng Aerospace Engineering <br />
-              CEO, Managing Director — N&H Construction Co.
-            </p>
+          <div className="w-full md:w-2/3 space-y-6">
+            <div>
+              <h2 className="text-2xl md:text-4xl font-bold leading-tight text-gray-900">
+                Noah Kahale
+              </h2>
+              <p className="text-gray-600 font-medium">
+                B.Eng Aerospace Engineering <br />
+                CEO, Managing Director — N&H Construction Co.
+              </p>
+            </div>
 
-            <div className="space-y-4 text-gray-700 leading-relaxed text-base">
-              <p>
-                Noah signed and managed production processes for a
-                state-of-the-art <strong>155 mm artillery facility</strong>{" "}
-                producing tens of thousands of rounds annually. This capability
-                significantly bolsters artillery readiness, supports rapid
-                response to emerging threats, and reinforces allied defense
-                postures.
-              </p>
-              <p>
-                <strong>B-21 Raider Stealth Bomber and Space Systems</strong>
-                <br />
-                Contributed to the B-21 Raider program, a next-generation
-                stealth intercontinental bomber that combines low observable
-                design with open-architecture systems. The Raider’s ability to
-                deliver both conventional and nuclear payloads deep into
-                contested airspace underpins strategic deterrence and future
-                force projection.
-              </p>
-              <p>
-                <strong>F-15EX Eagle II and Satellite Systems</strong>
-                <br />
-                Supported integration of advanced avionics, digital fly-by-wire
-                controls, and expanded weapons carriage on the F-15EX Eagle II,
-                enhancing air superiority and complementing stealth platforms.
-                He also advised on secure satellite communication links that
-                provide real-time intelligence, border monitoring, and resilient
-                data exchange for counter-terrorism missions.
-              </p>
-              <p>
+            <div className="space-y-6 text-gray-700 leading-relaxed text-base">
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900">
+                  Education and Qualifications
+                </h3>
+                <p>
+                  Noah holds a{" "}
+                  <strong>
+                    Bachelor of Engineering in Aerospace Engineering
+                  </strong>{" "}
+                  from the University of Technology Hawaii. He has also earned
+                  specialized diplomas in{" "}
+                  <strong>Radar System Design and Building</strong>,{" "}
+                  <strong>Radar Security Management</strong>,{" "}
+                  <strong>Risk Management in Engineering</strong>, and{" "}
+                  <strong>Operational Analysis</strong>.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900">
+                  Professional Experience
+                </h3>
+                <p>
+                  With over 30 years in the aerospace defense industry, Noah
+                  spent more than two decades as an{" "}
+                  <strong>Aerospace Engineer at Northrop Grumman</strong>,
+                  contributing to cutting-edge radar and security systems. Five
+                  years ago, he founded <strong>N&H Construction Co.</strong>, a
+                  consultancy delivering tailored aerospace and defense
+                  solutions worldwide.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900">
+                  Regional and Global Focus
+                </h3>
+                <p>
+                  Originally based in New Zealand, Noah set strategic goals for
+                  his firm before relocating to Australia to advance his career.
+                  He now plays a pivotal role in the{" "}
+                  <strong>Australian aerospace defense sector</strong>,
+                  leveraging international trade incentives as Australia emerges
+                  as the second-largest business jet market in the Asia-Pacific
+                  region.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900">
+                  Key Projects
+                </h3>
+                <ul className="space-y-3 list-disc ml-6 mt-2">
+                  <li>
+                    <strong>
+                      NASA Collaborations, NORAD, The Aerospace Corporation
+                    </strong>
+                    <br />
+                    Provided engineering expertise to flagship programs across
+                    civil and defense space agencies.
+                  </li>
+                  <li>
+                    <strong>Project 621B</strong>
+                    <br />
+                    Contributed to foundational work on space-based navigation,
+                    pioneering pseudorandom noise signals and multilateration
+                    techniques that informed the development of the modern{" "}
+                    <strong>Global Positioning System (GPS)</strong>, enhancing
+                    precision navigation for missile guidance, troop movements,
+                    and counter-terrorism operations.
+                  </li>
+                  <li>
+                    <strong>155 mm Artillery Ammunition Facility</strong>
+                    <br />
+                    Designed and managed production processes for a
+                    state-of-the-art facility producing tens of thousands of
+                    rounds annually, bolstering artillery readiness and
+                    supporting rapid response to emerging threats.
+                  </li>
+                  <li>
+                    <strong>
+                      B-21 Raider Stealth Bomber and Space Systems
+                    </strong>
+                    <br />
+                    Contributed to the B-21 Raider program, a next-generation
+                    stealth intercontinental bomber combining low observable
+                    design with open-architecture systems, enabling strategic
+                    deterrence and future force projection.
+                  </li>
+                  <li>
+                    <strong>F-15EX Eagle II and Satellite Systems</strong>
+                    <br />
+                    Supported integration of advanced avionics, digital
+                    fly-by-wire controls, and expanded weapons carriage on the
+                    F-15EX Eagle II, enhancing air superiority. Advised on
+                    secure satellite communication links for real-time
+                    intelligence, border monitoring, and resilient data exchange
+                    for counter-terrorism missions.
+                  </li>
+                </ul>
+              </div>
+
+              <p className="font-semibold">
                 Noah’s unique blend of deep technical expertise, global program
                 leadership, and entrepreneurial drive positions him at the
                 forefront of aerospace innovation—delivering secure,
@@ -160,12 +235,11 @@ const WhoWeAre = () => {
             </div>
           </div>
 
-          {/* CEO Image */}
           <div className="w-full md:w-1/3">
             <img
               src={ceoImg}
               alt="Noah Kahale — CEO of N&H Construction Co."
-              className="w-full h-auto object-cover rounded-lg shadow-md"
+              className="w-full h-auto object-cover rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300"
             />
           </div>
         </div>
