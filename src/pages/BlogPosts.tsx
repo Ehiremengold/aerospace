@@ -7,7 +7,7 @@ import axios from "axios";
 import { showNotification } from "@mantine/notifications";
 import type { StrapiPost } from "../utils/types";
 import { motion, easeOut } from "framer-motion";
-import { Loader } from "@mantine/core";
+import { Loader } from "lucide-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface BlogPostsProps {

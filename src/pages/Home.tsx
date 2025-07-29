@@ -7,7 +7,7 @@ import revotionalImg from "../assets/images/revotionalizing.jpg";
 import ManufactureImg from "../assets/images/gh.jpg";
 import { companyName } from "../utils/constants";
 import type { StrapiPost } from "../utils/types";
-import { Loader } from "@mantine/core";
+import { Loader } from "lucide-react";
 
 interface HomeProps {
   posts: StrapiPost[];

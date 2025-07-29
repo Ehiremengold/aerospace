@@ -106,12 +106,16 @@ const Layout = ({ children }: { children: ReactNode }) => {
             {navItems?.map((item) => (
               <li key={item.id} className="relative group">
                 <div className="flex items-center gap-1 cursor-pointer">
-                  <a
-                    href={item.path}
-                    className="text-sm font-medium hover:text-blue-700 transition"
+                  <NavLink
+                    to={item.path}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-sm font-medium text-blue-700"
+                        : "text-sm font-medium hover:text-blue-700 transition-colors duration-300 ease-in-out"
+                    }
                   >
                     {item.label}
-                  </a>
+                  </NavLink>
                 </div>
               </li>
             ))}

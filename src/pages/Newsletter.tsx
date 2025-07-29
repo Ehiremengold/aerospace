@@ -72,7 +72,7 @@ const Newsletter = () => {
             {newsletter.attributes.title}
           </h1>
         </div>
-        <div className="prose max-w-none prose-headings:font-bold prose-headings:text-2xl md:prose-headings:text-3xl prose-ul:list-disc prose-ul:ml-6 prose-ol:list-decimal prose-ol:ml-6 prose-table:w-full prose-table:border-collapse prose-table:border prose-th:border prose-td:border prose-img:rounded-lg prose-img:shadow-md prose-blockquote:border-l-4 prose-blockquote:pl-4 prose-blockquote:text-gray-600">
+        <div className="prose space-y-3 max-w-none prose-headings:font-bold prose-headings:text-2xl md:prose-headings:text-3xl prose-ul:list-disc prose-ul:ml-6 prose-ol:list-decimal prose-ol:ml-6 prose-table:w-full prose-table:border-collapse prose-table:border prose-th:border prose-td:border prose-img:rounded-lg prose-img:shadow-md prose-blockquote:border-l-4 prose-blockquote:pl-4 prose-blockquote:text-gray-600">
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeRaw]}
@@ -85,7 +85,7 @@ const Newsletter = () => {
                       : `${import.meta.env.VITE_STRAPI_API_URL}${src}`
                   }
                   alt={alt}
-                  className="w-full h-auto rounded-lg shadow-md my-4"
+                  className="w-full h-auto rounded-lg shadow-md"
                 />
               ),
               table: ({ children }) => (
@@ -96,7 +96,7 @@ const Newsletter = () => {
                 </div>
               ),
               h1: ({ children }) => (
-                <h1 className="font-semibold text-3xl">{children}</h1>
+                <h1 className="font-semibold md:text-3xl text-xl">{children}</h1>
               ),
               h2: ({ children }) => (
                 <h2 className="text-xl font-semibold">{children}</h2>
@@ -104,7 +104,7 @@ const Newsletter = () => {
               h3: ({ children }) => (
                 <h3 className="font-semibold font-lg">{children}</h3>
               ),
-              p: ({ children }) => <p className="mb-3">{children}</p>,
+              p: ({ children }) => <p className="">{children}</p>,
               th: ({ children }) => (
                 <th className="border border-gray-300 p-2 bg-gray-100">
                   {children}
