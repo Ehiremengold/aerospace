@@ -7,7 +7,7 @@ import { IoLogoInstagram } from "react-icons/io";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
 import { Helmet } from "react-helmet-async";
-import { companyName } from "../utils/constants";
+import { companyName, domain } from "../utils/constants";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -76,7 +76,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
             "@context": "https://schema.org",
             "@type": "Organization",
             name: companyName,
-            url: "https://yourwebsite.com",
+            url: `${domain}`,
             logo: "/assets/images/logo.png",
             description: `${companyName} is a global leader in defense, aerospace, and cybersecurity, delivering innovative solutions for mission-critical performance.`,
             address: {

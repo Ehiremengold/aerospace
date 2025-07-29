@@ -7,6 +7,8 @@ import { Loader } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
+import { Helmet } from "react-helmet-async";
+import { companyName } from "../utils/constants";
 
 const Newsletter = () => {
   const [newsletter, setNewsletter] = useState<NewsLetter | null>(null);
@@ -66,6 +68,25 @@ const Newsletter = () => {
 
   return (
     <Layout>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Newsletter | {companyName}</title>
+        <meta
+          name="description"
+          content={`Discover ${companyName}'s cutting-edge defense and aerospace solutions, pioneering next-gen infrastructure for mission-critical performance.`}
+        />
+        <meta property="og:title" content={`Accessibility | ${companyName}`} />
+        <meta
+          property="og:description"
+          content={`Explore ${companyName}'s innovative technologies in defense, aerospace, and infrastructure, shaping the future of global security.`}
+        />
+        <meta property="og:image" content="/assets/images/hero-image.png" />
+        <meta name="robots" content="index, follow" />
+        <meta
+          name="keywords"
+          content={`defense technology, aerospace engineering, next-gen infrastructure, mission-critical solutions, ${companyName}`}
+        />
+      </Helmet>
       <div className="max-w-5xl mx-auto px-4 py-16 md:py-28 text-gray-800 space-y-10">
         <div className="my-6 flex flex-col gap-1 justify-center items-center text-center">
           <h1 className="lg:text-4xl text-2xl font-semibold">
@@ -96,7 +117,9 @@ const Newsletter = () => {
                 </div>
               ),
               h1: ({ children }) => (
-                <h1 className="font-semibold md:text-3xl text-xl">{children}</h1>
+                <h1 className="font-semibold md:text-3xl text-xl">
+                  {children}
+                </h1>
               ),
               h2: ({ children }) => (
                 <h2 className="text-xl font-semibold">{children}</h2>
