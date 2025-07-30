@@ -1,7 +1,5 @@
-import React from "react";
 import Layout from "../components/Layout";
 import { Helmet } from "react-helmet-async";
-
 import video1 from "../assets/videos/video-1.mp4";
 import video2 from "../assets/videos/video-2.mp4";
 import video3 from "../assets/videos/video-3.mp4";

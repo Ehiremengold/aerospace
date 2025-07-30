@@ -1,7 +1,7 @@
 import { useDisclosure } from "@mantine/hooks";
 import Layout from "../components/Layout";
 import { Helmet } from "react-helmet-async";
-import { Modal, Text, Title } from "@mantine/core";
+import { Modal, Text } from "@mantine/core";
 import { useState } from "react";
 import { showNotification } from "@mantine/notifications";
 import axios from "axios";
@@ -12,10 +12,10 @@ const ContactUs = () => {
   const [telephone, setTelephone] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
+  const [, setError] = useState("");
   const [opened, { open, close }] = useDisclosure(false);
   const [submitting, setSubmitting] = useState(false);
-  const [submissionSuccess, setSubmissionSuccess] = useState(false);
+  const [, setSubmissionSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -84,9 +84,7 @@ const ContactUs = () => {
       </Helmet>
       <Modal centered opened={opened} onClose={close}>
         <div className="flex flex-col gap-4 text-center font-poppins items-center justify-center">
-          <h1 className="text-green-600">
-            Thank You for Your Message!
-          </h1>
+          <h1 className="text-green-600">Thank You for Your Message!</h1>
           <Text>
             Your message has been successfully submitted. We'll get back to you
             soon.

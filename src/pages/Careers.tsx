@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet-async";
 import { useState, useEffect } from "react";
 import { companyName, domain } from "../utils/constants";
 import { useDisclosure } from "@mantine/hooks";
-import { Loader, Modal, Text, Title } from "@mantine/core";
+import { Loader, Modal, Text } from "@mantine/core";
 import axios from "axios";
 import { showNotification } from "@mantine/notifications";
 import type { StrapiJob } from "../utils/types";
