@@ -84,7 +84,7 @@ const Newsletter = () => {
           content={`defense technology, aerospace engineering, next-gen infrastructure, mission-critical solutions, ${companyName}`}
         />
       </Helmet>
-      <div className="max-w-5xl mx-auto px-4 py-16 md:py-28 text-gray-800 space-y-10">
+      <div className="max-w-5xl mx-auto px-4 py-20 md:py-28 text-gray-800 space-y-10">
         <div className="my-6 flex flex-col gap-1 justify-center items-center text-center">
           <h1 className="lg:text-4xl text-2xl font-semibold">
             {newsletter.attributes.title}
