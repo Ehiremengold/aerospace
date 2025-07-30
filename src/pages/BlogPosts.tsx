@@ -2,89 +2,46 @@ import Layout from "../components/Layout";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { companyName, domain } from "../utils/constants";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
-import { showNotification } from "@mantine/notifications";
 import type { StrapiPost } from "../utils/types";
 import { motion, easeOut } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Loader } from "@mantine/core";
+import { Skeleton } from "@mantine/core";
+import { useQuery } from "@tanstack/react-query";
 
-interface BlogPostsProps {
-  posts: StrapiPost[];
-  loading: boolean;
-}
+const fetchBlogPosts = async (page: number, pageSize: number) => {
+  const response = await axios.get<{
+    data: StrapiPost[];
+    meta: { pagination: { pageCount: number } };
+  }>(
+    `${
+      import.meta.env.VITE_STRAPI_API_URL
+    }/blog-posts?sort=createdAt:desc&populate[coverImage][fields]=url&fields[0]=title&fields[1]=slug&fields[2]=excerpt&fields[3]=author&fields[4]=date&pagination[page]=${page}&pagination[pageSize]=${pageSize}`,
+    {
+      headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_STRAPI_API_TOKEN}`,
+      },
+    }
+  );
+  return {
+    posts: response.data.data,
+    totalPages: response.data.meta.pagination.pageCount,
+  };
+};
 
-const BlogPosts = ({
-  posts: initialPosts,
-  loading: initialLoading,
-}: BlogPostsProps) => {
+const BlogPosts = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [posts, setPosts] = useState<StrapiPost[]>(initialPosts);
-  const [loading, setLoading] = useState(initialLoading);
   const postsPerPage = 6;
 
-  useEffect(() => {
-    const fetchTotalPages = async () => {
-      try {
-        const response = await axios.get(
-          `${
-            import.meta.env.VITE_STRAPI_API_URL
-          }/blog-posts?pagination[pageSize]=${postsPerPage}`,
-          {
-            headers: {
-              Authorization: `Bearer ${import.meta.env.VITE_STRAPI_API_TOKEN}`,
-            },
-          }
-        );
-        const total = response.data.meta.pagination.pageCount;
-        setTotalPages(total);
-      } catch (error: any) {
-        showNotification({
-          title: "Error",
-          message:
-            error.response?.status === 401
-              ? "Unauthorized access. Please contact support."
-              : "Failed to load pagination data. Please try again later.",
-          color: "red",
-        });
-      }
-    };
-    fetchTotalPages();
-  }, []);
+  const { data, isLoading } = useQuery({
+    queryKey: ["blogPosts", currentPage],
+    queryFn: () => fetchBlogPosts(currentPage, postsPerPage),
+    staleTime: 5 * 60 * 1000, // Cache for 5 minutes
+  });
 
-  useEffect(() => {
-    const fetchPage = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get<{ data: StrapiPost[] }>(
-          `${
-            import.meta.env.VITE_STRAPI_API_URL
-          }/blog-posts?sort=createdAt:desc&populate=coverImage&pagination[page]=${currentPage}&pagination[pageSize]=${postsPerPage}`,
-          {
-            headers: {
-              Authorization: `Bearer ${import.meta.env.VITE_STRAPI_API_TOKEN}`,
-            },
-          }
-        );
-        setPosts(response.data.data);
-      } catch (error: any) {
-        showNotification({
-          title: "Error",
-          message:
-            error.response?.status === 401
-              ? "Unauthorized access. Please contact support."
-              : "Failed to load blog posts. Please try again later.",
-          color: "red",
-        });
-        setPosts([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchPage();
-  }, [currentPage]);
+  const posts = data?.posts || [];
+  const totalPages = data?.totalPages || 1;
 
   const handlePageChange = (page: number) => {
     if (page < 1 || page > totalPages) return;
@@ -107,11 +64,22 @@ const BlogPosts = ({
     },
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <Layout>
-        <div className="grid place-items-center place-content-center py-24 min-h-screen">
-          <Loader size={30} color="black" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
+          {[...Array(3)].map((_, i) => (
+            <div
+              key={i}
+              className="bg-white rounded-xl shadow-md overflow-hidden"
+            >
+              <Skeleton height={224} width="100%" />
+              <div className="p-6">
+                <Skeleton height={24} width="80%" mb="sm" />
+                <Skeleton height={16} width="100%" />
+              </div>
+            </div>
+          ))}
         </div>
       </Layout>
     );
@@ -179,7 +147,7 @@ const BlogPosts = ({
           </p>
         </div>
         {posts?.length === 0 ? (
-          <p className="text-center">No blog posts available.</p>
+          <p className="text-center text-2xl">No blog posts available.</p>
         ) : (
           <>
             <div className="grid gap-8 md:grid-cols-2">

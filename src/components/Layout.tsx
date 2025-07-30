@@ -95,7 +95,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
           })}
         </script>
       </Helmet>
-      <header className="bg-white shadow-md md:py-4 py-2 px-4 font-poppins fixed z-50 left-0 right-0">
+      <header className="bg-white shadow-md md:py-4 py-3 px-4 font-poppins fixed z-50 left-0 right-0">
         <nav className="mx-auto md:my-2 max-w-7xl flex justify-between items-center gap-4">
           <a href="/">
             <img src="/logo.svg" className="w-40" alt="company-logo" aria-label="company-logo" />

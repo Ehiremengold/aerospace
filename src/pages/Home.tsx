@@ -1,4 +1,5 @@
 import { motion, easeOut } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
 import Layout from "../components/Layout";
 import { Helmet } from "react-helmet-async";
@@ -7,14 +8,30 @@ import revotionalImg from "../assets/images/revotionalizing.jpg";
 import ManufactureImg from "../assets/images/gh.jpg";
 import { companyName } from "../utils/constants";
 import type { StrapiPost } from "../utils/types";
-import { Loader } from "@mantine/core";
+import { Skeleton } from "@mantine/core";
+import axios from "axios";
 
-interface HomeProps {
-  posts: StrapiPost[];
-  loading: boolean;
-}
+const fetchPosts = async () => {
+  const response = await axios.get<{ data: StrapiPost[] }>(
+    `${
+      import.meta.env.VITE_STRAPI_API_URL
+    }/blog-posts?sort=createdAt:desc&populate[coverImage][fields]=url&fields[0]=title&fields[1]=slug&fields[2]=excerpt&fields[3]=author&fields[4]=date&pagination[pageSize]=3&pagination[page]=1`,
+    {
+      headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_STRAPI_API_TOKEN}`,
+      },
+    }
+  );
+  return response.data.data;
+};
 
-const Home = ({ posts, loading }: HomeProps) => {
+const Home = () => {
+  const { data: posts, isLoading } = useQuery({
+    queryKey: ["homePosts"],
+    queryFn: fetchPosts,
+    staleTime: 5 * 60 * 1000,
+  });
+
   // Animation variants for sections
   const sectionVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -349,15 +366,26 @@ const Home = ({ posts, loading }: HomeProps) => {
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">
             Stories that Define Us
           </h2>
-          {loading ? (
-            <div className="grid place-items-center place-content-center py-24 min-h-screen">
-              <Loader size={30} color="black" />
+          {isLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
+              {[...Array(3)].map((_, i) => (
+                <div
+                  key={i}
+                  className="bg-white rounded-xl shadow-md overflow-hidden"
+                >
+                  <Skeleton height={224} width="100%" />
+                  <div className="p-6">
+                    <Skeleton height={24} width="80%" mb="sm" />
+                    <Skeleton height={16} width="100%" />
+                  </div>
+                </div>
+              ))}
             </div>
           ) : posts?.length === 0 ? (
             <p className="text-center">No blog posts available.</p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
-              {posts?.map((post) => (
+              {posts?.map((post: any) => (
                 <motion.div
                   key={post.id}
                   className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col"
@@ -386,9 +414,6 @@ const Home = ({ posts, loading }: HomeProps) => {
                         <h3 className="text-xl font-semibold mb-2 text-gray-800 line-clamp-1">
                           {post.attributes.title}
                         </h3>
-                        {/* <p className="text-gray-500 text-sm mb-3">
-                          {post.attributes.author} • {post.attributes.date}
-                        </p> */}
                         <p className="text-sm text-gray-600 mb-4 line-clamp-3">
                           {post.attributes.excerpt}
                         </p>
