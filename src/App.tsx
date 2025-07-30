@@ -13,6 +13,8 @@ import axios from "axios";
 import { showNotification } from "@mantine/notifications";
 import type { StrapiPost } from "./utils/types";
 import Newsletter from "./pages/Newsletter";
+import MediaCenter from "./pages/MediaCenter";
+import ContactUs from "./pages/ContactUs";
 
 const App = () => {
   const [posts, setPosts] = useState<StrapiPost[]>([]);
@@ -59,6 +61,7 @@ const App = () => {
         <Route path="/what-we-do" element={<WhatWeDo />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/newsletter" element={<Newsletter />} />
+        <Route path="/media" element={<MediaCenter />} />
         <Route
           path="/blog-posts"
           element={<BlogPosts posts={posts} loading={loading} />}
@@ -67,6 +70,7 @@ const App = () => {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms-of-service" element={<TermsOfService />} />
         <Route path="/accessibility" element={<Accessibility />} />
+        <Route path="/contact" element={<ContactUs />} />
       </Routes>
     </Router>
   );

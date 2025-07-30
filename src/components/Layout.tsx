@@ -98,7 +98,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
       <header className="bg-white shadow-md py-4 px-4 font-poppins fixed z-50 left-0 right-0">
         <nav className="mx-auto my-2 max-w-7xl flex justify-between items-center gap-4">
           <a href="/">
-            <h1 className="text-sm font-bold cursor-pointer">{companyName}</h1>
+            <img src="/logo.svg" className="w-40" alt="" />
           </a>
 
           {/* Desktop Nav */}
@@ -110,8 +110,8 @@ const Layout = ({ children }: { children: ReactNode }) => {
                     to={item.path}
                     className={({ isActive }) =>
                       isActive
-                        ? "text-sm font-medium text-blue-700"
-                        : "text-sm font-medium hover:text-blue-700 transition-colors duration-300 ease-in-out"
+                        ? "text-sm font-medium text-primary"
+                        : "text-sm font-medium hover:text-primary transition-colors duration-300 ease-in-out"
                     }
                   >
                     {item.label}
@@ -180,7 +180,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
                         <li key={i}>
                           <NavLink
                             to="/"
-                            className="block text-sm py-1 hover:text-blue-600 transition"
+                            className="block text-sm py-1 hover:text-primary transition"
                           >
                             {link}
                           </NavLink>
@@ -287,12 +287,12 @@ const Layout = ({ children }: { children: ReactNode }) => {
                   >
                     Contact Us
                   </a>
-                  <a
+                  {/* <a
                     href="/investors"
                     className="text-sm text-gray-400 cursor-pointer hover:underline transition-all ease-in-out duration-300"
                   >
                     Investor Relations
-                  </a>
+                  </a> */}
                   <a
                     href="/media"
                     className="text-sm text-gray-400 cursor-pointer hover:underline transition-all ease-in-out duration-300"
@@ -431,14 +431,14 @@ const Layout = ({ children }: { children: ReactNode }) => {
                     Contact Us
                   </a>
                 </li>
-                <li>
+                {/* <li>
                   <a
                     href="/investors"
                     className="text-sm text-gray-400 hover:underline"
                   >
                     Investor Relations
                   </a>
-                </li>
+                </li> */}
                 <li>
                   <a
                     href="/media"

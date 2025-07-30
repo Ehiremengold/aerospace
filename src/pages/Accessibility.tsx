@@ -61,7 +61,7 @@ const Accessibility = () => {
           assistance, contact us at{" "}
           <a
             href="mailto:support@nhconstruction.com"
-            className="underline text-blue-600"
+            className="underline text-primary"
           >
             support@nhconstruction.com
           </a>

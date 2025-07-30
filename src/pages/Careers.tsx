@@ -15,7 +15,7 @@ const Careers = () => {
   const [selectedJob, setSelectedJob] = useState<StrapiJob | null>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [submissionSuccess, setSubmissionSuccess] = useState(false); // New state for success
+  const [submissionSuccess, setSubmissionSuccess] = useState(false); 
   const [opened, { open, close }] = useDisclosure(false);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -95,7 +95,7 @@ const Careers = () => {
       return;
     }
     setSubmitting(true);
-    setError(""); // Clear previous errors
+    setError("");
     try {
       const formData = new FormData();
       formData.append(
@@ -123,7 +123,8 @@ const Careers = () => {
       setSubmissionSuccess(true); // Set success state
       showNotification({
         title: "Success",
-        message: "Application submitted successfully! We'll get back to you soon.",
+        message:
+          "Application submitted successfully! We'll get back to you soon.",
         color: "green",
       });
     } catch (error: any) {
@@ -190,11 +191,16 @@ const Careers = () => {
               "@type": "Place",
               address: {
                 "@type": "PostalAddress",
-                addressLocality: selectedJob?.attributes.location.split(", ")[0],
-                addressRegion: selectedJob?.attributes.location.includes("Nigeria")
+                addressLocality:
+                  selectedJob?.attributes.location.split(", ")[0],
+                addressRegion: selectedJob?.attributes.location.includes(
+                  "Nigeria"
+                )
                   ? "NG"
                   : null,
-                addressCountry: selectedJob?.attributes.location.includes("Nigeria")
+                addressCountry: selectedJob?.attributes.location.includes(
+                  "Nigeria"
+                )
                   ? "NG"
                   : "Remote",
               },
@@ -219,10 +225,10 @@ const Careers = () => {
         }
       >
         {submissionSuccess ? (
-          <div className="flex flex-col gap-4 text-center">
-            <Title order={3} className="text-green-600">
+          <div className="flex flex-col gap-4 text-center font-poppins">
+            <h1 className="text-green-600">
               Thank You for Your Application!
-            </Title>
+            </h1>
             <Text>
               Your application for {selectedJob?.attributes.title} has been
               successfully submitted. We'll get back to you soon.
@@ -293,7 +299,9 @@ const Careers = () => {
             <button
               type="submit"
               className="bg-black text-white hover:bg-gray-800 py-2 rounded-md disabled:opacity-50 flex items-center justify-center"
-              aria-label={submitting ? "Submitting application" : "Submit Application"}
+              aria-label={
+                submitting ? "Submitting application" : "Submit Application"
+              }
               disabled={submitting}
             >
               {submitting ? (

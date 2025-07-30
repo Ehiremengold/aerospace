@@ -2,9 +2,12 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #243c5a;
+  --color-primary: #98a841;
   --color-secondary: "";
   --color-accent: "";
   --font-poppins: "Poppins", "sans-serif";
 }
 
+body {
+  scroll-behavior: smooth;
+}

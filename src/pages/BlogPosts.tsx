@@ -205,7 +205,7 @@ const BlogPosts = ({
                       {post.attributes.title}
                     </h2>
                     <p className="text-gray-700">{post.attributes.excerpt}</p>
-                    <span className="text-blue-600 mt-4 inline-block">
+                    <span className="text-primary mt-4 inline-block">
                       Read more →
                     </span>
                   </div>

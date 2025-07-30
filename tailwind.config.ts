@@ -5,10 +5,13 @@ const config: Config = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      screens: {
-        custom800: "800px", // your custom breakpoint
+      colors: {
+        primary: "#a5b646",
       },
-    },
+      screens: {
+        custom800: "800px",
+      },
+    }
   },
   plugins: [typography],
 };

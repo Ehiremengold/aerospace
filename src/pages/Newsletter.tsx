@@ -20,17 +20,14 @@ const Newsletter = () => {
         const url = `${
           import.meta.env.VITE_STRAPI_API_URL
         }/newsletter?populate=*`;
-        console.log("Requesting URL:", url);
         const response = await axios.get<{ data: NewsLetter }>(url, {
           headers: {
             Authorization: `Bearer ${import.meta.env.VITE_STRAPI_API_TOKEN}`,
           },
         });
-        console.log("Response:", JSON.stringify(response.data, null, 2));
         setNewsletter(response.data.data || null);
         setLoading(false);
       } catch (error: any) {
-        console.error("Error details:", error.response?.data || error.message);
         const errorMessage =
           error.response?.status === 401
             ? "Unauthorized access. Please check your API token permissions."

@@ -15,7 +15,6 @@ interface HomeProps {
 }
 
 const Home = ({ posts, loading }: HomeProps) => {
-  
   // Animation variants for sections
   const sectionVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -395,7 +394,7 @@ const Home = ({ posts, loading }: HomeProps) => {
                         </p>
                       </div>
                       <motion.span
-                        className="text-blue-600 inline-block"
+                        className="text-primary inline-block"
                         variants={buttonVariants}
                         whileHover="hover"
                       >
@@ -416,7 +415,7 @@ const Home = ({ posts, loading }: HomeProps) => {
           >
             <a
               href="/blog-posts"
-              className="inline-flex items-center gap-2 text-sm text-blue-600 hover:underline"
+              className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
             >
               View All Blog Posts
               <ArrowRight className="w-4 h-4" />
