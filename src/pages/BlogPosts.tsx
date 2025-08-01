@@ -67,11 +67,11 @@ const BlogPosts = () => {
   if (isLoading) {
     return (
       <Layout>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto py-32 min-h-screen">
           {[...Array(3)].map((_, i) => (
             <div
               key={i}
-              className="bg-white rounded-xl shadow-md overflow-hidden"
+              className="bg-white rounded-xl shadow-md overflow-hidden h-fit"
             >
               <Skeleton height={224} width="100%" />
               <div className="p-6">
