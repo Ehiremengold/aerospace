@@ -94,15 +94,21 @@ const WhoWeAre = () => {
             About Us
           </h2>
           <p className="text-base md:text-lg text-gray-700">
-            {companyName} is a global , defense and security company. The
-            majority of our business is with the U.S. government, principally
-            the Department of Defense and intelligence community. In addition,
-            we deliver solutions to global and commercial customers.
+            {companyName} is a global defense and security company committed to
+            safeguarding national interests and enabling mission success around
+            the world. While the majority of our work is conducted in
+            partnership with the U.S. government primarily the Department of
+            Defense and the intelligence community we proudly extend our
+            services to allied governments, global institutions, and commercial
+            clients.
           </p>
+
           <p>
-            {companyName} 2980 Fairview Park Drive Falls Church, VA 22042 Phone:
-            703-280-2900
+            Address: 11, Commercial Bay Tower Level 17/19 Customs Street West,
+            Auckland 1010, New Zealand
           </p>
+          <p>Phone: +64 27 317 4986, +61 493 209 737</p>
+
           <div className="bg-black w-fit text-white text-sm py-2 px-4 flex items-center gap-2 rounded-lg cursor-pointer transition-all duration-300 ease-in-out mx-auto md:mx-0">
             <a href="mailto:contact@yourwebsite.com">Contact us</a>
             <ArrowRight className="w-4 h-4 text-white" />
@@ -148,11 +154,11 @@ const WhoWeAre = () => {
                 <p>
                   With over 30 years in the aerospace defense industry, Noah
                   spent more than two decades as an{" "}
-                  <strong>Aerospace Engineer at Northrop Grumman</strong>,
-                  contributing to cutting-edge radar and security systems. Five
-                  years ago, he founded <strong>N&H Construction Co.</strong>, a
-                  consultancy delivering tailored aerospace and defense
-                  solutions worldwide.
+                  <strong>Aerospace Engineer at N and H Construction Co</strong>
+                  , contributing to cutting-edge radar and security systems.
+                  Five years ago, he founded{" "}
+                  <strong>N&H Construction Co.</strong>, a consultancy
+                  delivering tailored aerospace and defense solutions worldwide.
                 </p>
               </div>
 

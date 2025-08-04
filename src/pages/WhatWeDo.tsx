@@ -191,9 +191,9 @@ const WhatWeDo = () => {
               Space
             </h2>
             <p className="text-base md:text-lg text-white">
-              Northrop Grumman is a trusted partner in the space domain with a
-              deep understanding of our customers’ missions. From concept to
-              production, integration to launch, and sustainment to mission
+              N and H Construction Co is a trusted partner in the space domain
+              with a deep understanding of our customers’ missions. From concept
+              to production, integration to launch, and sustainment to mission
               extension, we deliver across the full value chain – shaping the
               future of space through technical depth, operational insight, and
               best-in-class technology.
