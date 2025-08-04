@@ -5,6 +5,9 @@ import video2 from "../assets/videos/video-2.mp4";
 import video3 from "../assets/videos/video-3.mp4";
 import video4 from "../assets/videos/video-4.mp4";
 import video5 from "../assets/videos/video-5.mp4";
+import video6 from "../assets/videos/video-6.mp4";
+import video7 from "../assets/videos/video-7.mp4";
+import video8 from "../assets/videos/video-8.mp4";
 
 const videos = [
   { src: video1, title: "Engineering Innovation Showcase" },
@@ -12,6 +15,9 @@ const videos = [
   { src: video3, title: "Advanced Manufacturing Process" },
   { src: video4, title: "Mobile Aerospace Deployment" },
   { src: video5, title: "Next-Gen Facility Tour" },
+  { src: video6, title: "Tactical Field Simulation" },
+  { src: video7, title: "Security Operations Briefing" },
+  { src: video8, title: "AI-Powered Surveillance Demo" },
 ];
 
 const MediaCenter = () => {

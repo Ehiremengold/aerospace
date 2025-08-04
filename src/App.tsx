@@ -11,6 +11,7 @@ import BlogDetail from "./pages/BlogDetail";
 import Newsletter from "./pages/Newsletter";
 import MediaCenter from "./pages/MediaCenter";
 import ContactUs from "./pages/ContactUs";
+import LatestQuarterlyReport from "./pages/LatestQuarterlyReport";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/what-we-do" element={<WhatWeDo />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/newsletter" element={<Newsletter />} />
+        <Route path="/investors" element={<LatestQuarterlyReport />} />
         <Route path="/media" element={<MediaCenter />} />
         <Route path="/blog-posts" element={<BlogPosts />} />
         <Route path="/blog-post/:slug" element={<BlogDetail />} />

@@ -98,7 +98,12 @@ const Layout = ({ children }: { children: ReactNode }) => {
       <header className="bg-white shadow-md md:py-4 py-3 px-4 font-poppins fixed z-50 left-0 right-0">
         <nav className="mx-auto md:my-2 max-w-7xl flex justify-between items-center gap-4">
           <a href="/">
-            <img src="/logo.svg" className="w-40" alt="company-logo" aria-label="company-logo" />
+            <img
+              src="/logo.svg"
+              className="w-40"
+              alt="company-logo"
+              aria-label="company-logo"
+            />
           </a>
 
           {/* Desktop Nav */}
@@ -145,7 +150,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
         {/* Mobile Nav Panel */}
         <div
           className={`min-[852px]:hidden transition-all duration-300 ease-in-out overflow-hidden ${
-            menuOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+            menuOpen ? "max-h-[1000px] mt-4 opacity-100" : "max-h-0 opacity-0"
           }`}
         >
           <div className="bg-white px-1 py-6 space-y-2 shadow-inner">
@@ -287,12 +292,12 @@ const Layout = ({ children }: { children: ReactNode }) => {
                   >
                     Contact Us
                   </a>
-                  {/* <a
+                  <a
                     href="/investors"
                     className="text-sm text-gray-400 cursor-pointer hover:underline transition-all ease-in-out duration-300"
                   >
                     Investor Relations
-                  </a> */}
+                  </a>
                   <a
                     href="/media"
                     className="text-sm text-gray-400 cursor-pointer hover:underline transition-all ease-in-out duration-300"
@@ -431,14 +436,14 @@ const Layout = ({ children }: { children: ReactNode }) => {
                     Contact Us
                   </a>
                 </li>
-                {/* <li>
+                <li>
                   <a
                     href="/investors"
                     className="text-sm text-gray-400 hover:underline"
                   >
                     Investor Relations
                   </a>
-                </li> */}
+                </li>
                 <li>
                   <a
                     href="/media"
