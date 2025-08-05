@@ -1,5 +1,5 @@
 import Layout from "../components/Layout";
-import careerHero from "../assets/images/career-hero.webp";
+import careerHero from "../assets/images/career-hero.jpg";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useState, useEffect } from "react";
@@ -321,7 +321,7 @@ const Careers = () => {
         <img
           src={careerHero}
           alt={`Careers at ${companyName} in aerospace and defense`}
-          className="absolute inset-0 h-full w-full object-cover object-center z-0"
+          className="absolute inset-0 h-full w-full object-cover object-bottom z-0"
           loading="lazy"
         />
         <div className="absolute left-0 top-0 h-full flex items-center px-6 lg:px-16 z-10">

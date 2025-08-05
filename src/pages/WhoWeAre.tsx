@@ -1,5 +1,5 @@
 import Layout from "../components/Layout";
-import wwaHero from "../assets/images/wwa.webp";
+import wwaHero from "../assets/images/wwa.jpg";
 import { NavLink, useLocation } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import peopleImg from "../assets/images/people.jpg";

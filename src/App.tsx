@@ -12,6 +12,7 @@ import Newsletter from "./pages/Newsletter";
 import MediaCenter from "./pages/MediaCenter";
 import ContactUs from "./pages/ContactUs";
 import LatestQuarterlyReport from "./pages/LatestQuarterlyReport";
+import PreviousQuarters from "./pages/PreviousQuarters";
 
 const App = () => {
   return (
@@ -23,6 +24,10 @@ const App = () => {
         <Route path="/careers" element={<Careers />} />
         <Route path="/newsletter" element={<Newsletter />} />
         <Route path="/investors" element={<LatestQuarterlyReport />} />
+        <Route
+          path="/investors/previous-quarters"
+          element={<PreviousQuarters />}
+        />
         <Route path="/media" element={<MediaCenter />} />
         <Route path="/blog-posts" element={<BlogPosts />} />
         <Route path="/blog-post/:slug" element={<BlogDetail />} />

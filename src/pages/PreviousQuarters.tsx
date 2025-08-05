@@ -2,7 +2,6 @@ import Layout from "../components/Layout";
 import { Accordion, Loader } from "@mantine/core";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
 import { FaFilePdf } from "react-icons/fa";
 import { AudioLines } from "lucide-react";
 import type { QuarterlyReport } from "../utils/types";
@@ -18,7 +17,7 @@ const PreviousQuarters = () => {
     const fetchReports = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_STRAPI_API_URL}/api/quarterly-reports`,
+          `${import.meta.env.VITE_STRAPI_API_URL}/quarterly-reports`,
           {
             headers: {
               Authorization: `Bearer ${import.meta.env.VITE_STRAPI_API_TOKEN}`,
@@ -28,7 +27,7 @@ const PreviousQuarters = () => {
             },
           }
         );
-        const reports = response.data.data as QuarterlyReport[];
+        const reports = response?.data?.data as QuarterlyReport[];
         const groupedByYear = reports.reduce((acc, report) => {
           const year = report.attributes.year;
           if (!acc[year]) acc[year] = [];
@@ -56,38 +55,66 @@ const PreviousQuarters = () => {
     );
   }
 
-  const items = Object.entries(reportsByYear).map(([year, reports]) => (
-    <Accordion.Item key={year} value={year}>
-      <Accordion.Control>{year}</Accordion.Control>
-      <Accordion.Panel>
-        {reports.map((report) => (
-          <div
-            key={report.id}
-            className="border-b border-primary p-2 flex items-center justify-between cursor-pointer gap-4"
-          >
-            <a
-              href={
-                report.attributes.file.data
-                  ? report.attributes.file.data.attributes.url
-                  : "#"
-              }
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <h1 className="hover:text-primary transition-colors ease-in-out duration-300">
-                {report.attributes.title} ({report.attributes.quarter})
-              </h1>
-            </a>
-            {report.attributes.typeOfContent === "PDF" ? (
-              <FaFilePdf />
-            ) : (
-              <AudioLines />
-            )}
+  // Sort years in descending order explicitly
+  const sortedYears = Object.keys(reportsByYear)
+    .map(Number)
+    .sort((a, b) => b - a);
+
+  const items = sortedYears.map((year) => {
+    const reports = reportsByYear[year];
+    const quarters = reports.reduce((acc, report) => {
+      const quarter = report.attributes.quarter;
+      if (!acc[quarter]) acc[quarter] = [];
+      acc[quarter].push(report);
+      return acc;
+    }, {} as Record<string, QuarterlyReport[]>);
+
+    return (
+      <Accordion.Item key={year} value={year.toString()}>
+        <Accordion.Control>
+          <div className="flex w-full">
+            <h1 className="text-3xl font-bold">{year}</h1>
           </div>
-        ))}
-      </Accordion.Panel>
-    </Accordion.Item>
-  ));
+        </Accordion.Control>
+        <Accordion.Panel>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {Object.entries(quarters).map(([quarter, quarterReports]) => (
+              <div
+                key={quarter}
+                className="p-4 border border-gray-200 rounded shadow"
+              >
+                <h2 className="text-xl font-semibold mb-3">{quarter}</h2>
+                {quarterReports.map((report) => (
+                  <div
+                    key={report.id}
+                    className="flex items-center justify-between gap-4 mb-1"
+                  >
+                    <a
+                      href={
+                        report?.attributes?.file?.data
+                          ? report?.attributes?.file?.data?.attributes?.url
+                          : "#"
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-primary transition-colors ease-in-out duration-300"
+                    >
+                      {report.attributes.title}
+                    </a>
+                    {report.attributes.typeOfContent === "PDF" ? (
+                      <FaFilePdf />
+                    ) : (
+                      <AudioLines />
+                    )}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </Accordion.Panel>
+      </Accordion.Item>
+    );
+  });
 
   return (
     <Layout>
@@ -95,16 +122,21 @@ const PreviousQuarters = () => {
         <title>Investors | N&H Construction Co.</title>
         <meta
           name="description"
-          content="Discover investment insights, financial performance, and strategic growth initiatives at N&H Construction Co.—a global leader in aerospace, defense, and advanced technologies."
+          content="Explore past financial performance and quarterly reports at N&H Construction Co.—a leader in aerospace, defense, and advanced technologies."
         />
         <meta
           name="keywords"
-          content="N&H Construction, investor relations, aerospace investments, defense sector, financial reports, strategic partnerships, innovation, global security"
+          content="N&H Construction, investor relations, past financial reports, quarterly earnings, aerospace investments, defense sector"
         />
       </Helmet>
-      <Accordion defaultValue={Object.keys(reportsByYear)[0]}>
-        {items}
-      </Accordion>
+      <section className="px-4 md:px-8 lg:px-16 py-28 max-w-7xl mx-auto min-h-screen">
+        <div className="text-center mb-10">
+          <h1 className="text-3xl md:text-4xl font-bold mb-2">
+            Earnings Archive
+          </h1>
+        </div>
+        <Accordion defaultValue={sortedYears[0]?.toString()}>{items}</Accordion>
+      </section>
     </Layout>
   );
 };

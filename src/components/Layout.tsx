@@ -57,17 +57,14 @@ const Layout = ({ children }: { children: ReactNode }) => {
       id: "blog-posts",
       // links: [],
     },
-    {
-      label: "Newsletter",
-      path: "/newsletter",
-      id: "news-letter",
-    },
+    // {
+    //   label: "Newsletter",
+    //   path: "/newsletter",
+    //   id: "news-letter",
+    // },
   ];
 
-  // const toggleDropdown = (id: string) => {
-  //   setOpenDropdown((prev) => (prev === id ? null : id));
-  // };
-
+  
   return (
     <div className="max-w-[2100px] mx-auto">
       <Helmet>

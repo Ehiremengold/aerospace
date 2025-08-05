@@ -15,7 +15,7 @@ const LatestQuarterlyReport = () => {
     const fetchLatestReport = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_STRAPI_API_URL}/api/quarterly-reports`,
+          `${import.meta.env.VITE_STRAPI_API_URL}/quarterly-reports`,
           {
             headers: {
               Authorization: `Bearer ${import.meta.env.VITE_STRAPI_API_TOKEN}`,
@@ -23,9 +23,11 @@ const LatestQuarterlyReport = () => {
             params: {
               _sort: "year:desc,quarter:desc",
               _limit: 1,
+              _populate: "*",
             },
           }
         );
+        console.log(response.data);
         setReport(response.data.data[0]);
       } catch (error) {
         console.error("Error fetching report:", error);
@@ -36,7 +38,7 @@ const LatestQuarterlyReport = () => {
 
     fetchLatestReport();
   }, []);
-
+  // console.log(report);
   if (loading) {
     return (
       <Layout>
@@ -84,7 +86,7 @@ const LatestQuarterlyReport = () => {
           <div className="border-b border-primary p-2 flex items-center justify-between cursor-pointer gap-4">
             <a
               href={
-                report.attributes.file.data
+                report?.attributes?.file?.data
                   ? report.attributes.file.data.attributes.url
                   : "#"
               }

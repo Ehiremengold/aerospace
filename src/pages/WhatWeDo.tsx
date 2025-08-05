@@ -1,7 +1,7 @@
-import wwdHero from "../assets/images/wwdHero.webp";
+import wwdHero from "../assets/images/wwdHero.jpg";
 import { NavLink, useLocation } from "react-router-dom";
 import Layout from "../components/Layout";
-import advancedImg from "../assets/images/advanced.webp";
+import advancedImg from "../assets/images/advanced.jpg";
 import aircraftImg from "../assets/images/aircraft.jpg";
 import missileDefenceImg from "../assets/images/missileDefence.jpg";
 import spaceImg from "../assets/images/space.webp";
@@ -106,7 +106,7 @@ const WhatWeDo = () => {
             <img
               src={advancedImg}
               alt={`Advanced weapons technology by ${companyName}`}
-              className="w-full h-auto max-w-[600px] mx-auto"
+              className="w-full min-h-full max-w-[600px] mx-auto"
               loading="lazy"
             />
           </div>
