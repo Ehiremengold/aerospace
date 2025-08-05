@@ -5,51 +5,67 @@ import { AudioLines } from "lucide-react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import type { QuarterlyReport } from "../utils/types";
-import { Loader } from "@mantine/core";
 
 const LatestQuarterlyReport = () => {
-  const [report, setReport] = useState<QuarterlyReport | null>(null);
+  const [reports, setReports] = useState<QuarterlyReport[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchLatestReport = async () => {
+    const fetchReports = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_STRAPI_API_URL}/quarterly-reports`,
+          `${
+            import.meta.env.VITE_STRAPI_API_URL
+          }/quarterly-reports?sort=year:desc,quarter:desc&populate[mediaFile]=*`,
           {
             headers: {
               Authorization: `Bearer ${import.meta.env.VITE_STRAPI_API_TOKEN}`,
             },
-            params: {
-              _sort: "year:desc,quarter:desc",
-              _limit: 1,
-              _populate: "*",
-            },
           }
         );
-        console.log(response.data);
-        setReport(response.data.data[0]);
+        console.log("Full API Response:", response.data); // Debug full response
+        const allReports = response.data.data as QuarterlyReport[];
+        console.log("All Reports:", allReports); // Log all fetched reports
+        if (allReports.length === 0) {
+          console.log("No reports found in response.");
+          setReports([]);
+          return;
+        }
+        // Find the latest year and quarter
+        const latestYear = allReports[0].attributes.year;
+        const latestQuarter = allReports[0].attributes.quarter;
+        const latestReports = allReports.filter(
+          (report) =>
+            report.attributes.year === latestYear &&
+            report.attributes.quarter === latestQuarter
+        );
+        if (latestReports.length === 0) {
+          console.log(
+            `No reports found for latest quarter ${latestQuarter} ${latestYear}.`
+          );
+        }
+        setReports(latestReports);
       } catch (error) {
-        console.error("Error fetching report:", error);
+        console.error("Error fetching reports:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchLatestReport();
+    fetchReports();
   }, []);
-  // console.log(report);
+
   if (loading) {
     return (
       <Layout>
         <div className="grid place-items-center place-content-center py-24 min-h-screen">
-          <Loader size={30} color="black" />
+          <p>Loading...</p>
         </div>
       </Layout>
     );
   }
 
-  if (!report) {
+  if (reports.length === 0) {
     return (
       <Layout>
         <div className="grid place-items-center place-content-center py-24 min-h-screen">
@@ -60,7 +76,7 @@ const LatestQuarterlyReport = () => {
   }
 
   return (
-    <Layout>
+    <Layout showInvestorContactInfo={true}>
       <Helmet>
         <title>Investors | N&H Construction Co.</title>
         <meta
@@ -78,31 +94,38 @@ const LatestQuarterlyReport = () => {
             Latest Quarterly Report
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto text-2xl">
-            {report.attributes.quarter} {report.attributes.year}
+            {reports[0].attributes.quarter} {reports[0].attributes.year}
           </p>
         </div>
 
         <div className="flex flex-col gap-3 w-full md:w-3/5 mx-auto">
-          <div className="border-b border-primary p-2 flex items-center justify-between cursor-pointer gap-4">
-            <a
-              href={
-                report?.attributes?.file?.data
-                  ? report.attributes.file.data.attributes.url
-                  : "#"
-              }
-              target="_blank"
-              rel="noopener noreferrer"
+          {reports.map((report) => (
+            <div
+              key={report.id}
+              className="border-b border-primary p-2 flex items-center justify-between cursor-pointer gap-4"
             >
-              <h1 className="hover:text-primary transition-colors ease-in-out duration-300">
-                {report.attributes.title}
-              </h1>
-            </a>
-            {report.attributes.typeOfContent === "PDF" ? (
-              <FaFilePdf />
-            ) : (
-              <AudioLines />
-            )}
-          </div>
+              <a
+                href={
+                  report.attributes.mediaFile.data
+                    ? `${report.attributes.mediaFile.data.attributes.url}`
+                    : "#"
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <h1 className="hover:text-primary transition-colors ease-in-out duration-300">
+                  {report.attributes.typeOfContent === "PDF"
+                    ? `${report.attributes.title}`
+                    : "Webcast"}
+                </h1>
+              </a>
+              {report.attributes.typeOfContent === "PDF" ? (
+                <FaFilePdf />
+              ) : (
+                <AudioLines />
+              )}
+            </div>
+          ))}
         </div>
 
         <div className="mt-12 text-center">

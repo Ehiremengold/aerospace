@@ -9,7 +9,13 @@ import { FaLinkedin } from "react-icons/fa";
 import { Helmet } from "react-helmet-async";
 import { companyName, domain } from "../utils/constants";
 
-const Layout = ({ children }: { children: ReactNode }) => {
+const Layout = ({
+  children,
+  showInvestorContactInfo,
+}: {
+  children: ReactNode;
+  showInvestorContactInfo?: boolean;
+}) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openDropdown] = useState<string | null>(null);
 
@@ -64,7 +70,6 @@ const Layout = ({ children }: { children: ReactNode }) => {
     // },
   ];
 
-  
   return (
     <div className="max-w-[2100px] mx-auto">
       <Helmet>
@@ -208,6 +213,21 @@ const Layout = ({ children }: { children: ReactNode }) => {
       </header>
 
       <main className="font-poppins bg-gray-50">{children}</main>
+      {showInvestorContactInfo && (
+        <section className="bg-gray-200 font-poppins py-8">
+          <div className="md:w-[80%] w-[95%] mx-auto">
+            <div className="flex flex-col gap-4">
+              <h1 className="font-semibold text-xl">Investor Contact</h1>
+              <div className="flex flex-col gap-1">
+                <h1>Phone: +64 27 317 4986, +61 493 209 737</h1>
+                <a href="mailto:info@nandhconstructionco.com">
+                  Email: info@nandhconstructionco.com
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
       <footer className="font-poppins py-6 px-4 bg-black">
         <div className="max-w-7xl mx-auto">
           {/* upper section - desktop */}

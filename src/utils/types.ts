@@ -34,7 +34,7 @@ export interface NewsLetter {
   };
 }
 
-// types.ts
+
 export interface FileAttributes {
   url: string;
   name: string;
@@ -45,13 +45,18 @@ export interface FileAttributes {
 export interface FileData {
   data: {
     id: number;
-    attributes: FileAttributes;
+    attributes: {
+      url: string;
+      name: string;
+      mime: string;
+      size: number;
+    };
   } | null;
 }
 
 export interface QuarterlyReportAttributes {
   quarter: "Q1" | "Q2" | "Q3" | "Q4";
-  file: FileData;
+  mediaFile: FileData;
   title: string;
   typeOfContent: "PDF" | "Audio";
   year: number;

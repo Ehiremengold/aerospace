@@ -17,7 +17,9 @@ const PreviousQuarters = () => {
     const fetchReports = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_STRAPI_API_URL}/quarterly-reports`,
+          `${
+            import.meta.env.VITE_STRAPI_API_URL
+          }/quarterly-reports?sort=year:desc,quarter:desc&populate[mediaFile]=*`,
           {
             headers: {
               Authorization: `Bearer ${import.meta.env.VITE_STRAPI_API_TOKEN}`,
@@ -70,13 +72,13 @@ const PreviousQuarters = () => {
     }, {} as Record<string, QuarterlyReport[]>);
 
     return (
-      <Accordion.Item key={year} value={year.toString()}>
-        <Accordion.Control>
+      <Accordion.Item className="bg-white" key={year} value={year.toString()}>
+        <Accordion.Control className="">
           <div className="flex w-full">
             <h1 className="text-3xl font-bold">{year}</h1>
           </div>
         </Accordion.Control>
-        <Accordion.Panel>
+        <Accordion.Panel className="bg-white">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {Object.entries(quarters).map(([quarter, quarterReports]) => (
               <div
@@ -91,8 +93,8 @@ const PreviousQuarters = () => {
                   >
                     <a
                       href={
-                        report?.attributes?.file?.data
-                          ? report?.attributes?.file?.data?.attributes?.url
+                        report?.attributes?.mediaFile?.data
+                          ? report?.attributes?.mediaFile?.data?.attributes?.url
                           : "#"
                       }
                       target="_blank"
@@ -117,7 +119,7 @@ const PreviousQuarters = () => {
   });
 
   return (
-    <Layout>
+    <Layout showInvestorContactInfo={true}>
       <Helmet>
         <title>Investors | N&H Construction Co.</title>
         <meta
