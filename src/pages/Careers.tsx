@@ -376,9 +376,9 @@ const Careers = () => {
             <p className="text-sm text-gray-500 mb-3">
               {selectedJob?.attributes.location}
             </p>
-            <p className="text-gray-700 leading-relaxed">
+            {/* <p className="text-gray-700 leading-relaxed">
               {selectedJob?.attributes.description}
-            </p>
+            </p> */}
           </div>
           <button
             onClick={open}
