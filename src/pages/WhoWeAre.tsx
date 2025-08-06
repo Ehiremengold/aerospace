@@ -79,8 +79,8 @@ const WhoWeAre = () => {
           advanced systems, products and services.
         </p>
       </section>
-      <section className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12 px-4 md:px-8 lg:px-16 pt-6 pb-12 max-w-7xl mx-auto">
-        <div className="w-full md:w-1/2">
+      <section className="flex flex-wrap lg:flex-nowrap  items-center lg:justify-between justify-center gap-8 md:gap-12 px-4 md:px-8 lg:px-16 pt-6 pb-12 max-w-7xl mx-auto">
+        <div className="w-full md:w-1/2 shrink-0">
           <img
             src={peopleImg}
             alt={`Team at ${companyName} working on defense solutions`}
@@ -89,7 +89,7 @@ const WhoWeAre = () => {
           />
         </div>
 
-        <div className="flex flex-col gap-4 w-full md:w-1/2 text-center md:text-left">
+        <div className="flex flex-col gap-4 w-full lg:w-1/2 text-center md:text-left">
           <h2 className="font-bold text-2xl md:text-4xl leading-tight">
             About Us
           </h2>
@@ -110,14 +110,15 @@ const WhoWeAre = () => {
           <p>Phone: +64 27 317 4986, +61 493 209 737</p>
 
           <div className="bg-black w-fit text-white text-sm py-2 px-4 flex items-center gap-2 rounded-lg cursor-pointer transition-all duration-300 ease-in-out mx-auto md:mx-0">
-            <a href="mailto:contact@yourwebsite.com">Contact us</a>
+            <a href="mailto:info@nandhconstructionco.com">Contact us</a>
             <ArrowRight className="w-4 h-4 text-white" />
           </div>
         </div>
       </section>
       <section className="py-16 px-4 md:px-8 lg:px-16" id="leadership">
-        <div className="max-w-6xl mx-auto flex flex-col-reverse md:flex-row gap-10 items-start">
-          <div className="w-full md:w-2/3 space-y-6">
+        <div className="max-w-6xl mx-auto flex lg:flex-nowrap flex-wrap-reverse gap-10 items-start lg:justify-between justify-center">
+
+          <div className="w-full lg:w-2/3 space-y-6">
             <div>
               <h2 className="text-2xl md:text-4xl font-bold leading-tight text-gray-900">
                 Noah Kahale
@@ -241,7 +242,7 @@ const WhoWeAre = () => {
             </div>
           </div>
 
-          <div className="w-full md:w-1/3">
+          <div className="w-full md:w-1/3 shrink-0">
             <img
               src={ceoImg}
               alt="Noah Kahale — CEO of N&H Construction Co."

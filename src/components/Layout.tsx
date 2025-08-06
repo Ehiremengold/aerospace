@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { ReactNode } from "react";
 import { NavLink } from "react-router-dom";
 import { AlignRight, Search, X } from "lucide-react";
-import { FaFacebook } from "react-icons/fa";
+import { FaFacebook, FaYoutube } from "react-icons/fa";
 import { IoLogoInstagram } from "react-icons/io";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
@@ -228,7 +228,7 @@ const Layout = ({
           </div>
         </section>
       )}
-      <footer className="font-poppins py-6 px-4 bg-black">
+      <footer className="font-poppins py-12 px-4 bg-black">
         <div className="max-w-7xl mx-auto">
           {/* upper section - desktop */}
           <div className="md:flex hidden gap-4 sm:items-start w-full">
@@ -352,6 +352,12 @@ const Layout = ({
                     aria-label="LinkedIn"
                   >
                     <FaLinkedin className="text-white" size={20} />
+                  </a>
+                  <a
+                    href="https://youtube.com/company/yourcompany"
+                    aria-label="LinkedIn"
+                  >
+                    <FaYoutube className="text-white" size={20} />
                   </a>
                 </div>
               </div>
@@ -499,6 +505,12 @@ const Layout = ({
                   aria-label="LinkedIn"
                 >
                   <FaLinkedin className="text-white" size={20} />
+                </a>
+                <a
+                  href="https://youtube.com/company/yourcompany"
+                  aria-label="LinkedIn"
+                >
+                  <FaYoutube className="text-white" size={20} />
                 </a>
               </div>
             </div>
