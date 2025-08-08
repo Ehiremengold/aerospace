@@ -1,5 +1,5 @@
-import { motion, easeOut } from "framer-motion";
-import { useQuery } from "@tanstack/react-query";
+import { motion } from "framer-motion";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
 import Layout from "../components/Layout";
 import { Helmet } from "react-helmet-async";
@@ -10,101 +10,95 @@ import { companyName } from "../utils/constants";
 import type { StrapiPost } from "../utils/types";
 import { Skeleton } from "@mantine/core";
 import axios from "axios";
+import { lazy, Suspense, memo } from "react";
+
+// Lazy load BlogSection
+const BlogSection = lazy(() => import("./BlogPosts"));
 
 const fetchPosts = async () => {
+  const start = performance.now();
   const response = await axios.get<{ data: StrapiPost[] }>(
     `${
       import.meta.env.VITE_STRAPI_API_URL
-    }/blog-posts?sort=createdAt:desc&populate[coverImage][fields]=url&fields[0]=title&fields[1]=slug&fields[2]=excerpt&fields[3]=author&fields[4]=date&pagination[pageSize]=3&pagination[page]=1`,
+    }/blog-posts?sort=createdAt:desc&populate[coverImage][fields]=url&fields[0]=title&fields[1]=slug&fields[2]=excerpt&pagination[pageSize]=3&pagination[page]=1`,
     {
       headers: {
         Authorization: `Bearer ${import.meta.env.VITE_STRAPI_API_TOKEN}`,
       },
     }
   );
+  console.log(`fetchPosts took ${performance.now() - start}ms`);
   return response.data.data;
 };
 
+// Memoize Logo component
+const Logo = memo(({ src, alt }: { src: string; alt: string }) => (
+  <motion.img
+    width={158}
+    height={48}
+    src={src}
+    alt={alt}
+    className="col-span-2 max-h-12 w-full object-contain"
+    variants={{
+      hidden: { opacity: 0, scale: 0.8 },
+      visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
+    }}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true }}
+    loading="lazy"
+  />
+));
+
 const Home = () => {
+  const queryClient = useQueryClient();
   const { data: posts, isLoading } = useQuery({
     queryKey: ["homePosts"],
     queryFn: fetchPosts,
-    staleTime: 5 * 60 * 1000,
+    staleTime: 15 * 60 * 1000, // 15 minutes
+    cacheTime: 30 * 60 * 1000, // 30 minutes
   });
 
-  // Animation variants for sections
+  // Prefetch next page of blog posts
+  const prefetchNextPage = async () => {
+    await queryClient.prefetchQuery({
+      queryKey: ["blogPosts", 2],
+      queryFn: () =>
+        axios
+          .get(
+            `${
+              import.meta.env.VITE_STRAPI_API_URL
+            }/blog-posts?sort=createdAt:desc&populate[coverImage][fields]=url&fields[0]=title&fields[1]=slug&fields[2]=excerpt&pagination[pageSize]=6&pagination[page]=2`,
+            {
+              headers: {
+                Authorization: `Bearer ${
+                  import.meta.env.VITE_STRAPI_API_TOKEN
+                }`,
+              },
+            }
+          )
+          .then((res) => res.data.data),
+    });
+  };
+
+  // Simplified animation variants
   const sectionVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: easeOut,
-      },
-    },
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.5 } },
   };
 
-  // Animation for hero text
   const heroVariants = {
-    hidden: { opacity: 0, y: 100 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 1,
-        ease: easeOut,
-        staggerChildren: 0.2,
-      },
-    },
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   };
 
-  // Animation for buttons
   const buttonVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: easeOut,
-      },
-    },
-    hover: {
-      scale: 1.05,
-      transition: { duration: 0.3, ease: easeOut },
-    },
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
+    hover: { scale: 1.05, transition: { duration: 0.2 } },
   };
 
-  // Animation for logo grid
-  const logoVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.6,
-        ease: easeOut,
-      },
-    },
-  };
-
-  // Animation for story cards
-  const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.7,
-        ease: easeOut,
-      },
-    },
-    hover: {
-      y: -10,
-      transition: { duration: 0.3, ease: easeOut },
-    },
-  };
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
   return (
     <Layout>
@@ -113,38 +107,49 @@ const Home = () => {
         <title>Home | {companyName}</title>
         <meta
           name="description"
-          content={`Discover ${companyName}'s cutting-edge defense and aerospace solutions, pioneering next-gen infrastructure for mission-critical performance.`}
+          content={`Discover ${companyName}'s cutting-edge defense and aerospace solutions.`}
         />
         <meta property="og:title" content={`Home | ${companyName}`} />
         <meta
           property="og:description"
-          content={`Explore ${companyName}'s innovative technologies in defense, aerospace, and infrastructure, shaping the future of global security.`}
+          content={`Explore ${companyName}'s innovative technologies in defense and aerospace.`}
         />
-        <meta property="og:image" content="/assets/images/hero-image.png" />
+        <meta property="og:image" content="/assets/images/hero-image.webp" />
         <meta name="robots" content="index, follow" />
         <meta
           name="keywords"
-          content={`defense technology, aerospace engineering, next-gen infrastructure, mission-critical solutions, ${companyName}`}
+          content={`defense technology, aerospace engineering, ${companyName}`}
         />
       </Helmet>
-      {/* Hero Section */}
       <section className="relative min-h-screen overflow-hidden">
-        <motion.video
-          autoPlay
-          loop
-          muted
-          playsInline
+        <motion.div
           className="absolute inset-0 w-full h-full object-cover z-0"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1.5, ease: easeOut }}
+          transition={{ duration: 1 }}
         >
-          <source src="/hero.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </motion.video>
-
+          {isMobile ? (
+            <img
+              src="/hero-poster.webp"
+              alt="Hero background"
+              width={1920}
+              height={1080}
+              className="w-full h-full object-cover"
+              loading="eager"
+            />
+          ) : (
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover"
+            >
+              <source src="/hero.mp4" type="video/mp4" />
+            </video>
+          )}
+        </motion.div>
         <div className="absolute inset-0 bg-black/60 z-10"></div>
-
         <motion.div
           className="relative z-20 flex items-center justify-center min-h-screen text-white text-center px-4"
           variants={heroVariants}
@@ -159,24 +164,24 @@ const Home = () => {
               Engineering the Future of {companyName} & Defense
             </motion.h1>
             <motion.p className="lg:text-xl" variants={heroVariants}>
-              From concept to combat readiness, N&H Construction Co. pioneers
-              next-gen infrastructure that powers innovation, resilience, and
-              mission-critical performance.
+              From concept to combat readiness, {companyName} pioneers next-gen
+              infrastructure.
             </motion.p>
             <motion.div
               className="flex items-center gap-5 flex-wrap mt-4 justify-center"
               variants={heroVariants}
             >
               <motion.div
-                className="group bg-black/60 text-white text-sm py-1 px-3 flex items-center gap-2 rounded-lg cursor-pointer hover:bg-white hover:text-black transition-all duration-300 ease-in-out"
+                className="group bg-black/60 text-white text-sm py-1 px-3 flex items-center gap-2 rounded-lg cursor-pointer hover:bg-white hover:text-black"
                 variants={buttonVariants}
                 whileHover="hover"
+                onMouseEnter={prefetchNextPage} // Prefetch blog posts
               >
                 <h2>Learn About Next-Gen Architecture</h2>
-                <ArrowRight className="w-3 text-white group-hover:text-black transition-all duration-300 ease-in-out" />
+                <ArrowRight className="w-3 text-white group-hover:text-black" />
               </motion.div>
               <motion.div
-                className="group bg-black/60 text-white text-sm py-1 px-3 flex items-center gap-2 rounded-lg cursor-pointer hover:bg-white hover:text-black transition-all duration-300 ease-in-out"
+                className="group bg-black/60 text-white text-sm py-1 px-3 flex items-center gap-2 rounded-lg cursor-pointer hover:bg-white hover:text-black"
                 variants={buttonVariants}
                 whileHover="hover"
               >
@@ -189,8 +194,6 @@ const Home = () => {
           </div>
         </motion.div>
       </section>
-
-      {/* Trusted By Section */}
       <motion.section
         className="py-24 sm:py-24"
         variants={sectionVariants}
@@ -236,7 +239,7 @@ const Home = () => {
                 } ${
                   index === 4 ? "col-start-2 sm:col-start-auto" : ""
                 } lg:col-span-1`}
-                variants={logoVariants}
+                // variants={logoVariants}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -246,8 +249,6 @@ const Home = () => {
           </div>
         </div>
       </motion.section>
-
-      {/* Technology and Innovation Section */}
       <motion.section
         className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12 px-4 md:px-8 lg:px-16 py-12 max-w-7xl mx-auto"
         variants={sectionVariants}
@@ -263,8 +264,7 @@ const Home = () => {
             Technology and Innovation
           </h2>
           <p className="text-base md:text-lg text-gray-700">
-            For some, the word 'impossible' ends discussions. For us, it's a
-            starting point.
+            For us, 'impossible' is a starting point.
           </p>
           <motion.div
             className="bg-black w-fit text-white text-sm py-2 px-4 flex items-center gap-2 rounded-lg cursor-pointer mx-auto md:mx-0"
@@ -275,18 +275,17 @@ const Home = () => {
             <ArrowRight className="w-4 h-4 text-white" />
           </motion.div>
         </motion.div>
-
         <motion.div className="w-full md:w-1/2" variants={sectionVariants}>
           <img
             src={techInnoImg}
             alt={`Innovative technology solutions at ${companyName}`}
             className="rounded-xl w-full h-auto max-w-[600px] mx-auto"
+            width={600}
+            height={400}
             loading="lazy"
           />
         </motion.div>
       </motion.section>
-
-      {/* Manufacturing the Future Section */}
       <motion.section
         className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12 px-4 md:px-8 lg:px-16 py-12 max-w-7xl mx-auto"
         variants={sectionVariants}
@@ -299,10 +298,11 @@ const Home = () => {
             src={ManufactureImg}
             alt={`Advanced manufacturing for defense at ${companyName}`}
             className="rounded-xl w-full h-auto max-w-[600px] mx-auto"
+            width={600}
+            height={400}
             loading="lazy"
           />
         </motion.div>
-
         <motion.div
           className="flex flex-col gap-4 w-full md:w-1/2 text-center md:text-left"
           variants={sectionVariants}
@@ -311,11 +311,10 @@ const Home = () => {
             Manufacturing the Future
           </h2>
           <p className="text-base md:text-lg text-gray-700">
-            Global Power Made in America. Defining possible through advanced
-            manufacturing and innovation engineering
+            Global Power Made in America.
           </p>
           <motion.div
-            className="bg-black w-fit text-white text-sm py-2 px-4 flex items-center gap-2 rounded-lg cursor-pointer transition-all duration-300 ease-in-out mx-auto md:mx-0"
+            className="bg-black w-fit text-white text-sm py-2 px-4 flex items-center gap-2 rounded-lg cursor-pointer mx-auto md:mx-0"
             variants={buttonVariants}
             whileHover="hover"
           >
@@ -326,8 +325,6 @@ const Home = () => {
           </motion.div>
         </motion.div>
       </motion.section>
-
-      {/* Redefining Space Technology Section */}
       <motion.section
         className="relative h-[70dvh] w-full"
         variants={sectionVariants}
@@ -338,9 +335,11 @@ const Home = () => {
           src={revotionalImg}
           alt={`Redefining space technology with ${companyName}`}
           className="absolute inset-0 h-full w-full object-cover object-center z-0"
+          width={1920}
+          height={1080}
           loading="lazy"
         />
-        <div className="absolute bg-black/60 inset-0 left-0 flex flex-col justify-center gap-3 items-center md:px-6 lg:pl-28 z-20">
+        <div className="absolute bg-black/60 inset-0 flex flex-col justify-center gap-3 items-center md:px-6 lg:pl-28 z-20">
           <motion.h2
             variants={heroVariants}
             className="font-semibold lg:text-5xl text-3xl text-white text-center"
@@ -351,107 +350,14 @@ const Home = () => {
             variants={heroVariants}
             className="text-white font-medium lg:text-3xl text-xl text-center"
           >
-            From fortified ground bases to aerospace-grade structures, N&H
-            delivers integrated defense infrastructure for today’s operations —
-            and tomorrow’s possibilities.
+            {companyName} delivers integrated defense infrastructure for today’s
+            operations.
           </motion.p>
         </div>
       </motion.section>
-
-      {/* Blog Posts Section */}
-      <motion.section
-        className="w-full bg-gray-50 py-16 px-4 md:px-8"
-        variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">
-            Stories that Define Us
-          </h2>
-          {isLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
-              {[...Array(3)].map((_, i) => (
-                <div
-                  key={i}
-                  className="bg-white rounded-xl shadow-md overflow-hidden"
-                >
-                  <Skeleton height={224} width="100%" />
-                  <div className="p-6">
-                    <Skeleton height={24} width="80%" mb="sm" />
-                    <Skeleton height={16} width="100%" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : posts?.length === 0 ? (
-            <p className="text-center">No blog posts available.</p>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
-              {posts?.map((post: any) => (
-                <motion.div
-                  key={post.id}
-                  className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col"
-                  variants={cardVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  whileHover="hover"
-                  viewport={{ once: true }}
-                >
-                  <a
-                    href={`/blog-post/${post.attributes.slug}`}
-                    aria-label={`Read blog post: ${post.attributes.title}`}
-                  >
-                    <img
-                      src={
-                        post.attributes.coverImage?.data?.attributes?.url
-                          ? `${post.attributes.coverImage.data.attributes.url}`
-                          : ""
-                      }
-                      alt={`${post.attributes.title} - ${companyName} blog`}
-                      className="w-full h-56 object-cover"
-                      loading="lazy"
-                    />
-                    <div className="p-6 flex flex-col justify-between flex-grow">
-                      <div>
-                        <h3 className="text-xl font-semibold mb-2 text-gray-800 line-clamp-1">
-                          {post.attributes.title}
-                        </h3>
-                        <p className="text-sm text-gray-600 mb-4 line-clamp-3">
-                          {post.attributes.excerpt}
-                        </p>
-                      </div>
-                      <motion.span
-                        className="text-primary inline-block"
-                        variants={buttonVariants}
-                        whileHover="hover"
-                      >
-                        Read more →
-                      </motion.span>
-                    </div>
-                  </a>
-                </motion.div>
-              ))}
-            </div>
-          )}
-          <motion.div
-            className="mt-8 text-center"
-            variants={buttonVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <a
-              href="/blog-posts"
-              className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
-            >
-              View All Blog Posts
-              <ArrowRight className="w-4 h-4" />
-            </a>
-          </motion.div>
-        </div>
-      </motion.section>
+      <Suspense fallback={<Skeleton height={400} width="100%" />}>
+        <BlogSection posts={posts} isLoading={isLoading} />
+      </Suspense>
     </Layout>
   );
 };

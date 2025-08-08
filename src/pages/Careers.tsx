@@ -9,13 +9,30 @@ import { Loader, Modal, Text } from "@mantine/core";
 import axios from "axios";
 import { showNotification } from "@mantine/notifications";
 import type { StrapiJob } from "../utils/types";
+import { debounce } from "lodash";
+
+const fetchJobs = async () => {
+  const start = performance.now();
+  const response = await axios.get<{ data: StrapiJob[] }>(
+    `${
+      import.meta.env.VITE_STRAPI_API_URL
+    }/jobs?fields[0]=title&fields[1]=location`,
+    {
+      headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_STRAPI_API_TOKEN}`,
+      },
+    }
+  );
+  console.log(`fetchJobs took ${performance.now() - start}ms`);
+  return response.data.data;
+};
 
 const Careers = () => {
   const [jobs, setJobs] = useState<StrapiJob[]>([]);
   const [selectedJob, setSelectedJob] = useState<StrapiJob | null>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [submissionSuccess, setSubmissionSuccess] = useState(false); 
+  const [submissionSuccess, setSubmissionSuccess] = useState(false);
   const [opened, { open, close }] = useDisclosure(false);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -25,33 +42,30 @@ const Careers = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchJobs = async () => {
-      try {
-        const response = await axios.get<{ data: StrapiJob[] }>(
-          `${import.meta.env.VITE_STRAPI_API_URL}/jobs`,
-          {
-            headers: {
-              Authorization: `Bearer ${import.meta.env.VITE_STRAPI_API_TOKEN}`,
-            },
-          }
-        );
-        setJobs(response.data.data);
-        setSelectedJob(response.data.data[0] || null);
+    const cachedJobs = localStorage.getItem("jobs");
+    if (cachedJobs) {
+      setJobs(JSON.parse(cachedJobs));
+      setSelectedJob(JSON.parse(cachedJobs)[0] || null);
+      setLoading(false);
+    }
+    fetchJobs()
+      .then((data) => {
+        setJobs(data);
+        setSelectedJob(data[0] || null);
+        localStorage.setItem("jobs", JSON.stringify(data));
         setLoading(false);
-      } catch (error: any) {
-        const errorMessage =
-          error.response?.status === 401
-            ? "Unauthorized access. Please contact support."
-            : "Failed to load jobs. Please try again later.";
+      })
+      .catch((error: any) => {
         showNotification({
           title: "Error",
-          message: errorMessage,
+          message:
+            error.response?.status === 401
+              ? "Unauthorized access."
+              : "Failed to load jobs.",
           color: "red",
         });
         setLoading(false);
-      }
-    };
-    fetchJobs();
+      });
   }, []);
 
   const handleClose = () => {
@@ -61,22 +75,13 @@ const Careers = () => {
     setCoverLetter("");
     setResume(null);
     setError("");
-    setSubmissionSuccess(false); // Reset success state
+    setSubmissionSuccess(false);
     close();
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!name || !email || !phone || !resume) {
-      setError("Please fill in all required fields, including a resume.");
-      showNotification({
-        title: "Error",
-        message: "Please fill in all required fields, including a resume.",
-        color: "red",
-      });
-      return;
-    }
-    if (resume.type !== "application/pdf") {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file && file.type !== "application/pdf") {
       setError("Resume must be a PDF.");
       showNotification({
         title: "Error",
@@ -85,7 +90,7 @@ const Careers = () => {
       });
       return;
     }
-    if (resume.size > 2 * 1024 * 1024) {
+    if (file && file.size > 2 * 1024 * 1024) {
       setError("Resume must be under 2MB.");
       showNotification({
         title: "Error",
@@ -94,8 +99,22 @@ const Careers = () => {
       });
       return;
     }
-    setSubmitting(true);
+    setResume(file || null);
     setError("");
+  };
+
+  const handleSubmit = debounce(async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name || !email || !phone || !resume) {
+      setError("Please fill in all required fields, including a resume.");
+      showNotification({
+        title: "Error",
+        message: "Please fill in all required fields.",
+        color: "red",
+      });
+      return;
+    }
+    setSubmitting(true);
     try {
       const formData = new FormData();
       formData.append(
@@ -109,7 +128,6 @@ const Careers = () => {
         })
       );
       formData.append("files.resume", resume);
-
       await axios.post(
         `${import.meta.env.VITE_STRAPI_API_URL}/applications`,
         formData,
@@ -120,33 +138,26 @@ const Careers = () => {
           },
         }
       );
-      setSubmissionSuccess(true); // Set success state
+      setSubmissionSuccess(true);
       showNotification({
         title: "Success",
-        message:
-          "Application submitted successfully! We'll get back to you soon.",
+        message: "Application submitted successfully!",
         color: "green",
       });
     } catch (error: any) {
       const errorMessage =
         error.response?.status === 401
-          ? "Unauthorized access. Please contact support."
-          : error.response?.data?.error?.message?.includes("resume")
-          ? "A valid PDF resume is required. Please upload a PDF file."
+          ? "Unauthorized access."
           : error.response?.data?.error?.message ||
-            "Failed to submit application. Please check your connection and try again.";
+            "Failed to submit application.";
       setError(errorMessage);
-      showNotification({
-        title: "Error",
-        message: errorMessage,
-        color: "red",
-      });
+      showNotification({ title: "Error", message: errorMessage, color: "red" });
     } finally {
       setSubmitting(false);
     }
-  };
+  }, 500);
 
-  if (loading)
+  if (loading) {
     return (
       <Layout>
         <div className="grid place-items-center place-content-center py-24 min-h-screen">
@@ -155,6 +166,7 @@ const Careers = () => {
         </div>
       </Layout>
     );
+  }
 
   return (
     <Layout>
@@ -163,18 +175,18 @@ const Careers = () => {
         <title>Careers | {companyName}</title>
         <meta
           name="description"
-          content={`Join ${companyName} and explore career opportunities in aerospace, defense, and cybersecurity. Find jobs in Lagos, Abuja, and remote roles.`}
+          content={`Join ${companyName} and explore career opportunities.`}
         />
         <meta property="og:title" content={`Careers at ${companyName}`} />
         <meta
           property="og:description"
-          content={`Apply for exciting roles at ${companyName} in aerospace engineering, cybersecurity, and defense infrastructure. Start your career today.`}
+          content={`Apply for roles at ${companyName} in aerospace and defense.`}
         />
-        <meta property="og:image" content="/assets/images/hero-image.png" />
+        <meta property="og:image" content="/assets/images/hero-image.webp" />
         <meta name="robots" content="index, follow" />
         <meta
           name="keywords"
-          content={`careers ${companyName}, aerospace jobs, defense jobs, cybersecurity careers, Nigeria jobs`}
+          content={`careers ${companyName}, aerospace jobs, defense jobs`}
         />
         <script type="application/ld+json">
           {JSON.stringify({
@@ -193,11 +205,6 @@ const Careers = () => {
                 "@type": "PostalAddress",
                 addressLocality:
                   selectedJob?.attributes.location.split(", ")[0],
-                addressRegion: selectedJob?.attributes.location.includes(
-                  "Nigeria"
-                )
-                  ? "NG"
-                  : null,
                 addressCountry: selectedJob?.attributes.location.includes(
                   "Nigeria"
                 )
@@ -210,14 +217,12 @@ const Careers = () => {
           })}
         </script>
       </Helmet>
-
       <Modal
         centered
         radius={8}
         size="lg"
         opened={opened}
         onClose={handleClose}
-        className="font-poppins"
         title={
           submissionSuccess
             ? "Application Submitted"
@@ -225,13 +230,11 @@ const Careers = () => {
         }
       >
         {submissionSuccess ? (
-          <div className="flex flex-col gap-4 text-center font-poppins">
-            <h1 className="text-green-600">
-              Thank You for Your Application!
-            </h1>
+          <div className="flex flex-col gap-4 text-center">
+            <h1 className="text-green-600">Thank You for Your Application!</h1>
             <Text>
               Your application for {selectedJob?.attributes.title} has been
-              successfully submitted. We'll get back to you soon.
+              submitted.
             </Text>
             <button
               onClick={handleClose}
@@ -281,12 +284,12 @@ const Careers = () => {
               onChange={(e) => setCoverLetter(e.target.value)}
               aria-label="Cover Letter"
               disabled={submitting}
-            ></textarea>
+            />
             <input
               type="file"
               accept=".pdf"
               className="border rounded px-4 py-2"
-              onChange={(e) => setResume(e.target.files?.[0] || null)}
+              onChange={handleFileChange}
               required
               aria-label="Upload Resume (PDF, required)"
               disabled={submitting}
@@ -298,7 +301,7 @@ const Careers = () => {
             )}
             <button
               type="submit"
-              className="bg-black text-white hover:bg-gray-800 py-2 rounded-md disabled:opacity-50 flex items-center justify-center"
+              className="bg-black text-white hover:bg-gray-800 py-2 rounded-md disabled:opacity-50"
               aria-label={
                 submitting ? "Submitting application" : "Submit Application"
               }
@@ -316,12 +319,13 @@ const Careers = () => {
           </form>
         )}
       </Modal>
-
       <section className="relative h-[70dvh] w-full">
         <img
           src={careerHero}
-          alt={`Careers at ${companyName} in aerospace and defense`}
+          alt={`Careers at ${companyName}`}
           className="absolute inset-0 h-full w-full object-cover object-bottom z-0"
+          width={1920}
+          height={1080}
           loading="lazy"
         />
         <div className="absolute left-0 top-0 h-full flex items-center px-6 lg:px-16 z-10">
@@ -330,27 +334,22 @@ const Careers = () => {
               Careers at {companyName}
             </h1>
             <p className="lg:text-2xl text-lg">
-              Explore careers across air, cyber, land, sea, space and
-              connectivity in between.
+              Explore careers in aerospace, defense, and more.
             </p>
           </div>
         </div>
       </section>
-
       <div className="bg-black w-full text-white py-5">
         <div className="w-[80%] mx-auto flex items-center gap-2">
-          <NavLink to="/" className={"text-gray-400"}>
+          <NavLink to="/" className="text-gray-400">
             Home
           </NavLink>
           <span>&gt; Careers</span>
         </div>
       </div>
-
       <section className="w-[90%] max-w-7xl mx-auto my-16 grid grid-cols-1 md:grid-cols-2 gap-10">
         <aside className="flex flex-col gap-4">
-          <h2 className="text-2xl font-semibold mb-2">
-            Explore Open Roles at {companyName}
-          </h2>
+          <h2 className="text-2xl font-semibold mb-2">Explore Open Roles</h2>
           {jobs?.map((job) => (
             <button
               key={job.id}
@@ -367,7 +366,6 @@ const Careers = () => {
             </button>
           ))}
         </aside>
-
         <article className="flex flex-col gap-6">
           <div>
             <h2 className="text-2xl font-bold">
@@ -376,9 +374,6 @@ const Careers = () => {
             <p className="text-sm text-gray-500 mb-3">
               {selectedJob?.attributes.location}
             </p>
-            {/* <p className="text-gray-700 leading-relaxed">
-              {selectedJob?.attributes.description}
-            </p> */}
           </div>
           <button
             onClick={open}

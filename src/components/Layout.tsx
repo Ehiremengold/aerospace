@@ -354,8 +354,8 @@ const Layout = ({
                     <FaLinkedin className="text-white" size={20} />
                   </a>
                   <a
-                    href="https://youtube.com/company/yourcompany"
-                    aria-label="LinkedIn"
+                    href="https://youtube.com/@nandhconstructionco?si=JvgE_tJ-z1ng6fMm"
+                    aria-label="Youtube"
                   >
                     <FaYoutube className="text-white" size={20} />
                   </a>
@@ -507,8 +507,8 @@ const Layout = ({
                   <FaLinkedin className="text-white" size={20} />
                 </a>
                 <a
-                  href="https://youtube.com/company/yourcompany"
-                  aria-label="LinkedIn"
+                  href="https://youtube.com/@nandhconstructionco?si=JvgE_tJ-z1ng6fMm"
+                  aria-label="Youtube"
                 >
                   <FaYoutube className="text-white" size={20} />
                 </a>
