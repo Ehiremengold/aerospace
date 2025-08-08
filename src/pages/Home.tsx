@@ -10,10 +10,10 @@ import { companyName } from "../utils/constants";
 import type { StrapiPost } from "../utils/types";
 import { Skeleton } from "@mantine/core";
 import axios from "axios";
-import { lazy, Suspense, memo } from "react";
+import { lazy, Suspense } from "react";
 
 // Lazy load BlogSection
-const BlogSection = lazy(() => import("./BlogPosts"));
+const BlogSection = lazy(() => import("../components/BlogSection"));
 
 const fetchPosts = async () => {
   const start = performance.now();
@@ -31,32 +31,12 @@ const fetchPosts = async () => {
   return response.data.data;
 };
 
-// Memoize Logo component
-const Logo = memo(({ src, alt }: { src: string; alt: string }) => (
-  <motion.img
-    width={158}
-    height={48}
-    src={src}
-    alt={alt}
-    className="col-span-2 max-h-12 w-full object-contain"
-    variants={{
-      hidden: { opacity: 0, scale: 0.8 },
-      visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
-    }}
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true }}
-    loading="lazy"
-  />
-));
-
 const Home = () => {
   const queryClient = useQueryClient();
   const { data: posts, isLoading } = useQuery({
     queryKey: ["homePosts"],
     queryFn: fetchPosts,
     staleTime: 15 * 60 * 1000, // 15 minutes
-    cacheTime: 30 * 60 * 1000, // 30 minutes
   });
 
   // Prefetch next page of blog posts
