@@ -67,12 +67,11 @@ const MarkdownContent = memo(({ content }: { content: string }) => (
 
 const BlogDetail = () => {
   const { slug } = useParams<{ slug: string }>();
-  const { data: post, isLoading, error } = useQuery({
+  const { data: post, isLoading, error } = useQuery<StrapiPost | null>({
     queryKey: ["blogPost", slug],
     queryFn: () => fetchPost(slug!),
     staleTime: 15 * 60 * 1000,
-    cacheTime: 30 * 60 * 1000,
-  });
+  }) as { data: StrapiPost | null, isLoading: boolean, error: unknown };
 
   if (error) {
     showNotification({
@@ -104,7 +103,7 @@ const BlogDetail = () => {
     <Layout>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{post.attributes.title} | {companyName}</title>
+        <title>{(post as StrapiPost).attributes.title} | {companyName}</title>
         <meta name="description" content={post.attributes.excerpt} />
         <meta property="og:title" content={`${post.attributes.title} | ${companyName}`} />
         <meta property="og:description" content={post.attributes.excerpt} />

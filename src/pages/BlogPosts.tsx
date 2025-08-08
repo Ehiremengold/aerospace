@@ -38,15 +38,17 @@ const BlogPosts = () => {
   const postsPerPage = 6;
   const queryClient = useQueryClient();
 
-  const { data, isLoading } = useQuery({
+  const { data = { posts: [], totalPages: 1 }, isLoading } = useQuery<{
+    posts: StrapiPost[];
+    totalPages: number;
+  }, unknown, { posts: StrapiPost[]; totalPages: number }>({
     queryKey: ["blogPosts", currentPage],
     queryFn: () => fetchBlogPosts(currentPage, postsPerPage),
     staleTime: 15 * 60 * 1000,
-    cacheTime: 30 * 60 * 1000,
   });
 
-  const posts = data?.posts || [];
-  const totalPages = data?.totalPages || 1;
+  const posts = data.posts;
+  const totalPages = data.totalPages;
 
   useEffect(() => {
     if (currentPage < totalPages) {
