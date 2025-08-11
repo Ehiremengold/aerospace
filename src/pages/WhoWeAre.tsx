@@ -74,9 +74,9 @@ const WhoWeAre = () => {
         <p>
           {companyName} solves the toughest problems in space, aeronautics,
           defense and cyberspace to meet the ever evolving needs of our
-          customers worldwide. Our 100,000 employees are Defining Possible every
-          day using science, technology and engineering to create and deliver
-          advanced systems, products and services.
+          customers worldwide. Our 25 Top Best Engineers are Defining Possible
+          every day using science, technology and engineering to create and
+          deliver advanced systems, products and services.
         </p>
       </section>
       <section className="flex flex-wrap lg:flex-nowrap  items-center lg:justify-between justify-center gap-8 md:gap-12 px-4 md:px-8 lg:px-16 pt-6 pb-12 max-w-7xl mx-auto">
@@ -117,7 +117,6 @@ const WhoWeAre = () => {
       </section>
       <section className="py-16 px-4 md:px-8 lg:px-16" id="leadership">
         <div className="max-w-6xl mx-auto flex lg:flex-nowrap flex-wrap-reverse gap-10 items-start lg:justify-between justify-center">
-
           <div className="w-full lg:w-2/3 space-y-6">
             <div>
               <h2 className="text-2xl md:text-4xl font-bold leading-tight text-gray-900">
@@ -154,8 +153,8 @@ const WhoWeAre = () => {
                 </h3>
                 <p>
                   With over 30 years in the aerospace defense industry, Noah
-                  spent more than two decades as an{" "}
-                  <strong>Aerospace Engineer at N and H Construction Co</strong>
+                  spent more than 15 years as an{" "}
+                  <strong>Aerospace Engineer at Northrop Grumman</strong>
                   , contributing to cutting-edge radar and security systems.
                   Five years ago, he founded{" "}
                   <strong>N&H Construction Co.</strong>, a consultancy
