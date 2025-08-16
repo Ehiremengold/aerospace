@@ -330,13 +330,13 @@ const Layout = ({
                 </ul>
                 <div className="flex gap-2 items-center mt-2">
                   <a
-                    href="https://facebook.com/yourcompany"
+                    href="https://www.facebook.com/share/1EfTCsafA2/"
                     aria-label="Facebook"
                   >
                     <FaFacebook className="text-white" size={20} />
                   </a>
                   <a
-                    href="https://instagram.com/yourcompany"
+                    href="https://www.instagram.com/nandhco?igsh=cXg2cDBscDkwZWQ0"
                     aria-label="Instagram"
                   >
                     <IoLogoInstagram className="text-white" size={20} />
@@ -486,13 +486,13 @@ const Layout = ({
               </ul>
               <div className="flex gap-2 items-center mt-2">
                 <a
-                  href="https://facebook.com/yourcompany"
+                  href="https://www.facebook.com/share/1EfTCsafA2/"
                   aria-label="Facebook"
                 >
                   <FaFacebook className="text-white" size={20} />
                 </a>
                 <a
-                  href="https://instagram.com/yourcompany"
+                  href="https://www.instagram.com/nandhco?igsh=cXg2cDBscDkwZWQ0"
                   aria-label="Instagram"
                 >
                   <IoLogoInstagram className="text-white" size={20} />
