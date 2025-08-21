@@ -20,7 +20,7 @@ const fetchPosts = async () => {
   const response = await axios.get<{ data: StrapiPost[] }>(
     `${
       import.meta.env.VITE_STRAPI_API_URL
-    }/blog-posts?sort=createdAt:desc&populate[coverImage][fields]=url&fields[0]=title&fields[1]=slug&fields[2]=excerpt&pagination[pageSize]=3&pagination[page]=1`,
+    }/blog-posts?sort=createdAt:desc&populate[coverImage][fields][0]=url&fields[0]=title&fields[1]=slug&fields[2]=excerpt&pagination[pageSize]=3&pagination[page]=1`,
     {
       headers: {
         Authorization: `Bearer ${import.meta.env.VITE_STRAPI_API_TOKEN}`,
@@ -30,7 +30,6 @@ const fetchPosts = async () => {
   console.log(`fetchPosts took ${performance.now() - start}ms`);
   return response.data.data;
 };
-
 const Home = () => {
   const queryClient = useQueryClient();
   const { data: posts, isLoading } = useQuery({
@@ -48,7 +47,7 @@ const Home = () => {
           .get(
             `${
               import.meta.env.VITE_STRAPI_API_URL
-            }/blog-posts?sort=createdAt:desc&populate[coverImage][fields]=url&fields[0]=title&fields[1]=slug&fields[2]=excerpt&pagination[pageSize]=6&pagination[page]=2`,
+            }/blog-posts?sort=createdAt:desc&populate[coverImage][fields][0]=url&fields[0]=title&fields[1]=slug&fields[2]=excerpt&pagination[pageSize]=3&pagination[page]=2`,
             {
               headers: {
                 Authorization: `Bearer ${

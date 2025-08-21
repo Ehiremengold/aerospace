@@ -19,7 +19,7 @@ const fetchBlogPosts = async (page: number, pageSize: number) => {
   }>(
     `${
       import.meta.env.VITE_STRAPI_API_URL
-    }/blog-posts?sort=createdAt:desc&populate[coverImage][fields]=url&fields[0]=title&fields[1]=slug&fields[2]=excerpt&pagination[page]=${page}&pagination[pageSize]=${pageSize}`,
+    }/blog-posts?sort=createdAt:desc&populate[coverImage][fields][0]=url&fields[0]=title&fields[1]=slug&fields[2]=excerpt&pagination[page]=${page}&pagination[pageSize]=${pageSize}`,
     {
       headers: {
         Authorization: `Bearer ${import.meta.env.VITE_STRAPI_API_TOKEN}`,
