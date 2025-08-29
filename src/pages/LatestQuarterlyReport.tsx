@@ -6,6 +6,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import type { QuarterlyReport } from "../utils/types";
 
+const getFileUrl = (url: string | undefined) => {
+  if (!url) return "#";
+  return url.replace(
+    "https://sincere-gem-9844525bed.media.strapiapp.com",
+    "https://nandhconstructionco.com/cms"
+  );
+};
+
 const fetchReports = async () => {
   const start = performance.now();
   const response = await axios.get(
@@ -18,7 +26,7 @@ const fetchReports = async () => {
       },
     }
   );
-    console.log(response);
+  console.log(response);
   console.log(`fetchReports took ${performance.now() - start}ms`);
   return response.data.data as QuarterlyReport[];
 };
@@ -33,14 +41,16 @@ const LatestQuarterlyReport = () => {
       setReports(JSON.parse(cachedReports));
       setLoading(false);
     }
-    fetchReports().then((data) => {
-      setReports(data);
-      localStorage.setItem("latestReports", JSON.stringify(data));
-      setLoading(false);
-    }).catch((error) => {
-      console.error("Error fetching reports:", error);
-      setLoading(false);
-    });
+    fetchReports()
+      .then((data) => {
+        setReports(data);
+        localStorage.setItem("latestReports", JSON.stringify(data));
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching reports:", error);
+        setLoading(false);
+      });
   }, []);
 
   if (loading) {
@@ -67,12 +77,20 @@ const LatestQuarterlyReport = () => {
     <Layout showInvestorContactInfo={true}>
       <Helmet>
         <title>Investors | N&H Construction Co.</title>
-        <meta name="description" content="Discover investment insights at N&H Construction Co." />
-        <meta name="keywords" content="N&H Construction, investor relations, financial reports" />
+        <meta
+          name="description"
+          content="Discover investment insights at N&H Construction Co."
+        />
+        <meta
+          name="keywords"
+          content="N&H Construction, investor relations, financial reports"
+        />
       </Helmet>
       <section className="px-4 md:px-8 lg:px-16 py-28 max-w-7xl mx-auto min-h-screen">
         <div className="text-center mb-10">
-          <h1 className="text-3xl md:text-4xl font-bold mb-2">Latest Quarterly Report</h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-2">
+            Latest Quarterly Report
+          </h1>
           <p className="text-gray-600 max-w-2xl mx-auto text-2xl">
             {reports[0].attributes.quarter} {reports[0].attributes.year}
           </p>
@@ -84,15 +102,23 @@ const LatestQuarterlyReport = () => {
               className="border-b border-primary p-2 flex items-center justify-between cursor-pointer gap-4"
             >
               <a
-                href={report.attributes.mediaFile?.data?.attributes?.url || "#"}
+                href={getFileUrl(
+                  report.attributes.mediaFile?.data?.attributes?.url
+                )}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <h1 className="hover:text-primary transition-colors ease-in-out duration-300">
-                  {report.attributes.typeOfContent === "PDF" ? report.attributes.title : "Webcast"}
+                  {report.attributes.typeOfContent === "PDF"
+                    ? report.attributes.title
+                    : "Webcast"}
                 </h1>
               </a>
-              {report.attributes.typeOfContent === "PDF" ? <FaFilePdf /> : <AudioLines />}
+              {report.attributes.typeOfContent === "PDF" ? (
+                <FaFilePdf />
+              ) : (
+                <AudioLines />
+              )}
             </div>
           ))}
         </div>
