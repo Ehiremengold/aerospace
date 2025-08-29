@@ -9,7 +9,7 @@ import type { QuarterlyReport } from "../utils/types";
 const getFileUrl = (url: string | undefined) => {
   if (!url) return "#";
   return url.replace(
-    "https://sincere-gem-9844525bed.media.strapiapp.com",
+    "https://sincere-gem-9844525bed.media.strapiapp.com/api/",
     "https://nandhconstructionco.com/cms"
   );
 };
