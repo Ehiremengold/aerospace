@@ -110,7 +110,7 @@ const Home = () => {
         >
           {isMobile ? (
             <img
-              src="/hero-poster.webp"
+              src="/hero-poster.png"
               alt="Hero background"
               width={1920}
               height={1080}
@@ -124,6 +124,7 @@ const Home = () => {
               muted
               playsInline
               className="w-full h-full object-cover"
+              poster="/hero-poster.png"
             >
               <source src="/hero.mp4" type="video/mp4" />
             </video>
