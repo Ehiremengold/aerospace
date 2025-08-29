@@ -18,6 +18,7 @@ const fetchReports = async () => {
       },
     }
   );
+    console.log(response);
   console.log(`fetchReports took ${performance.now() - start}ms`);
   return response.data.data as QuarterlyReport[];
 };

@@ -27,6 +27,7 @@ const fetchPosts = async () => {
       },
     }
   );
+
   console.log(`fetchPosts took ${performance.now() - start}ms`);
   return response.data.data;
 };
