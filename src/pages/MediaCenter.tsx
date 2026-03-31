@@ -1,5 +1,6 @@
 import Layout from "../components/Layout";
 import { Helmet } from "react-helmet-async";
+import { companyName, domain } from "../utils/constants";
 import video1 from "../assets/videos/video-1.mp4";
 import video2 from "../assets/videos/video-2.mp4";
 import video3 from "../assets/videos/video-3.mp4";
@@ -24,11 +25,22 @@ const MediaCenter = () => {
   return (
     <Layout>
       <Helmet>
-        <title>Media Center | N&H Construction Co.</title>
-        <meta
-          name="description"
-          content="Watch videos showcasing our aerospace innovations and technologies."
-        />
+        <meta charSet="utf-8" />
+        <title>Media Center | {companyName}</title>
+        <meta name="description" content={`Watch videos showcasing ${companyName}'s aerospace innovations, engineering breakthroughs, and field demonstrations.`} />
+        <meta property="og:title" content={`Media Center | ${companyName}`} />
+        <meta property="og:description" content={`Explore video content from ${companyName} highlighting engineering, facility tours, and defense technologies.`} />
+        <meta property="og:image" content={`${domain}/hero-poster.png`} />
+        <meta property="og:url" content={`${domain}/media`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={companyName} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`Media Center | ${companyName}`} />
+        <meta name="twitter:description" content={`Explore video content from ${companyName} highlighting engineering, facility tours, and defense technologies.`} />
+        <meta name="twitter:image" content={`${domain}/hero-poster.png`} />
+        <meta name="robots" content="index, follow" />
+        <meta name="keywords" content={`media center, aerospace videos, defense technology, engineering showcase, ${companyName}`} />
+        <link rel="canonical" href={`${domain}/media`} />
       </Helmet>
 
       <section className="px-4 md:px-8 lg:px-16 py-28 max-w-7xl mx-auto">

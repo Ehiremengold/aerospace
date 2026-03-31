@@ -94,12 +94,20 @@ const Home = () => {
           property="og:description"
           content={`Explore ${companyName}'s innovative technologies in defense and aerospace.`}
         />
-        <meta property="og:image" content="/assets/images/hero-image.webp" />
+        <meta property="og:image" content={`https://nandhconstructionco.com/hero-poster.png`} />
+        <meta property="og:url" content="https://nandhconstructionco.com" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={companyName} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`Home | ${companyName}`} />
+        <meta name="twitter:description" content={`Explore ${companyName}'s innovative technologies in defense and aerospace.`} />
+        <meta name="twitter:image" content="https://nandhconstructionco.com/hero-poster.png" />
         <meta name="robots" content="index, follow" />
         <meta
           name="keywords"
           content={`defense technology, aerospace engineering, ${companyName}`}
         />
+        <link rel="canonical" href="https://nandhconstructionco.com" />
       </Helmet>
       <section className="relative min-h-screen overflow-hidden">
         <motion.div

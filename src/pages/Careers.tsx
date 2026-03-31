@@ -182,12 +182,20 @@ const Careers = () => {
           property="og:description"
           content={`Apply for roles at ${companyName} in aerospace and defense.`}
         />
-        <meta property="og:image" content="/assets/images/hero-image.webp" />
+        <meta property="og:image" content="https://nandhconstructionco.com/hero-poster.png" />
+        <meta property="og:url" content="https://nandhconstructionco.com/careers" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={companyName} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`Careers at ${companyName}`} />
+        <meta name="twitter:description" content={`Apply for roles at ${companyName} in aerospace and defense.`} />
+        <meta name="twitter:image" content="https://nandhconstructionco.com/hero-poster.png" />
         <meta name="robots" content="index, follow" />
         <meta
           name="keywords"
           content={`careers ${companyName}, aerospace jobs, defense jobs`}
         />
+        <link rel="canonical" href="https://nandhconstructionco.com/careers" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

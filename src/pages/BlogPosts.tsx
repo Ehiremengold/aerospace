@@ -89,9 +89,17 @@ const BlogPosts = () => {
         <meta name="description" content={`Explore ${companyName}'s latest insights and innovations.`} />
         <meta property="og:title" content={`Blog | ${companyName}`} />
         <meta property="og:description" content={`Read about ${companyName}'s advancements in defense and aerospace.`} />
-        <meta property="og:image" content="/assets/images/hero-image.webp" />
+        <meta property="og:image" content="https://nandhconstructionco.com/hero-poster.png" />
+        <meta property="og:url" content="https://nandhconstructionco.com/blog-posts" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={companyName} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`Blog | ${companyName}`} />
+        <meta name="twitter:description" content={`Read about ${companyName}'s advancements in defense and aerospace.`} />
+        <meta name="twitter:image" content="https://nandhconstructionco.com/hero-poster.png" />
         <meta name="robots" content="index, follow" />
         <meta name="keywords" content={`defense blog, aerospace news, ${companyName} blog`} />
+        <link rel="canonical" href="https://nandhconstructionco.com/blog-posts" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -121,7 +129,7 @@ const BlogPosts = () => {
           <p className="text-center text-2xl">No blog posts available.</p>
         ) : (
           <>
-            <div className="grid gap-8 md:grid-cols-2">
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {posts?.map((post) => (
                 <NavLink
                   key={post.id}

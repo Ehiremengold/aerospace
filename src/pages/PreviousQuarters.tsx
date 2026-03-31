@@ -6,13 +6,14 @@ import { FaFilePdf } from "react-icons/fa";
 import { AudioLines } from "lucide-react";
 import type { QuarterlyReport } from "../utils/types";
 import { Helmet } from "react-helmet-async";
+import { companyName, domain } from "../utils/constants";
 
 const fetchReports = async () => {
   const start = performance.now();
   const response = await axios.get(
     `${
       import.meta.env.VITE_STRAPI_API_URL
-    }/quarterly-reports?sort=year:desc,quarter:desc&populate[mediaFile]=*`,
+    }/quarterly-reports?sort=year:desc,quarter:desc&populate[mediaFile]=*&pagination[pageSize]=100`,
     {
       headers: {
         Authorization: `Bearer ${import.meta.env.VITE_STRAPI_API_TOKEN}`,
@@ -76,7 +77,7 @@ const PreviousQuarters = () => {
           <h1 className="text-3xl font-bold">{year}</h1>
         </Accordion.Control>
         <Accordion.Panel>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             {Object.entries(quarters).map(([quarter, quarterReports]) => (
               <div key={quarter} className="p-4 border border-gray-200 rounded shadow">
                 <h2 className="text-xl font-semibold mb-3">{quarter}</h2>
@@ -104,9 +105,22 @@ const PreviousQuarters = () => {
   return (
     <Layout showInvestorContactInfo={true}>
       <Helmet>
-        <title>Investors | N&H Construction Co.</title>
-        <meta name="description" content="Explore past financial performance at N&H Construction Co." />
-        <meta name="keywords" content="N&H Construction, investor relations, quarterly earnings" />
+        <meta charSet="utf-8" />
+        <title>Earnings Archive | {companyName}</title>
+        <meta name="description" content={`Browse the full earnings archive of ${companyName}. Explore past quarterly financial reports organized by year.`} />
+        <meta property="og:title" content={`Earnings Archive | ${companyName}`} />
+        <meta property="og:description" content={`Explore historical quarterly reports from ${companyName}, organized by year and quarter.`} />
+        <meta property="og:image" content="https://nandhconstructionco.com/hero-poster.png" />
+        <meta property="og:url" content={`${domain}/investors/previous-quarters`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={companyName} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`Earnings Archive | ${companyName}`} />
+        <meta name="twitter:description" content={`Explore historical quarterly reports from ${companyName}, organized by year and quarter.`} />
+        <meta name="twitter:image" content="https://nandhconstructionco.com/hero-poster.png" />
+        <meta name="robots" content="index, follow" />
+        <meta name="keywords" content={`investor relations, earnings archive, quarterly reports, ${companyName}`} />
+        <link rel="canonical" href={`${domain}/investors/previous-quarters`} />
       </Helmet>
       <section className="px-4 md:px-8 lg:px-16 py-28 max-w-7xl mx-auto min-h-screen">
         <div className="text-center mb-10">

@@ -5,6 +5,7 @@ import { AudioLines } from "lucide-react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import type { QuarterlyReport } from "../utils/types";
+import { companyName, domain } from "../utils/constants";
 
 const getFileUrl = (url: string | undefined) => {
   if (!url) return "#";
@@ -19,7 +20,7 @@ const fetchReports = async () => {
   const response = await axios.get(
     `${
       import.meta.env.VITE_STRAPI_API_URL
-    }/quarterly-reports?filters[year][$eq]=${new Date().getFullYear()}&sort=quarter:desc&populate[mediaFile]=*`,
+    }/quarterly-reports?sort=year:desc,quarter:desc&populate[mediaFile]=*&pagination[pageSize]=100`,
     {
       headers: {
         Authorization: `Bearer ${import.meta.env.VITE_STRAPI_API_TOKEN}`,
@@ -28,7 +29,15 @@ const fetchReports = async () => {
   );
   console.log(response);
   console.log(`fetchReports took ${performance.now() - start}ms`);
-  return response.data.data as QuarterlyReport[];
+  const allReports = response.data.data as QuarterlyReport[];
+  if (allReports.length === 0) return [];
+  // Show only reports from the most recent year and quarter
+  const latestYear = allReports[0].attributes.year;
+  const latestQuarter = allReports[0].attributes.quarter;
+  return allReports.filter(
+    (r) =>
+      r.attributes.year === latestYear && r.attributes.quarter === latestQuarter
+  );
 };
 
 const LatestQuarterlyReport = () => {
@@ -76,15 +85,22 @@ const LatestQuarterlyReport = () => {
   return (
     <Layout showInvestorContactInfo={true}>
       <Helmet>
-        <title>Investors | N&H Construction Co.</title>
-        <meta
-          name="description"
-          content="Discover investment insights at N&H Construction Co."
-        />
-        <meta
-          name="keywords"
-          content="N&H Construction, investor relations, financial reports"
-        />
+        <meta charSet="utf-8" />
+        <title>Investors | {companyName}</title>
+        <meta name="description" content={`Access the latest quarterly financial report from ${companyName}. Stay informed on our investor relations and financial performance.`} />
+        <meta property="og:title" content={`Investors | ${companyName}`} />
+        <meta property="og:description" content={`View the latest quarterly report from ${companyName} and stay up to date on our financial performance.`} />
+        <meta property="og:image" content="https://nandhconstructionco.com/hero-poster.png" />
+        <meta property="og:url" content={`${domain}/investors`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={companyName} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`Investors | ${companyName}`} />
+        <meta name="twitter:description" content={`View the latest quarterly report from ${companyName} and stay up to date on our financial performance.`} />
+        <meta name="twitter:image" content="https://nandhconstructionco.com/hero-poster.png" />
+        <meta name="robots" content="index, follow" />
+        <meta name="keywords" content={`investor relations, quarterly report, financial performance, ${companyName}`} />
+        <link rel="canonical" href={`${domain}/investors`} />
       </Helmet>
       <section className="px-4 md:px-8 lg:px-16 py-28 max-w-7xl mx-auto min-h-screen">
         <div className="text-center mb-10">

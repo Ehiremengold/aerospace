@@ -53,12 +53,20 @@ const WhatWeDo = () => {
           property="og:description"
           content={`Learn about ${companyName}'s innovative technologies in defense, aerospace, and space, delivering performance in high-stakes environments.`}
         />
-        <meta property="og:image" content="/assets/images/wwdHero.webp" />
+        <meta property="og:image" content="https://nandhconstructionco.com/hero-poster.png" />
+        <meta property="og:url" content="https://nandhconstructionco.com/what-we-do" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={companyName} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`What We Do | ${companyName}`} />
+        <meta name="twitter:description" content={`Learn about ${companyName}'s innovative technologies in defense, aerospace, and space, delivering performance in high-stakes environments.`} />
+        <meta name="twitter:image" content="https://nandhconstructionco.com/hero-poster.png" />
         <meta name="robots" content="index, follow" />
         <meta
           name="keywords"
           content={`advanced weapons, aircraft technology, missile defense, space technology, ${companyName}`}
         />
+        <link rel="canonical" href="https://nandhconstructionco.com/what-we-do" />
       </Helmet>
       <section className="relative h-[70dvh] w-full">
         {/* Background Image */}

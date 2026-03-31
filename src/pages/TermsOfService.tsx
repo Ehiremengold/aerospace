@@ -8,24 +8,17 @@ const TermsOfService = () => {
       <Helmet>
         <meta charSet="utf-8" />
         <title>Terms of Service | {companyName}</title>
-        <meta
-          name="description"
-          content={`Discover ${companyName}'s cutting-edge defense and aerospace solutions, pioneering next-gen infrastructure for mission-critical performance.`}
-        />
-        <meta
-          property="og:title"
-          content={`Terms of Service | ${companyName}`}
-        />
-        <meta
-          property="og:description"
-          content={`Explore ${companyName}'s innovative technologies in defense, aerospace, and infrastructure, shaping the future of global security.`}
-        />
-        <meta property="og:image" content="/assets/images/hero-image.png" />
+        <meta name="description" content={`Review the Terms of Service for ${companyName}. Understand the rules governing use of our website and services.`} />
+        <meta property="og:title" content={`Terms of Service | ${companyName}`} />
+        <meta property="og:description" content={`Read the ${companyName} Terms of Service covering site usage, intellectual property, and liability.`} />
+        <meta property="og:image" content="https://nandhconstructionco.com/hero-poster.png" />
+        <meta property="og:url" content="https://nandhconstructionco.com/terms-of-service" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={companyName} />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="robots" content="index, follow" />
-        <meta
-          name="keywords"
-          content={`defense technology, aerospace engineering, next-gen infrastructure, mission-critical solutions, ${companyName}`}
-        />
+        <meta name="keywords" content={`terms of service, terms and conditions, ${companyName}`} />
+        <link rel="canonical" href="https://nandhconstructionco.com/terms-of-service" />
       </Helmet>
       <div className="max-w-4xl mx-auto px-4 py-24 space-y-6 text-gray-800">
         <h1 className="text-3xl font-semibold">Terms of Service</h1>

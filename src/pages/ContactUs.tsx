@@ -2,6 +2,7 @@ import { useDisclosure } from "@mantine/hooks";
 import Layout from "../components/Layout";
 import { Helmet } from "react-helmet-async";
 import { Modal, Text } from "@mantine/core";
+import { companyName, domain } from "../utils/constants";
 import { useState } from "react";
 import { showNotification } from "@mantine/notifications";
 import axios from "axios";
@@ -76,11 +77,22 @@ const ContactUs = () => {
   return (
     <Layout>
       <Helmet>
-        <title>Contact Us | N&H Construction Co.</title>
-        <meta
-          name="description"
-          content="Get in touch with N&H Construction Co. for inquiries, partnerships, or media requests."
-        />
+        <meta charSet="utf-8" />
+        <title>Contact Us | {companyName}</title>
+        <meta name="description" content={`Get in touch with ${companyName} for inquiries, partnerships, or media requests. We'd love to hear from you.`} />
+        <meta property="og:title" content={`Contact Us | ${companyName}`} />
+        <meta property="og:description" content={`Reach out to ${companyName} for partnership opportunities, media inquiries, or general questions.`} />
+        <meta property="og:image" content={`${domain}/hero-poster.png`} />
+        <meta property="og:url" content={`${domain}/contact`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={companyName} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`Contact Us | ${companyName}`} />
+        <meta name="twitter:description" content={`Reach out to ${companyName} for partnership opportunities, media inquiries, or general questions.`} />
+        <meta name="twitter:image" content={`${domain}/hero-poster.png`} />
+        <meta name="robots" content="index, follow" />
+        <meta name="keywords" content={`contact ${companyName}, aerospace inquiries, defense partnerships, get in touch`} />
+        <link rel="canonical" href={`${domain}/contact`} />
       </Helmet>
       <Modal centered opened={opened} onClose={close}>
         <div className="flex flex-col gap-4 text-center font-poppins items-center justify-center">

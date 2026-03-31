@@ -107,9 +107,17 @@ const BlogDetail = () => {
         <meta name="description" content={post.attributes.excerpt} />
         <meta property="og:title" content={`${post.attributes.title} | ${companyName}`} />
         <meta property="og:description" content={post.attributes.excerpt} />
-        <meta property="og:image" content={post.attributes.coverImage?.data?.attributes?.url || ""} />
+        <meta property="og:image" content={post.attributes.coverImage?.data?.attributes?.url || "https://nandhconstructionco.com/hero-poster.png"} />
+        <meta property="og:url" content={`${domain}/blog-post/${post.attributes.slug}`} />
+        <meta property="og:type" content="article" />
+        <meta property="og:site_name" content={companyName} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${post.attributes.title} | ${companyName}`} />
+        <meta name="twitter:description" content={post.attributes.excerpt} />
+        <meta name="twitter:image" content={post.attributes.coverImage?.data?.attributes?.url || "https://nandhconstructionco.com/hero-poster.png"} />
         <meta name="robots" content="index, follow" />
         <meta name="keywords" content={`defense technology, aerospace, ${companyName}, ${post.attributes.title}`} />
+        <link rel="canonical" href={`${domain}/blog-post/${post.attributes.slug}`} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

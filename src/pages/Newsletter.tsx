@@ -7,7 +7,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { Helmet } from "react-helmet-async";
-import { companyName } from "../utils/constants";
+import { companyName, domain } from "../utils/constants";
 import { Loader } from "@mantine/core";
 
 const Newsletter = () => {
@@ -68,21 +68,20 @@ const Newsletter = () => {
       <Helmet>
         <meta charSet="utf-8" />
         <title>Newsletter | {companyName}</title>
-        <meta
-          name="description"
-          content={`Discover ${companyName}'s cutting-edge defense and aerospace solutions, pioneering next-gen infrastructure for mission-critical performance.`}
-        />
-        <meta property="og:title" content={`Accessibility | ${companyName}`} />
-        <meta
-          property="og:description"
-          content={`Explore ${companyName}'s innovative technologies in defense, aerospace, and infrastructure, shaping the future of global security.`}
-        />
-        <meta property="og:image" content="/assets/images/hero-image.png" />
+        <meta name="description" content={`Stay informed with the latest news and updates from ${companyName} in defense, aerospace, and engineering.`} />
+        <meta property="og:title" content={`Newsletter | ${companyName}`} />
+        <meta property="og:description" content={`Read the latest newsletter from ${companyName} covering defense innovations and aerospace breakthroughs.`} />
+        <meta property="og:image" content={`${domain}/hero-poster.png`} />
+        <meta property="og:url" content={`${domain}/newsletter`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={companyName} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`Newsletter | ${companyName}`} />
+        <meta name="twitter:description" content={`Read the latest newsletter from ${companyName} covering defense innovations and aerospace breakthroughs.`} />
+        <meta name="twitter:image" content={`${domain}/hero-poster.png`} />
         <meta name="robots" content="index, follow" />
-        <meta
-          name="keywords"
-          content={`defense technology, aerospace engineering, next-gen infrastructure, mission-critical solutions, ${companyName}`}
-        />
+        <meta name="keywords" content={`newsletter, defense updates, aerospace news, ${companyName}`} />
+        <link rel="canonical" href={`${domain}/newsletter`} />
       </Helmet>
       <div className="max-w-5xl mx-auto px-4 py-20 md:py-28 text-gray-800 space-y-10">
         <div className="my-6 flex flex-col gap-1 justify-center items-center text-center">

@@ -33,12 +33,20 @@ const WhoWeAre = () => {
           property="og:description"
           content={`Discover how ${companyName} pioneers technologies in space, aeronautics, and defense to protect and advance global security.`}
         />
-        <meta property="og:image" content="/assets/images/wwa.webp" />
+        <meta property="og:image" content="https://nandhconstructionco.com/hero-poster.png" />
+        <meta property="og:url" content="https://nandhconstructionco.com/who-we-are" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={companyName} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`Who We Are | ${companyName}`} />
+        <meta name="twitter:description" content={`Discover how ${companyName} pioneers technologies in space, aeronautics, and defense to protect and advance global security.`} />
+        <meta name="twitter:image" content="https://nandhconstructionco.com/hero-poster.png" />
         <meta name="robots" content="index, follow" />
         <meta
           name="keywords"
           content={`about ${companyName}, defense company, aerospace technology, cybersecurity solutions`}
         />
+        <link rel="canonical" href="https://nandhconstructionco.com/who-we-are" />
       </Helmet>
       <section className="relative h-[70dvh] w-full">
         {/* Background Image */}

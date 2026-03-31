@@ -8,21 +8,17 @@ const PrivacyPolicy = () => {
       <Helmet>
         <meta charSet="utf-8" />
         <title>Privacy Policy | {companyName}</title>
-        <meta
-          name="description"
-          content={`Discover ${companyName}'s cutting-edge defense and aerospace solutions, pioneering next-gen infrastructure for mission-critical performance.`}
-        />
+        <meta name="description" content={`Read the ${companyName} Privacy Policy to understand how we collect, use, and protect your personal information.`} />
         <meta property="og:title" content={`Privacy Policy | ${companyName}`} />
-        <meta
-          property="og:description"
-          content={`Explore ${companyName}'s innovative technologies in defense, aerospace, and infrastructure, shaping the future of global security.`}
-        />
-        <meta property="og:image" content="/assets/images/hero-image.png" />
+        <meta property="og:description" content={`Learn how ${companyName} handles your personal data, cookies, and your rights under our Privacy Policy.`} />
+        <meta property="og:image" content="https://nandhconstructionco.com/hero-poster.png" />
+        <meta property="og:url" content="https://nandhconstructionco.com/privacy-policy" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={companyName} />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="robots" content="index, follow" />
-        <meta
-          name="keywords"
-          content={`defense technology, aerospace engineering, next-gen infrastructure, mission-critical solutions, ${companyName}`}
-        />
+        <meta name="keywords" content={`privacy policy, data protection, ${companyName}`} />
+        <link rel="canonical" href="https://nandhconstructionco.com/privacy-policy" />
       </Helmet>
       <div className="max-w-4xl mx-auto px-4 py-24 space-y-6 text-gray-800">
         <h1 className="text-3xl font-semibold">Privacy Policy</h1>
